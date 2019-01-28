@@ -28,3 +28,8 @@ Voidaan tutkia myös muita systeemeitä, esim. Graylog
 
 ## Palaverit
 - Kerran viikossa statuspalaveri
+
+## To do:
+- Niina: alustus kirjoitus projektista
+- Juha: arkkitehtuurikuva
+- Pekka: web autentikointi, konfigurointiin tutustuminen, tekninen puoli
