@@ -1,11 +1,11 @@
-##Lokianalyysisysteemin asennus, lokien kerääminen ja analysointi
+## Lokianalyysisysteemin asennus, lokien kerääminen ja analysointi
 - ELK-stack
 - Elastick search, Logstach, Kibana (=ELK)
 - Logstachiin lähetetään lokit X määrästä järjestelmiä. Lokien lähettämiseen tarvitaan lähdekoneelle jokin mekanismi esim. FileBeat (oli joskus olemassa)
 - Elasticksearch on hakukone, sinne tallentaan lokit jossain formaatissa
 - Kibana on analytiikkaan työkalu, voi luoda graafeja
 
-##Tarkemmin
+## Tarkemmin
 - Tutustuminen eri komponentteihin ja arkkitehtuurikuva
 - Lisenssien läpikäynti
 - Asentaminen ja ympäristöt, käyttöjärjestelmät, Cloud
@@ -17,14 +17,14 @@
 - PenTesting. Eli miten tunkeutuminen näkyy lokeissa ja huomataanko?
 Voidaan tutkia myös muita systeemeitä, esim. Graylog
 
-##Projektinhallinnasta
+## Projektinhallinnasta
 - Trello voisi olla työn seurantaan, Kanban board
 
-##Git repo 
+## Git repo 
 - Käytetään Markdownia dokuemntoitiin
 
-##Kommunikointi
+## Kommunikointi
 - Whatsaup-ryhmä
 
-##Palaverit
+## Palaverit
 - Kerran viikossa statuspalaveri
