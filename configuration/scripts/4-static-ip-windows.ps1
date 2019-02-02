@@ -5,6 +5,15 @@
 # In this project, we assume we have only one network
 # interface, though.
 
+# TODO: We assume that IPv4 address is already properly
+# configured (i.e. it is 10.10.1.60).
+# This IP address could be configured in this script, too
+# Remember to disable Windows DHCP Client service
+# Avoid falling back to DCHP APIPA address!
+
+# TODO: put this script into SaltStack master
+# configuration (i.e. run this script via SaltStack?)
+
 ######################################################
 
 $IPType         = "IPv4"
