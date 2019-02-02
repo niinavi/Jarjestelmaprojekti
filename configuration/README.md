@@ -5,6 +5,8 @@
 
 - [Technical components](#technical-components)
 
+- [System accessibility, security](#system-accessibility-security)
+
 ----------
 
 - [Technical roadmap](#technical-roadmap)
@@ -194,6 +196,67 @@ Describes network links between computers used in the project.
 - Get current routing table: `route -4`, `route -6`, `ip route`
 
 - Get current ARP cache info: `arp`
+
+</details>
+
+----------
+
+## System accessibility, security
+
+<details>
+<summary>1. Internet access: Apache Website authentication front-end alternatives</summary>
+
+- **PHP modules:**
+
+    - https://github.com/delight-im/PHP-Auth
+
+    - https://github.com/PHPAuth/PHPAuth
+
+    - https://github.com/panique/huge
+
+    - https://github.com/search?p=3&q=php+authentication&type=Repositories
+
+    `<more_links_here>`
+
+    ...
+
+- **Take into account:**
+
+    - Is our website HTTP/HTTPS
+
+    - Login front-end very likely requires a SQL database, unless simple and insecure default Apache Basic authentication is used
+
+</details>
+
+<details>
+<summary>2. Internet access: Penetration testing</summary>
+
+- **Attack types**
+
+    - Server software (Apache, Kibana...) vulnerabilities & exploits on [Exploit Database](exploit-db.com) + other sources
+
+    - Send malicious/malformed HTTP requests to Apache web server. Unexpected and leaking HTTP responses/other server data.
+
+    - Website code vulnerabilities: JavaScript execution (XSS scripting), input variable manipulation, oversized/malformed variables supplied to the web server
+
+    - SQL injection
+
+    - NMap port scans (SYN scan, etc.)
+
+    - DDoS attacks (if possible)
+
+    - Bruteforce webdir scanning
+
+    - Password attacks (dictionary, rainbow tables)
+
+    - More: [OWASP Web checklist](https://github.com/0xRadi/OWASP-Web-Checklist)
+
+</details>
+
+<details>
+<summary>3. SSH security aspects</summary>
+    
+`<add_content_here`>
 
 </details>
 
