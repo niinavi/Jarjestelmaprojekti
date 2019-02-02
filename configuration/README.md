@@ -254,9 +254,9 @@ Describes network links between computers used in the project.
 </details>
 
 <details>
-<summary>3. SSH security aspects</summary>
-    
-`<add_content_here`>
+<summary>3. Other security aspects</summary>
+
+- Good Linux security practices: [Securing Debian Manual](https://www.debian.org/doc/manuals/securing-debian-howto/)
 
 </details>
 
