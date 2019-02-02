@@ -2,11 +2,9 @@
 
 # TODO
 # Salt minion installer
-# - Installer parameters not given
 # - Installer command not tested
 
 # Salt minion configuration file
-# - Path & filename missing
 # - Configuration not tested
 
 # Salt minion: restart after configuration changes
@@ -23,11 +21,13 @@ $minion_description = "Central management client program"
 $minion_dlDestPath  = "$env:SystemDrive\salt_minion_setup"
 $minion_dlDestFile  = ($minion_dlDestPath + "\Salt-Minion-2018.3.3-Py3-AMD64-Setup.exe")
 
-$minion_confFile    = ""
+# $minion_confFile    = "$env:SystemDrive\salt\conf\minion"
 
 $saltmaster_IPv4    = "10.10.1.2"
 $minion_id          = (Get-WmiObject -Class Win32_ComputerSystem | Select -ExpandProperty Name)
 
+# Salt minion Windows service name
+$minion_service     = "salt-minion"
 
 ######################################################
 # Test internet connection
@@ -77,33 +77,17 @@ downloadFile `
 # Run Salt minion installer
 
 Invoke-Command -ScriptBlock {
-  try { cmd.exe /C $minion_dlDestFile }
+  try { cmd.exe /C $minion_dlDestFile /start-minion=1 /start-minion-delayed /master=$saltmaster_IPv4 /minion-name=$minion_id /S }
   catch { return $_ }
 }
 
 ######################################################
-# Set Salt minion configuration
-
-Write-Host "Salt Minion: configuring settings"
-
-if (-Not (Test-Path $minion_confFile)) {
-  New-Item -ItemType File $minion_confFile
-}
-
-Set-Content -Path $minion_confFile -Value @"
-master: $saltmaster_IPv4
-id: $minion_id
-"@
-
-######################################################
 # Restart Salt minion
-
-Write-Host "Salt Minion: restarting minion service"
 
 # Set Salt minion auto-start during system boot-up
 
 Write-Host "Salt Minion: setting automatic start-up for minion service"
-Set-Service <MINION_SERVICE> -StartupType Automatic -Status Running -Confirm:$False
+Set-Service $minion_service -StartupType Automatic -Status Running -Confirm:$False
 
 ######################################################
 # POWERSHELL - END
