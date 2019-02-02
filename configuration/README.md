@@ -206,7 +206,7 @@ Describes network links between computers used in the project.
 | Computer      | Iface         | IPv4 address  | Subnet mask   | Network       | Gateway                          | Notes                                                                    |
 |---------------|---------------|---------------|---------------|---------------|----------------------------------|--------------------------------------------------------------------------|
 | Router        | eth0          | 10.10.1.1     | 255.255.255.0 | 10.10.1.0     | A) `<WAN IP`>                    | WAN IP if this PC acts as a router, disable DHCP                         |
-|Master/ELK srvr| eth0          | 10.10.1.2     | 255.255.255.0 | 10.10.1.0     |                                  | Requires packet forwarding between eth0 & eth 1 (enable ipv4 forwarding) |
+|Master/ELK srvr| eth0          | 10.10.1.2     | 255.255.255.0 | 10.10.1.0     |                                  |                                                                          |
 |               |               |               |               |               |                                  |                                                                          |
 | test_server-1 | eth0          | 10.10.1.30    | 255.255.255.0 | 10.10.1.0     | 10.10.1.1                        | Internet access via Master? Does router act as a DNS resolver/forwarder? |
 | test_server-2 | eth0          | 10.10.1.31    | 255.255.255.0 | 10.10.1.0     | 10.10.1.1                        | Internet access via Master? Does router act as a DNS resolver/forwarder? |
