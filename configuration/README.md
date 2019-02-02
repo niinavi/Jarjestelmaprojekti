@@ -35,6 +35,8 @@
 
 - [Notes](#notes)
 
+- [Notes: About SaltStack state files](#notes-about-saltstack-state-files)
+
 - [Useful links](#useful-links)
 
 - [Issues](#issues)
@@ -882,6 +884,23 @@ Describes steps which should be taken during the project.
 ```
 
 - As a result, Windows Salt minion may return failure even if the Salt run is succeeded. For instance, see [this picture](https://raw.githubusercontent.com/Fincer/salt_gisworkstation/master/sample_images/screen_ubuntu-master-final.png)
+
+</details>
+
+----------
+
+## Notes: About SaltStack state files
+
+<details>
+<summary>Details</summary>
+
+- Salt state file structure & hierarchy (`/srv/{salt,pillar}`) can and will be changed when the project progresses. This is expected! These changes may include
+
+    - adding pre-defined configuration files
+
+    - adding Salt pillar variables for different Salt minions
+
+    - Splitting sls files into multiple ones, depending on the need
 
 </details>
 
