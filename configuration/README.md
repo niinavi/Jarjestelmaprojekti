@@ -471,7 +471,7 @@ Describes steps which should be taken during the project.
 
   - **OS file:** `/etc/salt/minion`
 
-- Connection to local network Salt Master (`elkserver`)
+- Connection to local network Salt master (`elkserver`, `10.10.1.2`)
 
 </details>
 
@@ -490,7 +490,7 @@ Describes steps which should be taken during the project.
 
     - **OS file:** `$env:SystemDrive\salt\conf\minion`
 
-- Connection to local network Salt Master (`elkserver`)
+- Connection to local network Salt master (`elkserver`, `10.10.1.2`)
 
 </details>
 </details>
@@ -667,6 +667,8 @@ Describes steps which should be taken during the project.
 <summary>5. Linux computers: Configure static IPv4</summary>
 
 * [ ] **Finished?**
+
+- IP addresses (etc.) for computers: See section _Network configuration_ above in this document.
 
 - **Alternative A)** Set static IP address to this host in host configuration.
 
