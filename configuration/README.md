@@ -5,33 +5,25 @@
 
 - [Technical components](#technical-components)
 
-- [Component configuration principles](#component-configuration-principles)
-
-- [Network configuration](#network-configuration)
-
 ----------
 
 - [Technical roadmap](#technical-roadmap)
 
-    - [Task 1](#task-1), ELK server configuration (Salt Master, ELK stack)
+    - [Task 1](#task-1), Salt master (ELK server): configuration
 
-    - [Task 2](#task-2), Automate Task 1
+    - [Task 2](#task-2), Salt minions: installation & connection to Salt master
 
-    - [Task 3](#task-3), Salt Minions: installation & connection to Salt Master
+    - [Task 3](#task-3), All computers: write & test common Salt state files
 
-    - [Task 4](#task-4), Automate Task 3
+    - [Task 4](#task-4), Salt minions: host-specific Salt state files
 
-    - [Task 5](#task-5), Salt Minions: write Salt state files
+    - [Task 5](#task-5), Automate SaltStack configuration tasks
 
-    - [Task 6](#task-6), Automate Task 5
-
-    - [Task 7](#task-7), Improvements & troubleshooting
-
-    - [Task 8](#task-8), Conclusions
+    - [Task 6](#task-6), Conclusions
 
 ----------
 
-- [Issues/Discussion](#issuesdiscussion)
+- [Discussion](#discussion)
 
 - [Notes](#notes)
 
@@ -39,10 +31,9 @@
 
 - [Useful links](#useful-links)
 
-- [Issues](#issues)
+- [Issues](#issues-troubleshooting-improvements)
 
 - [TODO](#todo)
-
 
 ----------
 
@@ -98,18 +89,18 @@ HTTP(S) Website (Apache, listen all IP addresses, port 80 + 443(?))         │ 
 │      JSON-parsed LogStash data (LogStash output, localhost:9200?)         │                                   │                │
 │                 │                                                         │                                   │                │
 │                 │                                                         │         LogStash computer         │                │
-│                 └── LogStash (listen FileBeats ports)                     │        OR process on Master       │                │
+│                 └── LogStash (listen Filebeats ports)                     │        OR process on Master       │                │
 │                       │                                                   │           (SSL priv key)          │                │
 │                       │                                                   │             10.10.1.2             │                │
 │                       ^                -----------------------------------│-----------------------------------│                │
 │        Collected & pre-parsed log data (SSL check)                        │                                   │                │
 │                       │                                                   │                                   │                │
 │                       │                                                   │test_server-1 (SSL crt), 10.10.1.30│                │
-└───10.10.1.30:80───────├── FileBeat <──── Raw log data ── Log process      │test_server-2 (SSL crt), 10.10.1.31│                │
+└───10.10.1.30:80───────├── Filebeat <──── Raw log data ── Log process      │test_server-2 (SSL crt), 10.10.1.31│                │
                         │                                                   │                                   │                │
                         │                -----------------------------------│-----------------------------------│                │
                         │                                                   │                                   │                │
-                        └── WinLogBeat <── Raw log data ── Log process      │test_server-3 (SSL crt), 10.10.1.60│                │
+                        └── Winlogbeat <── Raw log data ── Log process      │test_server-3 (SSL crt), 10.10.1.60│                │
                                                                             │                                   │                │
                                          -----------------------------------│-----------------------------------│                │
 ```
@@ -163,21 +154,16 @@ Basic idea how to access minion computers from a remote network via master compu
 | Computer       | Software Components                                                                                                                  |
 |----------------|--------------------------------------------------------------------------------------------------------------------------------------|
 | Router (?)     | IDS/IPS? (remember hardware/storage limitations! See [this](https://elatov.github.io/2015/08/running-snort-on-dd-wrt/), for instance |
-| ELK server     | SaltStack (master role), HTTP daemon (Apache), SSH daemon + client, Kibana, Elasticsearch, LogStash                                  |
-| test_server-1  | SaltStack (minion role), test_server-1, FileBeat, SSH daemon for local network (?), Apache, rsyslog                                  |
-| test_server-2  | SaltStack (minion role), test_server-2, FileBeat, SSH daemon for local network (?), rsyslog, ...                                     |
-| test_server-3  | SaltStack (minion role), test_server-3, WinLogBeat, SSH daemon for local network (?)                                                 |
-
-----------
-
-## Component configuration principles
-# TODO
-
-Describes software configuration principles which the project should follow.
+| ELK server     | SaltStack (master role), HTTP daemon (Apache), SSH daemon + client, Kibana, Elasticsearch, LogStash, rsyslog                         |
+| test_server-1  | SaltStack (minion role), test_server-1, Filebeat, SSH daemon for local network (?), Apache, rsyslog                                  |
+| test_server-2  | SaltStack (minion role), test_server-2, Filebeat, SSH daemon for local network (?), rsyslog, ...                                     |
+| test_server-3  | SaltStack (minion role), test_server-3, Winlogbeat, SSH daemon for local network (?) , Windows Event Log                             |
 
 ----------
 
 ## Log data filtering principles
+
+Describes log data principles which the project should follow.
 
 - Take GDPR into account
 
@@ -220,18 +206,12 @@ Describes steps which should be taken during the project.
 ### Task 1
 
 <details>
-<summary>Master (ELK server)/SaltStack configuration</summary>
-
-#### Step 1-1)
-
-**Required**
-
-* [ ] Finished status
+<summary>Salt master (ELK server): configuration</summary>
 
 <details>
-<summary>Master (ELK server) computer OS installation</summary>
+<summary>1. Salt Master (ELK server) OS installation</summary>
 
-
+* [ ] **Finished?**
 
 - _Requirements: Virtual or physical machine (server PC, [Oracle VirtualBox](https://wiki.archlinux.org/index.php/VirtualBox), [QEMU](https://wiki.archlinux.org/index.php/QEMU), [VMWare](https://wiki.archlinux.org/index.php/VMware)...)_
 
@@ -239,88 +219,31 @@ Describes steps which should be taken during the project.
 
 </details>
 
-----------
-
-#### Step 1-2)
-
-**Required**
-
-- _Requirements: [Step 1](#Step-1) (Master computer)_
-
-* [ ] Finished status
-
 <details>
-<summary>Master (ELK server): Prepare local SaltStack environment</summary>
+<summary>2. Salt Master (ELK server): Prepare local SaltStack environment</summary>
 
-* [ ] 1) SaltStack: Installation
+* [ ] **Finished?**
 
-    - **Packages:** `salt-master, salt-common, salt-ssh` (found in default repositories)
+* [ ] 1) SaltStack: Master installation
 
-* [ ] 2) SaltStack: Initial configuration
+    - **Packages:** `salt-master, salt-common, salt-ssh` (or use Salt official repositories)
 
-    - **OS folders:** `/srv/salt`, `/srv/pillar`
+* [ ] 2) SaltStack: Master folder structure deployment
+
+    - **OS folders:** `/srv/salt/{ubuntu-minions,windows-minions,win/repo-ng/installers}`, `/srv/pillar/{elkserver,test_server-1,test_server-2,test_server-3}`
 
     - **OS file:** `/etc/salt/master`
 
 * [ ] 3) SaltStack: Basic testing
 
-    - **Command:** `salt-local`
+    - **Command:** `salt-local ...`
 
 </details>
 
-----------
-
-#### Step 1-3)
-
-**Recommended**
-
-- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
-
-* [ ] Finished status
-
 <details>
-<summary>Master (ELK server)/SaltStack: hostname & default Admin account</summary>
+<summary>3. Salt Master (ELK server): Apache, SSH, LogStash, Elasticsearch, Kibana</summary>
 
-- **SaltStack state file:** `/srv/pillar/.sls` (TODO)
-
-    * [ ] Master: change system hostname 
-
-        - **OS file:** `/etc/hostname`
-
-            - Hostname: `elkserver`
-
-    * [ ] Master: create sudo user (unless we use the one which is created during OS installation)
-
-        - **Alternative A)** SaltStack built-in user creation method (_recommended_)
-
-        - **Alternative B)** Basic command option:
-
-            ```
-            #!/bin/env/bash
-
-            default_user=elastic
-            default_pass=elasticsearch
-            default_prettyname="Elastic Master admin"
-            default_uid=1005
-
-            useradd -r -G sudo -m -u $default_uid -U -s /bin/bash -c "${default_prettyname}" "${default_user}"
-            printf ${default_user}:${default_pass} | chpasswd
-            groupmod -g ${default_uid} ${default_user}
-            ```
-</details>
-
-----------
-
-#### Step 1-4)
-
-**Required**
-
-- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
-
-* [ ] Finished status
-
-<details>
-<summary>Master (ELK server)/SaltStack: Apache, SSH, LogStash, Elasticsearch, Kibana</summary>
+* [ ] **Finished?**
 
 * [ ] **1) Apache:** HTTP server daemon
 
@@ -328,9 +251,9 @@ Describes steps which should be taken during the project.
 
         - Basic installation (packages: `apache2`, `apache2-data`, `apache2-bin`, (`libapache2-mod-php`), found in default repositories)
 
-        - Basic configuration
+        - Basic configuration (Note: Add SaltStack _Source_ conf file for this)
 
-            - **OS file 1:** `/etc/apache2/apache2.conf` (on Ubuntu, other distros may use `/etc/httpd/conf/httpd.conf`)
+            - **OS file 1:** `/etc/apache2/apache2.conf`
 
                 - Key contents:
 
@@ -381,55 +304,7 @@ Describes steps which should be taken during the project.
 
         - Basic testing
 
-* [ ] **2) SSH:** Encrypted remote access to master
-
-    - **SaltStack state file:** `/srv/pillar/.sls` (TODO)
-
-        - Basic installation (packages: `openssh-server`, `openssh-client`, found in default repositories)
-
-        - Basic configuration
-
-            - **OS file 1:** `/etc/ssh/sshd_config`
-
-                - Key contents (see also [Gentoo Linux dev: Hardening OpenSSH](https://dev.gentoo.org/~swift/docs/security_benchmarks/openssh.html)):
-
-                    - `PermitRootLogin <yes, no>` (Allow/Deny root login)
-
-                    - `IgnoreRhosts <yes, no>`
-
-                    - `Banner "<none, [string value]>"` (SSH login [MOTD](https://en.wikipedia.org/wiki/Motd_(Unix)) banner message)
-
-                    - `MaxAuthTries <value>` (Maximum SSH login attempts)
-
-                    - `MaxSessions <value>` (Maximum simultaneous SSH sessions)
-
-                    - `Port <value>` (SSH TCP port)
-
-                    - `ClientAliveInterval <value, sedonds>` (Maximum idle time for a client until we disconnect)
-
-                    - `ClientAliveCountMax <value>` (Maximum _alive_ connection attempts between SSH daemon & client)
-
-                    - `PubkeyAuthentication <yes, no>` (Use asymmetric public key authentication?)
-
-                    - `PasswordAuthentication <yes, no>` (Use password authentication)
-
-                    - `PermitEmptyPasswords <yes, no>` (Allow/Do not allow empty passwords?)
-
-                    - `AuthenticationMethods <publickey,password|publickey|password>`
-
-                        - `publickey,password` = Two-way authentication. At first, check whether a client is allowed to connect (public key authentication) at all after which, if access is allowed, ask login password (password authentication) for SSH user. Recommended.
-
-                        - `publickey` = Public key authentication only. Check whether a SSH client is allowed to connect. If supplied SSH login name is correct and access is allowed for this client, let the user in.
-
-                            - Limits access to the system for specific computers (SSH clients) only. No password check.
-
-                        - `password` = Password authentication only. Check only supplied SSH login name and password.
-
-                            - Grants access to the system for all computers with a SSH client if login credentials are OK. No key check.
-
-        - Basic testing
-
-* [ ] **4) [LogStash](https://github.com/elastic/logstash):** Tool for managing events and logs
+* [ ] **2) [LogStash](https://github.com/elastic/logstash):** Tool for managing events and logs
 
     - **SaltStack state file:** `/srv/pillar/.sls` (TODO)
 
@@ -438,7 +313,7 @@ Describes steps which should be taken during the project.
             - **NOTE:** Creates user & group `logstash` with the following info (`/etc/passwd`):
 `logstash:x:999:999:LogStash Service User:/usr/share/logstash:/usr/sbin/nologin`
 
-        - Basic configuration
+        - Basic configuration (Note: Add SaltStack _Source_ conf file for this)
 
             - **OS file 1:** `/etc/logstash/startup.options`
 
@@ -446,13 +321,13 @@ Describes steps which should be taken during the project.
 
         - Basic testing
 
-* [ ] **5) [Elasticsearch](https://github.com/elastic/elasticsearch):** Distributed RESTful search engine built on top of Lucene
+* [ ] **3) [Elasticsearch](https://github.com/elastic/elasticsearch):** Distributed RESTful search engine built on top of Lucene
 
     - **SaltStack state file:** `/srv/pillar/.sls` (TODO)
 
         - Basic installation (package: `apt-add-repository -y ppa:webupd8team/java && apt update && apt install -y oracle-java8-installer` + `https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.6.0.deb`) (does not support openjdk, and Oracle Java 8 is recommended by elastic). **TODO:** automatically accept license terms when installing `oracle-java8-installer`
 
-        - Basic configuration
+        - Basic configuration (Note: Add SaltStack _Source_ conf file for this)
 
             - **OS file 1:** `/etc/elasticsearch/elasticsearch.yml` (for configuring Elasticsearch)
 
@@ -477,13 +352,13 @@ Describes steps which should be taken during the project.
 
         - **NOTE:** Package installation creates `elasticsearch` group and user (UID/GID 112/115) by default. This user has the following info (`/etc/passwd`): `elasticsearch:x:112:115::/nonexistent:/bin/false` (no extra hardening required)
 
-* [ ] **6) [Kibana](https://github.com/elastic/kibana):** Browser based analytics and search dashboard for Elasticsearch
+* [ ] **4) [Kibana](https://github.com/elastic/kibana):** Browser based analytics and search dashboard for Elasticsearch
 
     - **SaltStack state file:** `/srv/pillar/.sls` (TODO)
 
         - Basic installation (package: `https://artifacts.elastic.co/downloads/kibana/kibana-6.6.0-amd64.deb`)
 
-        - Basic configuration
+        - Basic configuration (Note: Add SaltStack _Source_ conf file for this)
 
             - OS file 1: `/etc/kibana/kibana.yml`
 
@@ -506,43 +381,12 @@ Describes steps which should be taken during the project.
 
 </details>
 
-----------
-
-#### Step 1-5)
-
-**Recommended**
-
-- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
-
-* [ ] Finished status
-
 <details>
-<summary>Master (ELK server)/SaltStack: Basic filesystem hardening (root access)</summary>
+<summary>4. Salt Master (ELK server): Basic network rules</summary>
 
-- **SaltStack state file:** `/srv/pillar/.sls` (TODO)
+* [ ] **Finished?**
 
-    * [ ] Lock root
-
-        - **Command:** `usermod --lock root` (lock root)
-
-        - **Command:** `usermod -u 0 -s /usr/sbin/nologin` (no root login shell)
-
-        - **Command:** `sed -iE 's/^(tty[0-9]*)$/#\1/' /etc/securetty` (Comment virtual terminal lines in `etc/securetty` file)
-
-</details>
-
-----------
-
-#### Step 1-6)
-
-**Recommended**
-
-- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
-
-* [ ] Finished status
-
-<details>
-<summary>Master (ELK server)/SaltStack: Basic network rules</summary>
+- Note: Consider SaltStack _Source_ conf file(s) for these
 
 - **SaltStack state file:** `/srv/pillar/.sls`
 
@@ -603,47 +447,230 @@ Describes steps which should be taken during the project.
                 ```
 </details>
 
-----------
-
-#### Step 1-7)
-
-**Recommended**
-
-- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
-
-* [ ] Finished status
-
-<details>
-<summary>Master (ELK server)/SaltStack - Network interface names</summary>
-
-- [Network interface names: use easily distinguisable old names (i.e. `eth0`), or new names (i.e. `enp0s3`)?](https://www.itechlounge.net/2016/04/linux-how-to-rename-the-network-interface-in-centosrhel7/)
-
-- **SaltStack state file:** `/srv/pillar/.sls`
-
-    - **Alternative A)** Command: `sed -iE 's/^(GRUB_CMDLINE_LINUX="*)"$/\1net.ifnames=0 biosdevname=0"/' /etc/default/grub && grub-mkconfig -o /boot/grub/grub.cfg`
-
-    - **Alternative B)** Add `/etc/default/grub` configuration file into SaltStack folder hierarchy and add `net.ifnames=0 biosdevname=0` into parameters of `GRUB_CMDLINE_LINUX` option. After that, run either command `grub-mkconfig -o /boot/grub/grub.cfg` directly or its command alias `update-grub` as root (sudo)
-
-        - **Explanation:** Adds `net.ifnames=0` and `biosdevname=0` [Linux kernel parameters](https://wiki.archlinux.org/index.php/Kernel_parameters) into computer [Grub2](https://wiki.archlinux.org/index.php/GRUB) bootloader configuration
-
 </details>
 
 ----------
 
-#### Step 1-8)
-
-**Required**
-
-- _Requirements: [Step 2](#Step-2) (Master SaltStack environment), [Step 7](#Step-7) (NIC naming policy), working network interface configurations_
-
-* [ ] Finished status
+### Task 2
 
 <details>
-<summary>Master (ELK server)/SaltStack: Configure static IPv4</summary>
+<summary>Salt minions: installation & connection to Salt master</summary>
+
+<details>
+<summary>1. Linux minions preparation</summary>
+
+* [ ] **Finished?**
+
+- Linux minions (`test_server-1`, `test_server-2`)
+
+- OS installation; [Ubuntu 18.04 LTS Server](http://releases.ubuntu.com/bionic/ubuntu-18.04-live-server-amd64.iso)
+
+- Salt minion installation. **Packages:** `salt-minion, salt-common` (or use Salt official repositories). See [2-salt-minion-init_linux.sh](scripts/2-salt-minion-init_linux.sh)
+
+- Initial Salt minion configuration:
+
+  - **OS file:** `/etc/salt/minion`
+
+- Connection to local network Salt Master (`elkserver`)
+
+</details>
+
+<details>
+<summary>2. Windows minions preparation</summary>
+
+* [ ] **Finished?**
+
+- Windows minion(s) (`test_server-3`)
+
+- Windows installation: 2016 server? Windows 7? Windows 10?
+
+- Salt minion installation. Download official Salt minion installer. See [3-salt-minion-init_windows.ps1](scripts/3-salt-minion-init_windows.ps1)
+
+- Initial Salt minion configuration (Note: basic conf is done during Salt minion installation!):
+
+    - **OS file:** `$env:SystemDrive\salt\conf\minion`
+
+- Connection to local network Salt Master (`elkserver`)
+
+</details>
+</details>
+
+----------
+
+### Task 3
+
+<details>
+<summary>All computers: write & test common Salt state files</summary>
+
+<details>
+<summary>1. All computers: Hostname & default account configuration</summary>
+
+* [ ] **Finished?**
+
+- **SaltStack state file 1 (common input):** `/srv/salt/ubuntu-minions/.sls` (TODO)
+
+- **SaltStack state file 2 (computer-specific variable values):** `/srv/pillar/.sls` (TODO)
+
+    * [ ] All computers: change system hostname
+
+        - **OS file:** `/etc/hostname` (Linux)
+
+            - Hostname: `elkserver`, `test_server-1`, `test_server-2`
+
+            - Linux: `echo <hostname> > /etc/hostname` (SaltStack has built-in method for this?)
+
+        - Windows (`test_server-3`), PowerShell cmd syntax: `Rename-Computer -NewName $HostName -Confirm:$False -Force` (SaltStack has built-in method for this?)
+
+    * [ ] Linux computers: create sudo/SaltStack user? (unless we use the one which is created during OS installation)
+
+        - **Alternative A)** SaltStack built-in user creation method (_recommended_)
+
+        - **Alternative B)** 
+
+            - Basic command option (Linux computers):
+
+                ```
+                #!/bin/env/bash
+
+                default_user=elastic
+                default_pass=elasticsearch
+                default_prettyname="Elastic Master admin"
+                default_uid=1005
+
+                useradd -r -G sudo -m -u $default_uid -U -s /bin/bash -c "${default_prettyname}" "${default_user}"
+                printf ${default_user}:${default_pass} | chpasswd
+                groupmod -g ${default_uid} ${default_user}
+                ```
+</details>
+
+<details>
+<summary>2. All computers: encrypted SSH access configuration</summary>
+
+* [ ] **Finished?**
+
+- **SaltStack state file:** `/srv/pillar/.sls` (TODO)
+
+    - Salt master:
+
+        - Basic installation (packages: `openssh-server`, `openssh-client`)
+
+    - Salt minions:
+
+        - Basic installation
+
+            - Linux: packages `openssh-server`
+
+            - Windows: [download OpenSSH](https://winscp.net/eng/docs/guide_windows_openssh_server)
+
+    - Basic configuration (Note: Add SaltStack _Source_ conf files for these)
+
+        - **OS conf file (Linux):** `/etc/ssh/sshd_config`
+
+        - **OS pubkey files (Linux): `$HOME/<user>/.ssh/{known_hosts, authorized_keys}`
+
+        - **OS service name (Linux):** `sshd.service` (systemctl)
+
+        - **OS conf files (Windows):** `$env:ProgramData\ssh\sshd_config`
+
+        - **OS pubkey files (Windows): `$env:SystemDrive\Users\<user>\.ssh\{known_hosts, authorized_keys}`
+
+        - **OS service name (Windows):** `sshd` (Windows services)
+
+        - sshd_config, key contents (see also [Gentoo Linux dev: Hardening OpenSSH](https://dev.gentoo.org/~swift/docs/security_benchmarks/openssh.html)):
+
+            - `PermitRootLogin <yes, no>` (Allow/Deny root login)
+
+            - `IgnoreRhosts <yes, no>`
+
+            - `Banner "<none, [string value]>"` (SSH login [MOTD](https://en.wikipedia.org/wiki/Motd_(Unix)) banner message)
+
+            - `MaxAuthTries <value>` (Maximum SSH login attempts)
+
+            - `MaxSessions <value>` (Maximum simultaneous SSH sessions)
+
+            - `Port <value>` (SSH TCP port)
+
+            - `ClientAliveInterval <value, sedonds>` (Maximum idle time for a client until we disconnect)
+
+            - `ClientAliveCountMax <value>` (Maximum _alive_ connection attempts between SSH daemon & client)
+
+            - `PubkeyAuthentication <yes, no>` (Use asymmetric public key authentication?)
+
+            - `PasswordAuthentication <yes, no>` (Use password authentication)
+
+            - `PermitEmptyPasswords <yes, no>` (Allow/Do not allow empty passwords?)
+
+            - `AuthenticationMethods <publickey,password|publickey|password>`
+
+                - `publickey,password` = Two-way authentication. At first, check whether a client is allowed to connect (public key authentication) at all after which, if access is allowed, ask login password (password authentication) for SSH user. Recommended.
+
+                - `publickey` = Public key authentication only. Check whether a SSH client is allowed to connect. If supplied SSH login name is correct and access is allowed for this client, let the user in.
+
+                    - Limits access to the system for specific computers (SSH clients) only. No password check.
+
+                - `password` = Password authentication only. Check only supplied SSH login name and password.
+
+                    - Grants access to the system for all computers with a SSH client if login credentials are OK. No key check.
+
+    - Basic testing
+
+</details>
+
+<details>
+<summary>3. Linux computers: Basic filesystem hardening (root access)</summary>
+
+* [ ] **Finished?**
+
+- **SaltStack state file:** `/srv/salt/ubuntu-minions/.sls` (TODO)
+
+    * [ ] Lock root
+
+        - **Command:** `usermod --lock root` (lock root)
+
+        - **Command:** `usermod -u 0 -s /usr/sbin/nologin` (no root login shell)
+
+        - **Command:** `sed -i 's/^\(tty[0-9]*\)$/#\1/' /etc/securetty` (Comment virtual terminal lines in `etc/securetty` file)
+
+</details>
+
+<details>
+<summary>4. Linux computers: Disable/Remove unneeded service daemons</summary>
+
+* [ ] **Finished?**
+
+- **SaltStack state file:** `/srv/salt/ubuntu-minions/.sls` (TODO)
+
+    - These services are not needed but enabled by default on Ubuntu 18.04 LTS Server:
+
+        ```
+        Service name                Service description                             Service owner pkg
+
+        apport.service              LSB: automatic crash report generation          apport
+        snapd.service               Snappy daemon                                   snapd
+        snapd.seeded.service        Wait until snapd is fully seeded                snapd
+        cloud-config.service        Apply the settings specified in cloud-config    cloud-init
+        cloud-final.service         Execute cloud user/final scripts                cloud-init
+        cloud-init.service          Initial cloud-init job (metadata service)       cloud-init
+        cloud-init-local.service    Initial cloud-init job (pre-networking)         cloud-init
+        lxd-containers.service      LXD - container startup/shutdown                lxd
+        ```
+
+    - Recommended action: 
+
+        - A) Disable services (`systemctl stop <service> && systemctl disable <service> // SaltStack built-in method)
+
+        - B) Remove packages (`apt purge --remove -y <package>` // SaltStack built-in method)
+
+</details>
+
+<details>
+<summary>5. Linux computers: Configure static IPv4</summary>
+
+* [ ] **Finished?**
 
 - **Alternative A)** Set static IP address to this host in host configuration.
 
-- **1)** Use roughly the following commands to obtain necessary Iface information:
+- **1)** Use roughly the following commands to obtain necessary network interface information:
 
     ```
     # Enabled (UP) network interfaces:
@@ -659,7 +686,9 @@ Describes steps which should be taken during the project.
     ip route | grep -E "^[^0-9]" | grep <interface> | awk '{print $3}'
     ```
 
-- **2)** Put above information into `/etc/network/interfaces` file (available on Ubuntu Server, not available on all Linux distributions). Sample contents of the `interfaces` file:
+    - TODO: Obtain information about which network we operate in (parameter `network` below)
+
+- **2)** Put above information into `/etc/network/interfaces` file (available on Ubuntu Server). Sample contents of the `interfaces` file could be:
 
     ```
     # The loopback network interface
@@ -694,40 +723,56 @@ Describes steps which should be taken during the project.
 
 </details>
 
+<details>
+<summary>6. Windows computers: Configure static IPv4</summary>
+
+* [ ] **Finished?**
+
+- Set fixed IPv4 for default NIC. See [4-static-ip-windows.ps1](scripts/4-static-ip-windows.ps1)
+
+- PowerShell commands are possible to execute using built-in SaltStack methods. See [Stackoverflow: saltstack: run powershell script in a state](https://stackoverflow.com/questions/45361995/saltstack-run-powershell-script-in-a-state), for instance.
+
 </details>
 
-----------
-
-### Task 2
-
 <details>
-<summary>Automate Task 1</summary>
+<summary>7. Linux computers: Network interface naming policy</summary>
 
-* [ ] Automatic configuration shell script (Bash, `.sh`) for stuff done in [Task 1](#Task-1)
+* [ ] **Finished?**
+
+- [Network interface names: use easily distinguisable old names (i.e. `eth0`), or new names (i.e. `enp0s3`)?](https://www.itechlounge.net/2016/04/linux-how-to-rename-the-network-interface-in-centosrhel7/)
+
+- **SaltStack state file:** `/srv/salt/ubuntu-minions/.sls` (TODO)
+
+    - **Alternative A)** Command: `sed -i 's/^\(GRUB_CMDLINE_LINUX="*\)"$/\1net.ifnames=0 biosdevname=0"/' /etc/default/grub && grub-mkconfig -o /boot/grub/grub.cfg`
+
+    - **Alternative B)** Add `/etc/default/grub` configuration file into SaltStack folder hierarchy and add `net.ifnames=0 biosdevname=0` into parameters of `GRUB_CMDLINE_LINUX` option. After that, run either command `grub-mkconfig -o /boot/grub/grub.cfg` directly or its command alias `update-grub` as root (sudo)
+
+        - **Explanation:** Adds `net.ifnames=0` and `biosdevname=0` [Linux kernel parameters](https://wiki.archlinux.org/index.php/Kernel_parameters) into computer [Grub2](https://wiki.archlinux.org/index.php/GRUB) bootloader configuration
 
 </details>
 
-----------
-
-### Task 3
-
 <details>
-<summary>Salt Minions: installation & connection to Salt Master</summary>
+<summary>8. Linux computers: rsyslog configuration</summary>
 
-- SaltStack minions: installation & connection to Salt Master
+* [ ] **Finished?**
 
-    - Linux minions
+* [ ] **[rsyslog](https://wiki.archlinux.org/index.php/rsyslog):** Reliable system and kernel logging daemon
 
-        - Linux Salt Minion installation (Ubuntu 18.04, `.deb`)
+    - **SaltStack state file:** `/srv/ubuntu-minions/.sls` (TODO)
 
-        - Connection to local network Salt Master
+        - Basic installation (package: `rsyslog`)
 
-    - Windows minions
+        - Basic configuration
 
-        - Windows Salt Minion installation
+            - **OS file 1:** `/etc/rsyslog.conf`
 
-        - Connection to local network Salt Master
+                - Key contents: TODO
 
+        - **NOTE:** Default process owner: `syslog:adm` (syslog groups: `adm`, `syslog`)
+
+        - Basic testing
+
+</details>
 </details>
 
 ----------
@@ -735,10 +780,40 @@ Describes steps which should be taken during the project.
 ### Task 4
 
 <details>
-<summary>Automate Task 3</summary>
+<summary>Salt minions: host-specific Salt state files</summary>
 
-* [ ] Automatic configuration shell script (Bash, `.sh`) for stuff done in [Task 3](#Task%201)
+#### test_server-1)
 
+* [ ] **Finished?**
+
+<details>
+<summary>test_server-1: 1. Host-specific SaltStack configuration (pillars)</summary>
+
+`<add_content_here>`
+
+</details>
+
+#### test_server-2)
+
+* [ ] **Finished?**
+
+<details>
+<summary>test_server-2: 2. Host-specific SaltStack configuration (pillars)</summary>
+
+`<add_content_here>`
+
+</details>
+
+#### test_server-3)
+
+* [ ] **Finished?**
+
+<details>
+<summary>test_server-3: 3. Host-specific SaltStack configuration (pillars)</summary>
+
+`<add_content_here>`
+
+</details>
 </details>
 
 ----------
@@ -746,69 +821,9 @@ Describes steps which should be taken during the project.
 ### Task 5
 
 <details>
-<summary>Salt Minions: write Salt state files</summary>
+<summary>Automate SaltStack configuration tasks</summary>
 
-* [ ] SaltStack minions, state file configurations
-
-    * [ ] **test_server-1**
-
-        - OS: Ubuntu 18.04 LTS (Server)
-
-            - Installation ISO: [Ubuntu server 18.04 LTS](http://releases.ubuntu.com/bionic/ubuntu-18.04-live-server-amd64.iso) ([CLI-based](https://wiki.archlinux.org/index.php/Command-line_shell), no [WM](https://wiki.archlinux.org/index.php/window_manager)/[DE](https://wiki.archlinux.org/index.php/Desktop_environment))
-
-            - Define Hostname (& Salt user?, default is root)
-
-            - Set fixed IPv4 for eth0
-
-            - Filebeat
-
-                - Connection to local network LogStash computer
-
-            - Logging proposals:
-
-                - rsyslog
-
-                - Apache2
-
-    * [ ] **test_server-2**
-
-        - OS: Ubuntu 18.04 LTS (Server)
-
-            - Installation ISO: [Ubuntu server 18.04 LTS](http://releases.ubuntu.com/bionic/ubuntu-18.04-live-server-amd64.iso) ([CLI-based](https://wiki.archlinux.org/index.php/Command-line_shell), no [WM](https://wiki.archlinux.org/index.php/window_manager)/[DE](https://wiki.archlinux.org/index.php/Desktop_environment))
-
-            - Define Hostname (& Salt user?, default is root)
-
-            - Set fixed IPv4 for eth0
-
-            - Filebeat
-
-                - Connection to local network LogStash computer
-
-            - Logging proposals:
-
-                - rsyslog
-
-                - random process log?
-
-    * [ ] **test_server-3**
-
-        - Windows 2016 server?
-
-            - Define Hostname (& Salt user?, default is ADMIN or SYSTEM)
-
-            - Set fixed IPv4 for default NIC (Get active NICs & their info with PowerShell cmd: `Get-WmiObject -Class win32_networkadapter -Filter "netconnectionstatus = 2" | Get-NetIPConfiguration`)
-
-                - PowerShell commands are possible to execute using built-in SaltStack methods. See [Stackoverflow: saltstack: run powershell script in a state](https://stackoverflow.com/questions/45361995/saltstack-run-powershell-script-in-a-state), for instance.
-
-            - WinLogBeat ([Direct download link](https://artifacts.elastic.co/downloads/beats/winlogbeat/winlogbeat-6.6.0-windows-x86_64.zip))
-
-                - Connection to local network LogStash computer
-
-            - Logging proposals:
-
-                - Event Log
-
-- Other server computers salt minion connection to master computer (for administration)
+* [ ] Automatic configuration: shell scripts (Bash, `.sh`) and PowerShell scripts (`.ps1`, `.psm1`) for stuff done in previous tasks. See [scripts folder](scripts/) for details
 
 </details>
 
@@ -817,37 +832,15 @@ Describes steps which should be taken during the project.
 ### Task 6
 
 <details>
-<summary>Automate Task 5</summary>
-
-* [ ] Automatic configuration shell script (Bash, `.sh`) for stuff done in [Task 5](#Task%201)
-
-</details>
-
-----------
-
-### Task 7
-
-<details>
-<summary>Improvements & troubleshooting</summary>
-
-* [ ] System configuration testing & troubleshooting & improvements
-
-</details>
-
-----------
-
-### Task 8
-
-<details>
 <summary>Conclusions</summary>
 
-- Conclusions
+`<add_content_here>`
 
 </details>
 
 ----------
 
-## Issues/Discussion
+## Discussion
 
 <details>
 <summary>Details</summary>
@@ -916,7 +909,7 @@ Describes steps which should be taken during the project.
 
 ----------
 
-## Issues
+## Issues, troubleshooting & improvements
 
 <details>
 <summary>Details</summary>
