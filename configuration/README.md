@@ -761,13 +761,13 @@ Describes steps which should be taken during the project.
 
 ## Issues/Discussion
 
-- How many NICs (Network interface cards) are required for various computers
+- Create a local subnet for all computers which are related somehow to ELK stack configuration. Route ELK server HTTP/HTTPS (Apache) traffic to router, use NAT in router. Consider IDS/IPS here.
 
-    - Network logical topology layout picture needed?
-
-- Create a subnet for internal computers? Public (internet) limited access only to master computer
-
-    - Either add a individual router or make master computer act as a router (requires 1 free NIC for that. See [GitHub - Fincer/snic](https://www.github.com/Fincer/snic) for easy Linux router configuration)
+    - Either add a individual router or make ELK server act as a router (requires 2 NICs (network interfaces) for that. 1 NIC is for internal network traffic (network: 10.10.1.0) and another one is for external connections. To set network interface act in router mode on Linux, see [GitHub - Fincer/snic](https://www.github.com/Fincer/snic))
+    
+    - Benefits: hardware requirements for Intrusion Detection/Prevention system does not exceed the hardware limits (which is an issue with common routers)
+    
+    - Requires IPv4 packet forwarding in `sysctl` (Linux kernel) and in `iptables` (Firewall) between these 2 NICs on ELK server.
 
 ----------
 
@@ -785,7 +785,7 @@ Describes steps which should be taken during the project.
 # for installing Windows software on Salt minion must be taken for now
 ```
 
-    - As a result, Windows Salt minion may return failure even if the Salt run is succeeded. For instance, see [this picture](https://raw.githubusercontent.com/Fincer/salt_gisworkstation/master/sample_images/screen_ubuntu-master-final.png)
+- As a result, Windows Salt minion may return failure even if the Salt run is succeeded. For instance, see [this picture](https://raw.githubusercontent.com/Fincer/salt_gisworkstation/master/sample_images/screen_ubuntu-master-final.png)
 
 ----------
 
