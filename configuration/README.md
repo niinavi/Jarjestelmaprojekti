@@ -47,7 +47,7 @@
 
     - [Task 6](#Task-6), Automate Task 5
 
-    - [Task 7](#Task-7), improvements & troubleshooting
+    - [Task 7](#Task-7), Improvements & troubleshooting
 
     - [Task 8](#Task-8), Conclusions
 
@@ -67,6 +67,9 @@
 ----------
 
 ## Schema
+
+<details>
+<summary>System layout</summary>
 
 ### Layout draw 1:
 
@@ -137,11 +140,16 @@ _Since we are going to use Filebeat to ship logs from our Client Servers to our 
 
 - Ref: [DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04)
 
+</details>
+
 ----------
 
 ## Technical components
 
 Describes relevant software components which are being used in the project.
+
+<details>
+<summary>Details</summary>
 
 **Master:** elkserver
 
@@ -221,6 +229,8 @@ Describes network links between computers used in the project.
 
 - Get current ARP cache info: `arp`
 
+</details>
+
 ----------
 
 ## Technical roadmap
@@ -229,17 +239,25 @@ Describes steps which should be taken during the project.
 
 ### Task 1
 
+<details>
+<summary>Master (ELK server)/SaltStack configuration</summary>
+
 #### Step 1-1)
 
 **Required**
 
 * [ ] Finished status
 
-**About:** Master (ELK server) computer OS installation
+<details>
+<summary>Master (ELK server) computer OS installation</summary>
+
+
 
 - _Requirements: Virtual or physical machine (server PC, [Oracle VirtualBox](https://wiki.archlinux.org/index.php/VirtualBox), [QEMU](https://wiki.archlinux.org/index.php/QEMU), [VMWare](https://wiki.archlinux.org/index.php/VMware)...)_
 
 - Installation ISO: [Ubuntu server 18.04 LTS](http://releases.ubuntu.com/bionic/ubuntu-18.04-live-server-amd64.iso) ([CLI-based](https://wiki.archlinux.org/index.php/Command-line_shell), no [WM](https://wiki.archlinux.org/index.php/window_manager)/[DE](https://wiki.archlinux.org/index.php/Desktop_environment))
+
+</details>
 
 ----------
 
@@ -247,11 +265,12 @@ Describes steps which should be taken during the project.
 
 **Required**
 
+- _Requirements: [Step 1](#Step-1) (Master computer)_
+
 * [ ] Finished status
 
-**About:** Master (ELK server): Prepare local SaltStack environment
-
-- _Requirements: [Step 1](#Step-1) (Master computer)_
+<details>
+<summary>Master (ELK server): Prepare local SaltStack environment</summary>
 
 * [ ] 1) SaltStack: Installation
 
@@ -267,17 +286,20 @@ Describes steps which should be taken during the project.
 
     - **Command:** `salt-local`
 
+</details>
+
 ----------
 
 #### Step 1-3)
 
 **Recommended**
 
+- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
+
 * [ ] Finished status
 
-**About:** Master (ELK server)/SaltStack: hostname & default Admin account
-
-- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
+<details>
+<summary>Master (ELK server)/SaltStack: hostname & default Admin account</summary>
 
 - **SaltStack state file:** `/srv/pillar/.sls` (TODO)
 
@@ -285,7 +307,7 @@ Describes steps which should be taken during the project.
 
         - **OS file:** `/etc/hostname`
 
-            - Hostname: `elkserver` (?)
+            - Hostname: `elkserver`
 
     * [ ] Master: create sudo user (unless we use the one which is created during OS installation)
 
@@ -305,6 +327,7 @@ Describes steps which should be taken during the project.
             printf ${default_user}:${default_pass} | chpasswd
             groupmod -g ${default_uid} ${default_user}
             ```
+</details>
 
 ----------
 
@@ -312,11 +335,12 @@ Describes steps which should be taken during the project.
 
 **Required**
 
+- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
+
 * [ ] Finished status
 
-**About:** Master (ELK server)/SaltStack: Apache, SSH, LogStash, Elasticsearch, Kibana
-
-- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
+<details>
+<summary>Master (ELK server)/SaltStack: Apache, SSH, LogStash, Elasticsearch, Kibana</summary>
 
 * [ ] **1) Apache:** HTTP server daemon
 
@@ -345,7 +369,7 @@ Describes steps which should be taken during the project.
             UserDir disabled nobody
             ...
             ```
-            
+
             - See [GitHub/Fincer - Disable userdir module for user nobody to reduce server detection](https://github.com/Fincer/linux-server-setup/blob/master/exercises/h4.md#extra-disable-userdir-module-for-user-nobody-to-reduce-server-detection) for details.
 
             - **OS file 3:** `/etc/apache2/sites-available/01-kibana-proxy.conf` (requires command `a2ensite 01-kibana-proxy`)
@@ -370,9 +394,9 @@ Describes steps which should be taken during the project.
 
                 </VirtualHost>
                 ```
-                
+
                 - **NOTE:** Do not forget commands `a2enmod proxy` and `a2enmod proxy_http` in order to enable proxy on Apache.
-                
+
                 - Additionally, consider HTTP headers fine-tuning, see [GitHub/Fincer - Additional protection by fine-tuning Apache HTTP headers](https://github.com/Fincer/linux-server-setup/blob/master/exercises/h4.md#extra-additional-protection-by-fine-tuning-apache-http-headers) for details.
 
         - Basic testing
@@ -400,6 +424,10 @@ Describes steps which should be taken during the project.
                     - `MaxSessions <value>` (Maximum simultaneous SSH sessions)
 
                     - `Port <value>` (SSH TCP port)
+
+                    - `ClientAliveInterval <value, sedonds>` (Maximum idle time for a client until we disconnect)
+
+                    - `ClientAliveCountMax <value>` (Maximum _alive_ connection attempts between SSH daemon & client)
 
                     - `PubkeyAuthentication <yes, no>` (Use asymmetric public key authentication?)
 
@@ -496,17 +524,20 @@ Describes steps which should be taken during the project.
 
         - Basic testing
 
+</details>
+
 ----------
 
 #### Step 1-5)
 
 **Recommended**
 
+- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
+
 * [ ] Finished status
 
-**About:** Master (ELK server)/SaltStack: Basic filesystem hardening (root access)
-
-- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
+<details>
+<summary>Master (ELK server)/SaltStack: Basic filesystem hardening (root access)</summary>
 
 - **SaltStack state file:** `/srv/pillar/.sls` (TODO)
 
@@ -518,17 +549,20 @@ Describes steps which should be taken during the project.
 
         - **Command:** `sed -iE 's/^(tty[0-9]*)$/#\1/' /etc/securetty` (Comment virtual terminal lines in `etc/securetty` file)
 
+</details>
+
 ----------
 
 #### Step 1-6)
 
 **Recommended**
 
+- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
+
 * [ ] Finished status
 
-**About:** Master (ELK server)/SaltStack: Basic network rules
-
-- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
+<details>
+<summary>Master (ELK server)/SaltStack: Basic network rules</summary>
 
 - **SaltStack state file:** `/srv/pillar/.sls`
 
@@ -550,33 +584,44 @@ Describes steps which should be taken during the project.
 
        - Conf file configuration options:
 
-           - Respond to/Ignore ICMP echo requests/replies
+           - Respond to/Ignore ICMP echo requests/replies:
 
-               - `net.ipv4.icmp_echo_ignore_all = <0,1>`
+                ```
+                net.ipv4.icmp_echo_ignore_all = <0,1>
+                ```
 
-           - Allow/Deny all ICMP redirects (recude MITM attack possibility)
+           - Allow/Deny all ICMP redirects (recude MITM attack possibility):
 
-               - `net.ipv4.conf.all.accept_redirects = <0,1>`
+                ```
+                net.ipv4.conf.all.accept_redirects = <0,1>
+                net.ipv6.conf.all.accept_redirects = <0,1>
+                ```
 
-               - `net.ipv6.conf.all.accept_redirects = <0,1>`
+           - Send/Don't send ICMP redirects (are we a router?):
 
-           - Send/Don't send ICMP redirects (are we a router?)
+                ```
+                net.ipv4.conf.all.send_redirects = <0,1>
+                ```
 
-               - `net.ipv4.conf.all.send_redirects = <0,1>`
+           - Allow/Deny secure ICMP redirects (Reject ICMP redirects for gateways listed in our default gateway list (enabled by default)):
 
-           - Allow/Deny secure ICMP redirects (Reject ICMP redirects for gateways listed in our default gateway list (enabled by default))
+                ```
+                net.ipv4.conf.all.secure_redirects = <0,1>
+                ```
 
-               - `net.ipv4.conf.all.secure_redirects = <0,1>`
+           - Enable/Disable IPv4 packet forwarding:
 
-           - Enable/Disable IPv4 packet forwarding
+                ```
+                net.ipv4.ip_forward = <0,1>
+                ```
 
-               - `net.ipv4.ip_forward = <0,1>`
+           - Set/Unset IPv4 RP filter (spoof protection):
 
-           - Set/Unset IPv4 RP filter (spoof protection)
-
-               - `net.ipv4.conf.default.rp_filter = <0,1>`
-
-               - `net.ipv4.conf.all.rp_filter = <0,1>`
+                ```
+                net.ipv4.conf.default.rp_filter = <0,1>
+                net.ipv4.conf.all.rp_filter = <0,1>
+                ```
+</details>
 
 ----------
 
@@ -584,11 +629,14 @@ Describes steps which should be taken during the project.
 
 **Recommended**
 
+- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
+
 * [ ] Finished status
 
-**About:** Master (ELK server)/SaltStack - [Network interface names: use easily distinguisable old names (i.e. `eth0`), or new names (i.e. `enp0s3`)?](https://www.certdepot.net/rhel7-restore-old-network-interface-name/)
+<details>
+<summary>Master (ELK server)/SaltStack - Network interface names</summary>
 
-- _Requirements: [Step 2](#Step-2) (Master SaltStack environment)_
+- [Network interface names: use easily distinguisable old names (i.e. `eth0`), or new names (i.e. `enp0s3`)?](https://www.certdepot.net/rhel7-restore-old-network-interface-name/)
 
 - **SaltStack state file:** `/srv/pillar/.sls`
 
@@ -596,17 +644,20 @@ Describes steps which should be taken during the project.
 
     - **Alternative B)** Add `/etc/default/grub` configuration file into SaltStack folder hierarchy and add `net.ifnames=0 biosdevname=0` into parameters of `GRUB_CMDLINE_LINUX` option. After that, run either command `grub-mkconfig -o /boot/grub/grub.cfg` directly or its command alias `update-grub` as root (sudo)
 
+</details>
+
 ----------
 
 #### Step 1-8)
 
 **Required**
 
+- _Requirements: [Step 2](#Step-2) (Master SaltStack environment), [Step 7](#Step-7) (NIC naming policy), working network interface configurations_
+
 * [ ] Finished status
 
-**About:** Master (ELK server)/SaltStack: Configure static IPv4
-
-- _Requirements: [Step 2](#Step-2) (Master SaltStack environment), [Step 7](#Step-7) (NIC naming policy), working network interface configurations_
+<details>
+<summary>Master (ELK server)/SaltStack: Configure static IPv4</summary>
 
 - **Alternative A)** Set static IP address to this host in host configuration.
 
@@ -659,13 +710,27 @@ Describes steps which should be taken during the project.
 
     - Client side: Computers on the network must run a DHCP client daemon on the selected network interface, either `dhcpcd` or `dhclient` (the latter is the default daemon on Ubuntu), in order to obtain a IPv4 address from DHCP server daemon. Windows clients use `DHCP Client service`
 
+</details>
+
+</details>
+
 ----------
 
 ### Task 2
 
+<details>
+<summary>Automate Task 1</summary>
+
 * [ ] Automatic configuration shell script (Bash, `.sh`) for stuff done in [Task 1](#Task-1)
 
+</details>
+
+----------
+
 ### Task 3
+
+<details>
+<summary>Salt Minions: installation & connection to Salt Master</summary>
 
 - SaltStack minions: installation & connection to Salt Master
 
@@ -681,11 +746,25 @@ Describes steps which should be taken during the project.
 
         - Connection to local network Salt Master
 
+</details>
+
+----------
+
 ### Task 4
+
+<details>
+<summary>Automate Task 3</summary>
 
 * [ ] Automatic configuration shell script (Bash, `.sh`) for stuff done in [Task 3](#Task%201)
 
+</details>
+
+----------
+
 ### Task 5
+
+<details>
+<summary>Salt Minions: write Salt state files</summary>
 
 * [ ] SaltStack minions, state file configurations
 
@@ -693,7 +772,9 @@ Describes steps which should be taken during the project.
 
         - OS: Ubuntu 18.04 LTS (Server)
 
-            - Define Hostname, Salt user
+            - Installation ISO: [Ubuntu server 18.04 LTS](http://releases.ubuntu.com/bionic/ubuntu-18.04-live-server-amd64.iso) ([CLI-based](https://wiki.archlinux.org/index.php/Command-line_shell), no [WM](https://wiki.archlinux.org/index.php/window_manager)/[DE](https://wiki.archlinux.org/index.php/Desktop_environment))
+
+            - Define Hostname (& Salt user?, default is root)
 
             - Set fixed IPv4 for eth0
 
@@ -711,7 +792,9 @@ Describes steps which should be taken during the project.
 
         - OS: Ubuntu 18.04 LTS (Server)
 
-            - Define Hostname, Salt user
+            - Installation ISO: [Ubuntu server 18.04 LTS](http://releases.ubuntu.com/bionic/ubuntu-18.04-live-server-amd64.iso) ([CLI-based](https://wiki.archlinux.org/index.php/Command-line_shell), no [WM](https://wiki.archlinux.org/index.php/window_manager)/[DE](https://wiki.archlinux.org/index.php/Desktop_environment))
+
+            - Define Hostname (& Salt user?, default is root)
 
             - Set fixed IPv4 for eth0
 
@@ -729,7 +812,7 @@ Describes steps which should be taken during the project.
 
         - Windows 2016 server?
 
-            - Define Hostname, Salt user
+            - Define Hostname (& Salt user?, default is ADMIN or SYSTEM)
 
             - Set fixed IPv4 for default NIC (Get active NICs & their info with PowerShell cmd: `Get-WmiObject -Class win32_networkadapter -Filter "netconnectionstatus = 2" | Get-NetIPConfiguration`)
 
@@ -745,33 +828,66 @@ Describes steps which should be taken during the project.
 
 - Other server computers salt minion connection to master computer (for administration)
 
+</details>
+
+----------
+
 ### Task 6
+
+<details>
+<summary>Automate Task 5</summary>
 
 * [ ] Automatic configuration shell script (Bash, `.sh`) for stuff done in [Task 5](#Task%201)
 
+</details>
+
+----------
+
 ### Task 7
+
+<details>
+<summary>Improvements & troubleshooting</summary>
 
 * [ ] System configuration testing & troubleshooting & improvements
 
+</details>
+
+----------
+
 ### Task 8
 
+<details>
+<summary>Conclusions</summary>
+
 - Conclusions
+
+</details>
 
 ----------
 
 ## Issues/Discussion
 
+<details>
+<summary>Details</summary>
+
+### Local subnet & interfaces
+
 - Create a local subnet for all computers which are related somehow to ELK stack configuration. Route ELK server HTTP/HTTPS (Apache) traffic to router, use NAT in router. Consider IDS/IPS here.
 
     - Either add a individual router or make ELK server act as a router (requires 2 NICs (network interfaces) for that. 1 NIC is for internal network traffic (network: 10.10.1.0) and another one is for external connections. To set network interface act in router mode on Linux, see [GitHub - Fincer/snic](https://www.github.com/Fincer/snic))
-    
+
     - Benefits: hardware requirements for Intrusion Detection/Prevention system does not exceed the hardware limits (which is an issue with common routers)
-    
+
     - Requires IPv4 packet forwarding in `sysctl` (Linux kernel) and in `iptables` (Firewall) between these 2 NICs on ELK server.
+
+</details>
 
 ----------
 
 ## Notes
+
+<details>
+<summary>Details</summary>
 
 - Salt Master & Salt minion versions must match on various computers. Otherwise, conflicts are likely to occur
 
@@ -787,6 +903,8 @@ Describes steps which should be taken during the project.
 
 - As a result, Windows Salt minion may return failure even if the Salt run is succeeded. For instance, see [this picture](https://raw.githubusercontent.com/Fincer/salt_gisworkstation/master/sample_images/screen_ubuntu-master-final.png)
 
+</details>
+
 ----------
 
 ## Useful links
@@ -801,11 +919,14 @@ Describes steps which should be taken during the project.
 
 ## Issues
 
-### Issue: Installation of Winlogbeat on Windows minion
+<details>
+<summary>Details</summary>
+
+### Issue: Winlogbeat installation & uninstallation on Windows minion
 
 - Archive: [Elastic.co: Winlogbeat 6.6.0 x86_64.zip](https://artifacts.elastic.co/downloads/beats/winlogbeat/winlogbeat-6.6.0-windows-x86_64.zip)
 
-- Archive layout:
+- Downloaded archive layout:
 
 ![](images/winlogbeat-archive-layout.png)
 
@@ -813,9 +934,14 @@ Describes steps which should be taken during the project.
 
     - Issue: normally, we define a single installer executable in SLS file. However, archive layout does not directly support this traditional approach.
 
+</details>
+
 ----------
 
 ## TODO
+
+<details>
+<summary>Details</summary>
 
 - Decide roles and processes of test_server-1, test_server-2, test_server-3 (which logs do we collect?)
 
@@ -840,3 +966,5 @@ Describes steps which should be taken during the project.
 - Auto-accept Oracle Java 8 license terms on Salt Master (ELK server) while installing Elasticsearch & LogStash (see [Task 1 - Step 1-4](#step-1-4))
 
 - Solve [issues](#issues) above
+
+</details>
