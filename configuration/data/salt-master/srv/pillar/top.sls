@@ -1,1 +1,1 @@
-# SaltStack state file; placeholder
+{# SaltStack state file; placeholder #}
