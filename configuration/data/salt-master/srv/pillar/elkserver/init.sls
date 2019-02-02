@@ -1,0 +1,1 @@
+# SaltStack state file; placeholder
