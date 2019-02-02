@@ -1,63 +1,41 @@
 # Configuration
 ## Table of Contents
 
-- [Schema](#Schema)
+- [Schema](#schema)
 
-- [Technical components](#Technical-components)
+- [Technical components](#technical-components)
 
-    - [SaltStack](#SaltStack)
+- [Component configuration principles](#component-configuration-principles)
 
-    - [SSH](#SSH)
-
-    - [Other](#Other)
+- [Network configuration](#network-configuration)
 
 ----------
 
-- [Component configuration principles](#Component-configuration-principles)
+- [Technical roadmap](#technical-roadmap)
 
-- [Network configuration](#Network-configuration)
+    - [Task 1](#task-1), ELK server configuration (Salt Master, ELK stack)
 
-- [Technical roadmap](#Technical-roadmap)
+    - [Task 2](#task-2), Automate Task 1
 
-    - [Task 1](#Task-1), ELK server configuration (Salt Master, ELK stack)
+    - [Task 3](#task-3), Salt Minions: installation & connection to Salt Master
 
-        - [Step 1-1](#Step-1-1), Master (ELK server) computer OS installation
+    - [Task 4](#task-4), Automate Task 3
 
-        - [Step 1-2](#Step-1-2), Master (ELK server): Prepare local SaltStack environment
+    - [Task 5](#task-5), Salt Minions: write Salt state files
 
-        - [Step 1-3](#Step-1-3), Master (ELK server)/SaltStack: hostname & default Admin account
+    - [Task 6](#task-6), Automate Task 5
 
-        - [Step 1-4](#Step-1-4), Master (ELK server)/SaltStack: Apache, SSH, Kibana, Elasticsearch
+    - [Task 7](#task-7), Improvements & troubleshooting
 
-        - [Step 1-5](#Step-1-5), Master (ELK server)/SaltStack: Basic filesystem hardening (root access)
-
-        - [Step 1-6](#Step-1-6), Master (ELK server)/SaltStack: Basic network rules
-
-        - [Step 1-7](#Step-1-7), Master (ELK server)/SaltStack - Network interface names
-
-        - [Step 1-8](#Step-1-8), Master (ELK server)/SaltStack: Configure static IPv4
-
-    - [Task 2](#Task-2), Automate Task 1
-
-    - [Task 3](#Task-3), Salt Minions: installation & connection to Salt Master
-
-    - [Task 4](#Task-4), Automate Task 3
-
-    - [Task 5](#Task-5), Salt Minions: write Salt state files
-
-    - [Task 6](#Task-6), Automate Task 5
-
-    - [Task 7](#Task-7), Improvements & troubleshooting
-
-    - [Task 8](#Task-8), Conclusions
+    - [Task 8](#task-8), Conclusions
 
 ----------
 
 - [Issues/Discussion](#issuesdiscussion)
 
-- [Notes](#Notes)
+- [Notes](#notes)
 
-- [Useful links](#Useful-links)
+- [Useful links](#useful-links)
 
 - [Issues](#issues)
 
@@ -636,13 +614,15 @@ Describes steps which should be taken during the project.
 <details>
 <summary>Master (ELK server)/SaltStack - Network interface names</summary>
 
-- [Network interface names: use easily distinguisable old names (i.e. `eth0`), or new names (i.e. `enp0s3`)?](https://www.certdepot.net/rhel7-restore-old-network-interface-name/)
+- [Network interface names: use easily distinguisable old names (i.e. `eth0`), or new names (i.e. `enp0s3`)?](https://www.itechlounge.net/2016/04/linux-how-to-rename-the-network-interface-in-centosrhel7/)
 
 - **SaltStack state file:** `/srv/pillar/.sls`
 
     - **Alternative A)** Command: `sed -iE 's/^(GRUB_CMDLINE_LINUX="*)"$/\1net.ifnames=0 biosdevname=0"/' /etc/default/grub && grub-mkconfig -o /boot/grub/grub.cfg`
 
     - **Alternative B)** Add `/etc/default/grub` configuration file into SaltStack folder hierarchy and add `net.ifnames=0 biosdevname=0` into parameters of `GRUB_CMDLINE_LINUX` option. After that, run either command `grub-mkconfig -o /boot/grub/grub.cfg` directly or its command alias `update-grub` as root (sudo)
+
+        - **Explanation:** Adds `net.ifnames=0` and `biosdevname=0` [Linux kernel parameters](https://wiki.archlinux.org/index.php/Kernel_parameters) into computer [Grub2](https://wiki.archlinux.org/index.php/GRUB) bootloader configuration
 
 </details>
 
@@ -661,7 +641,7 @@ Describes steps which should be taken during the project.
 
 - **Alternative A)** Set static IP address to this host in host configuration.
 
-- **1)** Use roughly the following commands to obtain information:
+- **1)** Use roughly the following commands to obtain necessary Iface information:
 
     ```
     # Enabled (UP) network interfaces:
