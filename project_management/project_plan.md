@@ -4,12 +4,12 @@
 **Haaga-Helia University of Applied Science**
 
 **Team Members**
-Juha Immonen
-Pekka Helenius
-Niina Villman
+| Juha Immonen
+| Pekka Helenius
+| Niina Villman
 
 **Project supervisor**
-Petri Hirvonen
+| Petri Hirvonen
 
 ## Project background
 The topic of this project is to create a small architecture for centralized logging. Our aim is to familiarize our team with the tools, collect log data and analyze it. The project is part of our studies in ICT-infrastructure project course.
