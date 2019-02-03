@@ -3,12 +3,12 @@
 ### ICT Infrastructure project, Spring 2019
 **Haaga-Helia University of Applied Science**
 
-**Team Members**
+**Team Members**  
 Juha Immonen  
 Pekka Helenius  
 Niina Villman  
 
-**Project supervisor**
+**Project supervisor**  
 Petri Hirvonen
 
 ## Project background
