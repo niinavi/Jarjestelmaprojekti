@@ -1,4 +1,4 @@
-# Configuration
+# Configuration details
 ## Table of Contents
 
 - [Schema](#schema)
