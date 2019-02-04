@@ -16,6 +16,11 @@ The topic of this project is to create a small architecture for centralized logg
 
 In this project we will use the collection of open source tools, Elasticsearch, Logstash and Kibana (ELK Stack). Elasticsearch is the search engine and stores the data, Logstash processes the data and sends the data to Elasticseach and Kibana is a tool for visualization. We will use FileBeat to transfer the data to the Logstash server.
 
+Starting point:
+1. company's local area network
+2. public log collecting service
+
+
 ## Goals
 - Collect, store, analyze and visualize log data with Logstash, Elasticsearch and Kibana
 - Transfer log data from target machine with FileBeat to the Logstash server
