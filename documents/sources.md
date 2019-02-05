@@ -1,14 +1,8 @@
 ## Elasticsearch
 
-https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.6.0.deb
-
 ## Logstash
 
-https://artifacts.elastic.co/downloads/logstash/logstash-6.6.0.deb
-
 ## Kibana
-
-https://artifacts.elastic.co/downloads/kibana/kibana-6.6.0-amd64.deb
 
 ## SaltStack
 
@@ -19,4 +13,19 @@ https://artifacts.elastic.co/downloads/kibana/kibana-6.6.0-amd64.deb
 ## rsyslog
 
 --------------------------------
+
+<details>
+<summary>Quick & easy installation of LogStash, ElasticSearch & Kibana on Ubuntu 18.04 LTS</summary>
+
+Copy & paste the following into terminal:
+
+```
+echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elkstack.list
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+
+sudo apt update && sudo apt -y install logstash elasticsearch kibana
+
+```
+
+</details>
 
