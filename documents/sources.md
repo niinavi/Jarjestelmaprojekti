@@ -6,6 +6,8 @@
 
 ## SaltStack
 
+- [State files syntax highlighting for different text editors](https://salt.tips/text-editor-plugins-for-salt-states-and-yaml-jinja/)
+
 ## Web authentication
 
 ## FileBeat
