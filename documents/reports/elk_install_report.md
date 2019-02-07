@@ -52,7 +52,12 @@ Restart Kibana and start up Elasticsearch
 $ sudo systemctl restart kibana
 $ sudo systemctl start elasticsearch
 ```
- 
+
+Check Kibana is running
+```
+netstat -plntu
+tcp        0      0 127.0.0.1:5601          0.0.0.0:*               LISTEN  
+```
  
  ### Test Elasticsearch
 ```
@@ -91,9 +96,8 @@ $ echo "admin:`openssl passwd -apr1 YourPassword`" | sudo tee -a /etc/nginx/htpa
 
 ## Configure Nginx sites available
 
-check that folder is correct:
 ```
-sudoedit /etc/nginx/sites-enabled/kibana
+sudoedit /etc/nginx/sites-available/kibana
 ```
 
 ```
@@ -116,11 +120,6 @@ server {
     }
 ```
 
-Check Kibana is running
-```
-netstat -plntu
-tcp        0      0 127.0.0.1:5601          0.0.0.0:*               LISTEN  
-```
 Remove default configuration
 
 ```
@@ -144,7 +143,7 @@ sudo systemctl restart nginx
 $ sudo apt install logstash
 ```
 
-## Testing Kibana
+## Testing Kibana / Nginx
 ```
 curl localhost:80
 <html>
@@ -156,11 +155,10 @@ curl localhost:80
 </html>
 ```
 ## Testing with Web browser from host machine
+
+Using host machine web browser
 ```
 localhost:8080
-
-result
-502 Bad Gateway
 ```
 
 Kibana was not up and running, started kibana.
@@ -170,3 +168,49 @@ Kibana server is not ready yet
 
 Restarting VM helped to problem.
 
+## Log file locations
+
+Nginx
+  /var/log/nginx
+
+Kibana
+  Log file location needs to be configured, no default log
+
+Elasticsearch
+  /var/log/elasticsearch
+
+Logstash
+  /var/log/logstash/logstash.log
+
+## Configuration files and ports
+
+Nginx
+  /etc/nginx/sites-available/kibana
+  /etc/nginx/htpasswd.kibana
+  port: 80
+
+Logstash
+  /etc/logstash
+    Configuration files, including logstash.yml
+  /usr/share/logstash
+    Logstash installation directory where is /bin directory for running Logstash commands.
+  Port: 5044 for FileBeat
+
+Kibana
+  /etc/kibana
+  Port 5601
+
+Elasticsearch
+  /etc/elasticsearch
+  Port for Logstash: 9200
+  Port for Kibana: 9200
+
+# Configuring Filebeat to Send Log Lines to Logstash
+
+The Filebeat client is a lightweight, resource-friendly tool that collects logs from files on the server and forwards these logs to your Logstash instance for processing.
+
+todo
+
+# Configuring Logstash for Filebeat Input
+
+todo
