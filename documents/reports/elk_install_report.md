@@ -190,35 +190,282 @@ Logstash
 
 Nginx
   
-   /etc/nginx/sites-available/kibana
-   /etc/nginx/htpasswd.kibana
+   /etc/nginx/sites-available/kibana      
+   /etc/nginx/htpasswd.kibana   
    port: 80
 
 Logstash
   
-    /etc/logstash
-    Configuration files, including logstash.yml
-    /usr/share/logstash
-    Logstash installation directory where is /bin directory for running Logstash commands.
+    /etc/logstash   
+    Configuration files, including logstash.yml   
+    /usr/share/logstash   
+    Logstash installation directory where is /bin directory for running Logstash commands.   
     Port: 5044 for FileBeat
 
 Kibana
   
-   /etc/kibana
+   /etc/kibana   
    Port 5601
 
 Elasticsearch
   
-   /etc/elasticsearch
-   Port for Logstash: 9200
+   /etc/elasticsearch   
+   Port for Logstash: 9200   
    Port for Kibana: 9200
 
-# Configuring Filebeat to Send Log Lines to Logstash
+FileBeat
+   /etc/filebeat
+
+# Configuring Filebeat to Send Log Lines to Logstash (DRAFT)
 
 The Filebeat client is a lightweight, resource-friendly tool that collects logs from files on the server and forwards these logs to your Logstash instance for processing.
 
-todo
+Source: https://www.elastic.co/guide/en/logstash/current/advanced-pipeline.html
 
-# Configuring Logstash for Filebeat Input
+Logstash and Filebeat are running on the same machine in this report..
 
-todo
+This part of report is unfinished, bacause my old laptop is extremely slow and I can't run ELK-stack with pipeline on it.
+
+## First testing Logstash Pipeline
+
+```
+bin/logstash -e 'input { stdin { } } output { stdout {} }'
+```
+
+Logstash adds timestamp and IP address information to the message. Exit Logstash by issuing a CTRL-D command in the shell where Logstash is running.
+
+Result with input "Hello world!":
+
+```
+Hello World!
+{
+       "message" => "Hello World!",
+      "@version" => "1",
+    "@timestamp" => 2019-02-07T10:42:27.865Z,
+          "host" => "vagrant"
+}
+```
+
+## Install FileBeat
+
+Source: https://www.elastic.co/guide/en/beats/filebeat/6.6/filebeat-getting-started.html
+
+Because ELK-stack was installed with apt, it is easy now install FileBeat using also apt.
+
+```
+sudo apt-get update && sudo apt-get install filebeat
+```
+
+To configure Filebeat to start automatically during boot, run: 
+```
+sudo update-rc.d filebeat defaults 95 10
+```
+
+## Configure FileBeat
+
+Configuration file
+
+```
+/etc/filebeat/filebeat.yml
+```
+
+Path to log files and basic configuration. Following lines in configuration harvests access.log in the path /var/log/nginx/access.log.
+
+```
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/nginx/access.log 
+```
+
+Comment out these lines from filebeat.yml, we want output to Logstash, not elasticsearch
+
+```
+output.elasticsearch:
+   hosts: ["localhost:9200"]
+```
+
+### Configure FileBeat to use Logstatsh
+
+Uncomment these lines in filebeat.yml
+```
+output.logstash:
+  hosts: ["localhost:5044"]
+```
+
+#### index templates (unclear)
+
+In Elasticsearch, index templates are used to define settings and mappings that determine how fields should be analyzed.
+
+We need to manually load template because we are using Logstash, and Elasticsearch in not enabled in FileBeat.
+
+First you need to enable Elasticsearch by using the -E option. Logstash output is enabled. 
+
+To load the template, use command
+
+```
+vagrant@vagrant:/etc/filebeat$ sudo filebeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["localhost:9200"]'
+Loaded index template
+```
+
+#### Set up the Kibana dashboards (unclear)
+
+To load dashboards when the Logstash output is enabled, you need to temporarily disable the Logstash output and enable Elasticsearch. 
+
+sudo filebeat setup -e \
+  -E output.logstash.enabled=false \
+  -E output.elasticsearch.hosts=['localhost:9200'] \
+  -E output.elasticsearch.username=filebeat_internal \
+  -E output.elasticsearch.password=YOUR_PASSWORD \
+  -E setup.kibana.host=localhost:5601
+
+### Start filebeat
+
+```
+sudo systemctl start filebeat
+```
+
+### View the sample Kibana dashboards
+
+Data is not here yet, because we haven't configured pipeline. (FileBeat ->logsatsh -> Elasticsearch)
+
+## Logstash configuration continues, setting up pipeline after FileBeat installation
+
+Test FileBeat online, so that it reads log files we configured it to harvest.
+
+```
+sudo ./filebeat -e -c filebeat.yml -d "publish"
+```
+
+## Configuring Logstash for Filebeat Input
+
+Create a Logstash configuration pipeline that uses the Beats input plugin to receive events from Beats.
+
+mkdir /usr/share/logstash
+
+create file test-pipeline.conf
+
+```
+input {
+    beats {
+        port => "5044"
+    }
+}
+# The filter part of this file is commented out to indicate that it is
+# optional.
+# filter {
+#
+# }
+output {
+    stdout { codec => rubydebug }
+}
+```
+
+To verify your Logstash configuration, run the following command:
+
+```
+bin/logstash -f test-pipeline.conf --config.test_and_exit
+```
+
+If OK start Logstash
+
+```
+sudo bin/logstash -f test-pipeline.conf --config.reload.automatic
+```
+
+```
+
+	Publish event: {
+  "@timestamp": "2019-02-07T12:53:56.343Z",
+  "@metadata": {
+    "beat": "filebeat",
+    "type": "doc",
+    "version": "6.6.0"
+  },
+  "message": "10.0.2.2 - admin [07/Feb/2019:12:53:55 +0000] \"GET / HTTP/1.1\" 502 182 \"-\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0\"",
+  "source": "/var/log/nginx/access.log",
+  "offset": 37154,
+  "prospector": {
+    "type": "log"
+  },
+  "input": {
+    "type": "log"
+  },
+  "beat": {
+    "version": "6.6.0",
+    "name": "vagrant",
+    "hostname": "vagrant"
+  },
+  "host": {
+    "name": "vagrant",
+    "id": "142e17b1ffa097b7d116eda15b7fc5ef",
+    "containerized": false,
+    "architecture": "x86_64",
+    "os": {
+      "platform": "ubuntu",
+      "version": "16.04.5 LTS (Xenial Xerus)",
+      "family": "debian",
+      "name": "Ubuntu",
+      "codename": "xenial"
+    }
+  },
+  "log": {
+    "file": {
+      "path": "/var/log/nginx/access.log"
+    }
+  }
+}
+```
+
+
+## Sending logs  to Elasticsearch
+
+Next step is to configure Logstash to send logs to Elasticsearch.
+
+
+```
+# The # character at the beginning of a line indicates a comment. Use
+# comments to describe your configuration.
+
+input {
+    beats {
+        port => "5044"
+    }
+}
+
+# The filter part of this file is commented out to indicate that it is
+# optional.
+# filter {
+#
+# }
+filter {
+    grok {
+        match => { "message" => "%{COMBINEDAPACHELOG}"}
+    }
+}
+
+output {
+    elasticsearch {
+        hosts => [ "localhost:9200" ]
+    }
+}
+```
+
+To verify your Logstash configuration, run the following command:
+
+```
+bin/logstash -f test-pipeline.conf --config.test_and_exit
+```
+
+Started FileBeat, created transaction to nginx access.log using browser. 
+
+## Testing whole pipeline
+
+My laptop is running out of memory, I can't continue testing.
+
+Command to test that log data is at Elasticsearch
+```
+curl -XGET 'localhost:9200/logstash-$DATE/_search?pretty&q=response=200'
+```
+
