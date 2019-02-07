@@ -171,39 +171,47 @@ Restarting VM helped to problem.
 ## Log file locations
 
 Nginx
-  /var/log/nginx
+ 
+   /var/log/nginx
 
 Kibana
-  Log file location needs to be configured, no default log
+ 
+   Log file location needs to be configured, no default log
 
 Elasticsearch
-  /var/log/elasticsearch
+  
+   /var/log/elasticsearch
 
 Logstash
-  /var/log/logstash/logstash.log
+   
+   /var/log/logstash/logstash.log
 
 ## Configuration files and ports
 
 Nginx
-  /etc/nginx/sites-available/kibana
-  /etc/nginx/htpasswd.kibana
-  port: 80
+  
+   /etc/nginx/sites-available/kibana
+   /etc/nginx/htpasswd.kibana
+   port: 80
 
 Logstash
-  /etc/logstash
+  
+    /etc/logstash
     Configuration files, including logstash.yml
-  /usr/share/logstash
+    /usr/share/logstash
     Logstash installation directory where is /bin directory for running Logstash commands.
-  Port: 5044 for FileBeat
+    Port: 5044 for FileBeat
 
 Kibana
-  /etc/kibana
-  Port 5601
+  
+   /etc/kibana
+   Port 5601
 
 Elasticsearch
-  /etc/elasticsearch
-  Port for Logstash: 9200
-  Port for Kibana: 9200
+  
+   /etc/elasticsearch
+   Port for Logstash: 9200
+   Port for Kibana: 9200
 
 # Configuring Filebeat to Send Log Lines to Logstash
 
