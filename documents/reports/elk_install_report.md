@@ -195,12 +195,12 @@ Nginx
    port: 80
 
 Logstash
-  
-    /etc/logstash   
-    Configuration files, including logstash.yml   
-    /usr/share/logstash   
-    Logstash installation directory where is /bin directory for running Logstash commands.   
-    Port: 5044 for FileBeat
+   
+   - /etc/logstash   
+   Configuration files, including logstash.yml   
+   /usr/share/logstash   
+   Logstash installation directory where is /bin directory for running Logstash commands.   
+   Port: 5044 for FileBeat
 
 Kibana
   
@@ -214,22 +214,25 @@ Elasticsearch
    Port for Kibana: 9200
 
 FileBeat
+   
    /etc/filebeat
 
-# Configuring Filebeat to Send Log Lines to Logstash (DRAFT)
+# Configuring Filebeat to Send Log Lines to Logstash
 
 The Filebeat client is a lightweight, resource-friendly tool that collects logs from files on the server and forwards these logs to your Logstash instance for processing.
 
 Source: https://www.elastic.co/guide/en/logstash/current/advanced-pipeline.html
 
-Logstash and Filebeat are running on the same machine in this report..
+Logstash and Filebeat are running on the same machine in this report...
 
-This part of report is unfinished, bacause my old laptop is extremely slow and I can't run ELK-stack with pipeline on it.
+This part of report is unfinished, bacause my old laptop is extremely slow and I can't run ELK-stack with pipeline on it. Update: after adding more memory to VM I managed to run whole stack and log pipeline in my local setup.
 
 ## First testing Logstash Pipeline
 
+Test that Logstash is working.
+
 ```
-bin/logstash -e 'input { stdin { } } output { stdout {} }'
+bin/logstash -e 'input {stdin { } } output { stdout {} }'
 ```
 
 Logstash adds timestamp and IP address information to the message. Exit Logstash by issuing a CTRL-D command in the shell where Logstash is running.
@@ -263,13 +266,13 @@ sudo update-rc.d filebeat defaults 95 10
 
 ## Configure FileBeat
 
-Configuration file
+Configuration file is
 
 ```
 /etc/filebeat/filebeat.yml
 ```
 
-Path to log files and basic configuration. Following lines in configuration harvests access.log in the path /var/log/nginx/access.log.
+Configure path to log files and basic configuration. Following lines in configuration harvests access.log from the path /var/log/nginx/access.log.
 
 ```
 filebeat.inputs:
@@ -326,11 +329,19 @@ sudo filebeat setup -e \
 sudo systemctl start filebeat
 ```
 
-### View the sample Kibana dashboards
+another option is 
+
+```
+sudo filebeat -e -c filebeat.yml -d "publish
+```
+
+which one to use??? later one show input on stdout (screen).
+
+#### View the sample Kibana dashboards
 
 Data is not here yet, because we haven't configured pipeline. (FileBeat ->logsatsh -> Elasticsearch)
 
-## Logstash configuration continues, setting up pipeline after FileBeat installation
+### Logstash configuration continues, setting up pipeline after FileBeat installation
 
 Test FileBeat online, so that it reads log files we configured it to harvest.
 
@@ -342,7 +353,9 @@ sudo ./filebeat -e -c filebeat.yml -d "publish"
 
 Create a Logstash configuration pipeline that uses the Beats input plugin to receive events from Beats.
 
+```
 mkdir /usr/share/logstash
+```
 
 create file test-pipeline.conf
 
@@ -368,11 +381,22 @@ To verify your Logstash configuration, run the following command:
 bin/logstash -f test-pipeline.conf --config.test_and_exit
 ```
 
-If OK start Logstash
+If OK start Logstash.
 
 ```
 sudo bin/logstash -f test-pipeline.conf --config.reload.automatic
 ```
+
+another command 
+
+```
+sudo systemctl start logstash
+```
+
+
+which one to use???
+
+Sample output from logstash
 
 ```
 
@@ -418,10 +442,9 @@ sudo bin/logstash -f test-pipeline.conf --config.reload.automatic
 }
 ```
 
-
 ## Sending logs  to Elasticsearch
 
-Next step is to configure Logstash to send logs to Elasticsearch.
+Next step is to configure Logstash to send logs to Elasticsearch. I also added filter to logstash pipeline configuration.
 
 
 ```
@@ -458,14 +481,88 @@ To verify your Logstash configuration, run the following command:
 bin/logstash -f test-pipeline.conf --config.test_and_exit
 ```
 
-Started FileBeat, created transaction to nginx access.log using browser. 
+After that I started FileBeat to separete terminal, and created transaction to nginx access.log using browser. 
+
+I also started Logstash to another terminal using command in directory /usr/share/logstash
+
+```
+sudo bin/logstash -f test-pipeline.conf --config.reload.automatic
+```
+
 
 ## Testing whole pipeline
 
-My laptop is running out of memory, I can't continue testing.
+My laptop is running out of memory, I can't continue testing. After adding memory to VM I managed to run this test.
 
 Command to test that log data is at Elasticsearch
 ```
 curl -XGET 'localhost:9200/logstash-$DATE/_search?pretty&q=response=200'
 ```
+
+Result was no results for search. After modifying command to
+
+```
+curl -XGET 'localhost:9200/logstash-*/_search?pretty&q=response=200'
+```
+I got results from Elasticsearch
+
+```
+"message" : "10.0.2.2 - admin [07/Feb/2019:11:29:12 +0000] \"GET /plugins/inspector_views/index.css HTTP/1.1\" 200 702 \"http://localhost:8080/app/kibana\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0\"",
+          "tags" : [
+            "beats_input_codec_plain_applied"
+          ],
+          "beat" : {
+            "hostname" : "vagrant",
+            "name" : "vagrant",
+            "version" : "6.6.0"
+          }
+        }
+      },
+      {
+        "_index" : "logstash-2019.02.07",
+        "_type" : "doc",
+        "_id" : "Gug9yGgBQm7cpbMJKQzi",
+        "_score" : 1.2845117,
+        "_source" : {
+          "ident" : "-",
+          "input" : {
+            "type" : "log"
+          },
+          "response" : "200",
+          "source" : "/var/log/nginx/access.log",
+          "host" : {
+            "id" : "142e17b1ffa097b7d116eda15b7fc5ef",
+            "containerized" : false,
+            "os" : {
+              "platform" : "ubuntu",
+              "family" : "debian",
+              "codename" : "xenial",
+              "version" : "16.04.5 LTS (Xenial Xerus)",
+              "name" : "Ubuntu"
+            },
+            "name" : "vagrant",
+            "architecture" : "x86_64"
+          },
+          "agent" : "\"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0\"",
+          "verb" : "GET",
+          "referrer" : "\"http://localhost:8080/app/kibana\"",
+          "@timestamp" : "2019-02-07T13:50:18.608Z",
+          "clientip" : "10.0.2.2",
+          "offset" : 24004,
+          "httpversion" : "1.1",
+          "prospector" : {
+            "type" : "log"
+          },
+          "log" : {
+            "file" : {
+              "path" : "/var/log/nginx/access.log"
+            }
+          },
+          "auth" : "admin",
+          "@version" : "1",
+          "timestamp" : "07/Feb/2019:11:29:12 +0000",
+          "request" : "/plugi
+```
+
+
 
