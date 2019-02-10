@@ -98,7 +98,7 @@ $ sudo systemctl restart kibana
 $ sudo apt install logstash
 ```
 
-**See if things are working**
+**See if things are working**  
 http://ip_address/status 
 
 —> it should ask authorisation
