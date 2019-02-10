@@ -4,9 +4,9 @@
 ***Haaga-Helia University of Applied Science***
 
 **Team Members**  
-[Juha Immonen](https://github.com/immonju1)
-[Pekka Helenius](https://github.com/Fincer)
-[Niina Villman] (https://github.com/niinavi)
+[Juha Immonen](https://github.com/immonju1)  
+[Pekka Helenius](https://github.com/Fincer)  
+[Niina Villman](https://github.com/niinavi)
 
 **Project supervisor**  
 Petri Hirvonen
