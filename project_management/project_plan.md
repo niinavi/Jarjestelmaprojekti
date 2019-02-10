@@ -35,10 +35,10 @@ The mission of this project, is to install tools for centralized log management 
 The project documentations are project plan, progress report, final report and presentation and technical documentation and architecture model.
 
 ## Project organization and skateholders
-Project is owned by our team.
+Project is owned by our team.  
 The team members are: Juha Immonen, Pekka Helenius and Niina Villman.
 
-Project supervisor: Petri Hirvonen. 
+Project supervisor: Petri Hirvonen.  
 The skateholders are consisting of other project groups in our course.
 
 ## Budget and timetable
