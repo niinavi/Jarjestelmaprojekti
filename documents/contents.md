@@ -1,4 +1,4 @@
-# Contents
+# Table of Contents
 
 1. [Introduction](#introduction)
     1. [Purpose](#purpose)
