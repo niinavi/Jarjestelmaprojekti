@@ -1,12 +1,16 @@
-# Installing ELK Stack on Ubuntu 18.04
+# Installing ELK Stack on Ubuntu 16.04
 
-Purpose is to install ELK-stack on Ubuntu 18.04. 
+Purpose is to install ELK-stack later on Ubuntu 18.04. 
 
 The ELK stack combines Elasticsearch, Logstash, and Kibana into a simple, yet powerful, open source stack that lets you manage large amounts of logged data.
 
-Source: https://linuxconfig.org/install-elk-on-ubuntu-18-04-bionic-beaver-linux
+Sources 
 
-Installation is done using Vagrant box.
+https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-16-04
+
+https://linuxconfig.org/install-elk-on-ubuntu-18-04-bionic-beaver-linux
+
+Installation is done using Vagrant box
 
 ## Install The Dependencies
 
@@ -172,19 +176,19 @@ Restarting VM helped to problem.
 
 Nginx
  
-   /var/log/nginx
+- /var/log/nginx
 
 Kibana
  
-   Log file location needs to be configured, no default log
+- Log file location needs to be configured, no default log
 
 Elasticsearch
   
-   /var/log/elasticsearch
+- /var/log/elasticsearch
 
 Logstash
    
-   /var/log/logstash/logstash.log
+- /var/log/logstash/logstash.log
 
 ## Configuration files and ports
 
