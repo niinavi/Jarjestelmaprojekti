@@ -205,21 +205,22 @@ Logstash
 - /usr/share/logstash   
 - Logstash installation directory where is /bin directory for running Logstash commands.   
 - Port: 5044 for FileBeat
+- Logstash does not store logs which FileBeat sends to it. 
 
 Kibana
-  
-   /etc/kibana   
-   Port 5601
+
+- /etc/kibana   
+- Port 5601
 
 Elasticsearch
   
-   /etc/elasticsearch   
-   Port for Logstash: 9200   
-   Port for Kibana: 9200
+- /etc/elasticsearch   
+- Port for Logstash: 9200   
+- Port for Kibana: 9200
 
 FileBeat
    
-   /etc/filebeat
+- /etc/filebeat
 
 # Configuring Filebeat to Send Log Lines to Logstash
 
