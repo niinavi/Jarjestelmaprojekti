@@ -278,6 +278,13 @@ Configuration file is
 /etc/filebeat/filebeat.yml
 ```
 
+We can also use ready Filebeat modules and enable them.
+
+```
+/etc/filebeat/modules.d
+$ sudo filebeat modules enable system
+```
+
 Configure path to log files and basic configuration. Following lines in configuration harvests access.log from the path /var/log/nginx/access.log.
 
 ```
