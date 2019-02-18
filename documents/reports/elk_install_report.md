@@ -194,17 +194,17 @@ Logstash
 
 Nginx
   
-   /etc/nginx/sites-available/kibana      
-   /etc/nginx/htpasswd.kibana   
-   port: 80
+- /etc/nginx/sites-available/kibana      
+- /etc/nginx/htpasswd.kibana   
+- port: 80
 
 Logstash
    
-   - /etc/logstash   
-   Configuration files, including logstash.yml   
-   /usr/share/logstash   
-   Logstash installation directory where is /bin directory for running Logstash commands.   
-   Port: 5044 for FileBeat
+- /etc/logstash   
+- Configuration files, including logstash.yml   
+- /usr/share/logstash   
+- Logstash installation directory where is /bin directory for running Logstash commands.   
+- Port: 5044 for FileBeat
 
 Kibana
   
