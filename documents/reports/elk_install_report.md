@@ -221,6 +221,7 @@ Elasticsearch
 FileBeat
    
 - /etc/filebeat
+- /etc/filebeat/modules.d
 
 # Configuring Filebeat to Send Log Lines to Logstash
 
