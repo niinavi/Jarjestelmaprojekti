@@ -8,6 +8,8 @@
 
 - [State files syntax highlighting for different text editors](https://salt.tips/text-editor-plugins-for-salt-states-and-yaml-jinja/)
 
+[Digital Ocean NGINX salt installation](https://www.digitalocean.com/community/tutorials/saltstack-infrastructure-creating-salt-states-for-nginx-web-servers)
+
 ## Web authentication
 
 ## FileBeat
