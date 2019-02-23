@@ -8,3 +8,6 @@ base:
     - key_url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
     - require_in:
       - elastic
+      - kibana
+      - logstash
+      - filebeat
