@@ -10,7 +10,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-lo
 
 https://linuxconfig.org/install-elk-on-ubuntu-18-04-bionic-beaver-linux
 
-Installation is done using Vagrant box
+Installation is done using Vagrant box bento-16.04
 
 ## Install The Dependencies
 
