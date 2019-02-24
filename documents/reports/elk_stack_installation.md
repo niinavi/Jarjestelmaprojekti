@@ -123,7 +123,120 @@ $ network.host: localhost
 $ sudo ufw allow 'Nginx Full'
 ```
 
-## Configuring Logstash
+## Install Filebeat
+
+I installed filedbeat with command
+```
+$ sudo apt-get update && apt-get install filebeat
+```
+
+I made confgirations to the filebeat.yml file with following. This way output uses logstash. I didn't specify TLS/SSL settings tbecause this is only a test installation.
+```
+filebeat.input:
+- type: log
+  paths:
+    - /var/nginx/access.log 
+	
+enable true
+
+output.logstash:
+  hosts: ["localhost:5044"]
+```
+
+Install template:
+```
+$ sudo filebeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["localhost:9200"]'
+```
+
+To set up kibana dashboards, you can fing more information here: 
+https://www.elastic.co/guide/en/beats/filebeat/6.6/load-kibana-dashboards.html 
+
+Enabling Filebeat modules.
+
+```
+$ sudo filebeat modules enable system
+$ sudo ./filebeat -e -c /etc/logstash/filebeat.yml -d "publish" 
+```
+
+Start the filebeat with following command.
+```
+$ sudo filebeat -e -c filebeat.yml -d "publish"
+```
+
+## Logstash configuration
+
+I named logstash configuration file first-pipeline.conf and it is located in /usr/share/logstash.
+```
+input {
+	beats {
+		port => "5044"
+		}
+}
+#filter {
+#
+#}
+
+output {
+	stdout { codec => rybydebug }
+}
+```
+
+
+Start the filebeat with following command.
+```
+$ sudo filebeat -e -c filebeat.yml -d "publish"
+```
+
+Verify logstash using command below:
+```
+$ bin/logstash -f first-pipeline.conf --config.test_and_exit
+```
+
+I got an error  "/usr/share/logstash/data,must be a writable directory."
+To fix this I made quick changes to permissions:
+```
+$ chmod 777 -R /usr/share/logstash/data
+```
+
+If the configuration file passes the verification, start Logstash with the following command:
+```
+$ sudo bin/logstash -f first-pipeline.conf --config.reload.automatic
+```
+
+
+## Sending logs to Elasticsearch
+
+I added grok filter to the first-pipeline.conf file.  
+The grok filter plugin is one of several plugins that are available by default in Logstash.
+The grok filter plugin enables you to parse the unstructured log data into something structured.
+
+
+```
+input {
+	beats {
+		port => "5044"
+		}
+}
+filter {
+	grok {
+		match =>  {"message" => "%{COMBINEDAPACHELOG}"}
+	}
+}
+
+output {
+    elasticsearch {
+        hosts => [ "localhost:9200" ]
+    }
+}
+```
+I verified configuration and started logstash.
+
+```
+$ bin/logstash -f first-pipeline.conf --config.test_and_exit
+$ sudo bin/logstash -f first-pipeline.conf --config.reload.automatic
+```
+
+The connection is visible on host's browser when I logged in Kibana dashboard. You can see the connection in monitoring section and there will be added indecies "logstash-2019.02.21".
 
 
 -------------------------------------------------------------------------------------
