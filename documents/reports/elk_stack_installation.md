@@ -236,7 +236,7 @@ $ bin/logstash -f first-pipeline.conf --config.test_and_exit
 $ sudo bin/logstash -f first-pipeline.conf --config.reload.automatic
 ```
 
-The connection is visible on host's browser when I logged in Kibana dashboard. You can see the connection in monitoring section and there will be added indecies "logstash-2019.02.21".
+The connection is visible on host's browser when I logged in Kibana dashboard. Kibana will show indeces about actions with date "logstash-2019.02.21". In the monitoring section, you can see it is connected. 
 
 
 -------------------------------------------------------------------------------------
