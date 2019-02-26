@@ -4,8 +4,7 @@
 ***Haaga-Helia University of Applied Science***
 
 **Team Members**  
-[Juha Immonen](https://github.com/immonju1)  
-[Pekka Helenius](https://github.com/Fincer)  
+[Juha Immonen](https://github.com/immonju1)   
 [Niina Villman](https://github.com/niinavi)
 
 **Project supervisor**  
@@ -36,7 +35,7 @@ The project documentations are project plan, progress report, final report and p
 
 ## Project organization and skateholders
 Project is owned by our team.  
-The team members are: Juha Immonen, Pekka Helenius and Niina Villman.
+The team members are: Juha Immonen and Niina Villman.
 
 Project supervisor: Petri Hirvonen.  
 The skateholders are consisting of other project groups in our course.
@@ -53,7 +52,7 @@ week 11 | Project progress report
 week 15 | Final project report and presentation
 
 Budget of this project is the working hours of team members.  
-Estimated working hours will be 405 hours which is 135h/person.
+Estimated working hours will be 270 hours which is 135h/person.
 
 
 ## Project management and communication
