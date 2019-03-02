@@ -16,11 +16,11 @@ mkdir /srv/
 fi
 
 echo "Cloning Git..."
-# change rest of code accordingly, code is copied from my another project
 
 git clone https://github.com/niinavi/Jarjestelmaprojekti.git
 
 echo "Copying salt states..."
+mkdir /srv/salt
 cp -R Jarjestelmaprojekti/srv/salt/* /srv/salt
 
 
