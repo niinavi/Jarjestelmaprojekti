@@ -1,7 +1,7 @@
 #!/bin/bash
 # setup salt master
 # usage:
-# wget wget https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/srv/master.sh
+# wget https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/srv/master.sh
 # chmod g+x master.sh
 # sudo ./master.sh
 
