@@ -1,6 +1,6 @@
 #!/bin/bash
 # salt minion installation
-# https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/srv/minion.sh
+# wget https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/srv/minion.sh
 # chmod g+x minion.sh
 # sudo ./minion.sh
 # IP is local laptop IP. Should be changed accordingly
