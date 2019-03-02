@@ -12,6 +12,12 @@ logstash:
   file.managed:
     - source: salt://logstash/test-pipeline.conf  
 
+logstash.user:
+  user.present:
+    - name: logstash
+    - groups: 
+      - adm
+
 logstash_service:
   service.running:
     - name: logstash
