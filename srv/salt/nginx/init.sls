@@ -35,3 +35,9 @@ nginx-default-enabled:
     - name: /etc/nginx/sites-enabled/default
     - require:
       - pkg: nginx
+niina:
+  webutil.user_exists:
+    - password: secret
+    - htpasswd_file: /etc/nginx/htpasswd
+    - options: d
+    - force: true
