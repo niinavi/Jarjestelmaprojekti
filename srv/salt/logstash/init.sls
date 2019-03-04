@@ -8,7 +8,7 @@ logstash:
     - require:
       - sls: java
 
-/usr/share/logstash/test-pipeline.conf:
+/etc/logstash/conf.d/test-pipeline.conf:
   file.managed:
     - source: salt://logstash/test-pipeline.conf  
 
@@ -22,4 +22,4 @@ logstash_service:
   service.running:
     - name: logstash
     - watch:
-      - file: /usr/share/logstash/test-pipeline.conf
+      - file: /etc/logstash/conf.d/test-pipeline.conf
