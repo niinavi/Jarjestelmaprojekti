@@ -53,7 +53,7 @@ week 15 | Final project report and presentation
 
 Budget of this project is the working hours of team members.  
 Estimated working hours will be 270 hours which is 135h/person.
-
+See schedule [here]https://github.com/niinavi/Jarjestelmaprojekti/blob/master/project_management/schedule.md
 
 ## Project management and communication
 We implement agile project management by having weekly meetings and using Trello Kanban board for task management. In the weekly meetings we will discuss our progress and share the more detailed tasks for the week. 
