@@ -25,7 +25,9 @@ filebeat.inputs:
 
   # Paths that should be crawled and fetched. Glob based paths.
   paths:
-     - /var/log/*/*.log
+     - /var/log/*.log
+     - /var/log/apache2/*.log
+
     #- /var/log/nginx/access.log
     #- c:\programdata\elasticsearch\logs\*
 
@@ -75,6 +77,10 @@ filebeat.config.modules:
 
   # Period on which files under path should be checked for changes
   #reload.period: 10s
+
+filebeat.modules:
+- module: apache2
+- module: system
 
 #==================== Elasticsearch template setting ==========================
 
