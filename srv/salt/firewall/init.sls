@@ -4,14 +4,14 @@
  /etc/ufw/user.rules:
   file:
     - managed
-    - source: salt://firewall/user.rules
+    - source: salt://firewall/user.conf
     - require:
       - pkg: ufw
 
  /etc/ufw/user6.rules:
   file:
     - managed
-    - source: salt://firewall/user6.rules
+    - source: salt://firewall/user6.conf
     - require:
       - pkg: ufw
 
