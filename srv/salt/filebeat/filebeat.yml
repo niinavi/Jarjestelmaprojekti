@@ -14,6 +14,8 @@
 
 filebeat.inputs:
 
+# Juha: Comment out these lines, because modules are enabled.
+#
 # Each - is an input. Most options can be set at the input level, so
 # you can use different inputs for various configurations.
 # Below are the input specific configurations.
