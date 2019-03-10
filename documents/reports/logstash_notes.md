@@ -1,6 +1,7 @@
 # Logstash notes
 
-Notes are mainly based on [Elastic website](https://www.elastic.co/guide/en/logstash/current/pipeline.html) and logstash webinar [here](https://www.elastic.co/webinars/getting-started-logstash?baymax=default&elektra=docs&storm=top-video)
+Notes are mainly based on:
+[Elastic website](https://www.elastic.co/guide/en/logstash/current/pipeline.html) and logstash webinar [here](https://www.elastic.co/webinars/getting-started-logstash?baymax=default&elektra=docs&storm=top-video)
 Logstash is a tool to centralize, transform and stash your data.
 
 
