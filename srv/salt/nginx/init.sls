@@ -8,6 +8,7 @@ nginx:
       - pkg: nginx
       - file: /etc/nginx/nginx.conf
       - file: /etc/nginx/sites-available/kibana
+      - file: /etc/nginx/htpasswd.kibana
 
 /etc/nginx/nginx.conf:
   file.managed:
