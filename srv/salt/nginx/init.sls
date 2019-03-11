@@ -40,6 +40,6 @@ nginx-default-enabled:
 niina:
   webutil.user_exists:
     - password: {{ pw }}
-    - htpasswd_file: /etc/nginx/htpasswd
+    - htpasswd_file: /etc/nginx/htpasswd.kibana
     - options: d
     - force: true
