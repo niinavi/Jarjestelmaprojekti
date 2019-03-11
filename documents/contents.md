@@ -26,6 +26,7 @@
 
 ## ELK-Stack <a name="elk-stack"></a>
 
+Manuaaliset asennukset tänne.
 <details>
     
 <summary>Architecture <a name="architecture"></a></summary>
@@ -79,6 +80,7 @@
 
 
 ## Installation  <a name="installation"></a>
+Automaattinen asennus.
 ## Log analytics with Kibana  <a name="analytics"></a>
 ## Testisovellus  <a name="Testisovellus"></a>
 ## Conclusions  <a name="conclusions"></a>
