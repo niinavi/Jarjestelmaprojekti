@@ -1,10 +1,13 @@
 {% set pw = pillar.get('pw') %}
 
-apache2-utils:
-  pkg.installed
-
 nginx:
-  pkg.installed
+  pkg:
+    - installed
+  service.running:
+    - watch:
+      - pkg: nginx
+      - file: /etc/nginx/nginx.conf
+      - file: /etc/nginx/sites-available/kibana
 
 /etc/nginx/nginx.conf:
   file.managed:
@@ -34,18 +37,9 @@ nginx-default-enabled:
     - name: /etc/nginx/sites-enabled/default
     - require:
       - pkg: nginx
-
 niina:
   webutil.user_exists:
     - password: {{ pw }}
     - htpasswd_file: /etc/nginx/htpasswd.kibana
     - options: d
     - force: true
-
-nginx_restart:
-  service.running:
-    - name: nginx
-    - watch:
-      - file: /etc/nginx/nginx.conf
-      - file: /etc/nginx/sites-available/kibana
-      - file: /etc/nginx/sites-enabled/kibana
