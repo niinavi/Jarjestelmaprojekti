@@ -1,3 +1,5 @@
+{% set pw = pillar.get('pw') %}
+
 nginx:
   pkg:
     - installed
@@ -37,7 +39,7 @@ nginx-default-enabled:
       - pkg: nginx
 niina:
   webutil.user_exists:
-    - password: secret
+    - password: {{ pw }}
     - htpasswd_file: /etc/nginx/htpasswd
     - options: d
     - force: true

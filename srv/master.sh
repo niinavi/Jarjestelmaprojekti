@@ -15,13 +15,34 @@ if [ ! -d "/srv/" ]; then
 mkdir /srv/
 fi
 
+if [ ! -d "/srv/pillar" ]; then
+mkdir /srv/pillar
+fi
+
+if [ ! -d "/srv/salt" ]; then
+mkdir /srv/salt
+fi
+
 echo "Cloning Git..."
 
 git clone https://github.com/niinavi/Jarjestelmaprojekti.git
 
+echo "Enter password for Kibana user:"
+stty -echo
+read pass
+stty echo
+
+# Write details into pillar
+echo -n "pw: " > Jarjestelmaprojekti/srv/srvpillar/server.sls
+
+echo $pass  >> Jarjestelmaprojekti/srv/srvpillar/server.sls
+
+echo "Copying pillars..."
+cp -R Jarjestelmaprojekti/srv/srvpillar/* /srv/pillar
+
 echo "Copying salt states..."
-mkdir /srv/salt
 cp -R Jarjestelmaprojekti/srv/salt/* /srv/salt
+
 
 
 

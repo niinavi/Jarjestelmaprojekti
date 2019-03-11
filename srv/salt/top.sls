@@ -6,6 +6,7 @@ base:
     - filebeat
     
   'master':
+    - firewall
     - java
     - elk-pkg
     - elastic
