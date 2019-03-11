@@ -10,7 +10,7 @@ filebeat:
     - source: salt://filebeat/filebeat.yml
     - template: jinja
     - context:
-      logstash_ip: {{ logstash_ip  }}
+      ip: {{ logstash_ip  }}
 
 filebeat_service:
   service.running:
