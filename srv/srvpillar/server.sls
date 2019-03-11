@@ -1,1 +1,1 @@
-pw: salainen
+pw: secret

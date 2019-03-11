@@ -38,8 +38,8 @@ stty echo
 echo -n "pw: " > Jarjestelmaprojekti/srv/srvpillar/server.sls
 echo $pass  >> Jarjestelmaprojekti/srv/srvpillar/server.sls
 
-echo -n "ip: " > Jarjestelmaprojekti/srv/srvpillar/filebeat.sls
-hostname -I >> Jarjestelmaprojekti/srv/srvpillar/filebeat.sls
+echo -n "logstash_ip: " > Jarjestelmaprojekti/srv/srvpillar/filebeat.sls
+hostname -I | awk '{print $1}' >> Jarjestelmaprojekti/srv/srvpillar/filebeat.sls
 
 echo "Copying pillars..."
 cp -R Jarjestelmaprojekti/srv/srvpillar/* /srv/pillar
