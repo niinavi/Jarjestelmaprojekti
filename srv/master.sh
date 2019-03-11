@@ -8,7 +8,7 @@
 setxkbmap fi
 echo "Updating packages and install salt and git..."
 apt-get update -qq >> /dev/null
-apt-get install git apache2-utils salt-master -y -qq >> /dev/null
+apt-get install git apache2-utils salt-master salt-minion -y -qq >> /dev/null
 
 # Create directories
 if [ ! -d "/srv/" ]; then
@@ -22,6 +22,8 @@ fi
 if [ ! -d "/srv/salt" ]; then
 mkdir /srv/salt
 fi
+
+echo -e "master: localhost\nid: master" | sudo tee /etc/salt/minion
 
 echo "Cloning Git..."
 
@@ -43,6 +45,7 @@ cp -R Jarjestelmaprojekti/srv/srvpillar/* /srv/pillar
 echo "Copying salt states..."
 cp -R Jarjestelmaprojekti/srv/salt/* /srv/salt
 
+systemctl restart salt-minion
 
 
 

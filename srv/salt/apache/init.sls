@@ -28,9 +28,9 @@ apache2install:
 a2ensite juha.example.com.conf:
   cmd.run
 
-/etc/apache2/mods-enabled/php7.0.conf:
+/etc/apache2/mods-enabled/php7.2.conf:
   file.managed:
-    - source: salt://apache/php7.0.conf
+    - source: salt://apache/php7.2.conf
 
 user_xubuntu:
   user.present:
@@ -58,7 +58,7 @@ apache2restart:
       - file: /etc/apache2/sites-available/juha.example.com.conf
       - file: /etc/apache2/mods-enabled/userdir.conf
       - file: /etc/apache2/mods-enabled/userdir.load
-      - file: /etc/apache2/mods-enabled/php7.0.conf
+      - file: /etc/apache2/mods-enabled/php7.2.conf
 
 
 
