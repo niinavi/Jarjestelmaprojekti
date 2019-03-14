@@ -61,44 +61,95 @@ Manuaaliset asennukset tänne.
 
 ## 3.1 What is Salt
 
-Salt is a remote execution framework and configuration management system. Salt is build to solve problem, how to manage multiple servers whether it is 2 or 10 000 machines. Salt design is basic master - client architecture. One server is master and minions can be many. Master server controls minions.
+Salt is a remote execution framework and configuration management system. Salt is build to solve problem, how to manage multiple servers whether it is 2 or 10 000 machines. Salt design is basic master - client architecture. One server is master and minions can be many. Master server controls minions. (source)
 
-Default configuration uses standard data format, yaml. Salt states are only text written in yaml format. That gives a great benefit, states can be versioned. It is also declarative model, states are not list of imperatice commands. Salt keeps minions in desired state after original installation. Desired state are at Salta state files.
+Default configuration uses standard data format, yaml. Salt states are only text written in yaml format. That gives a great benefit, states can be versioned. It is also declarative model, states are not list of imperatice commands. Salt keeps minions in desired state after original installation. Desired state are at Salta state files. (source)
 
 In our project we used Salt to automatically install ELK-stack on wanted machines.
 
-## 3.2 Architecture <a name="architecture2"></a>
+## 3.1.1 Architecture <a name="architecture2"></a>
 
-Picture
+Salt design is basic master/client model. 
 
-## 3.3 Master
+Salt runs as deamons or background processes on servers.
 
-short declaration
+![Salt acrhitecture](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/salt_architecture.png)
+Picture: Salt architecture (source ) 
 
-## 3.4 Minion
-
-short declaration
-
-## 3.5 Secrets aka Pillars
+## 3.1.2 Master
 
 short declaration
 
-## States created in ELK-stack project
+Master provides a port to minions where minions can bind and watch for commands.
+
+## 3.1.3 Minion
+
+short declaration
+
+All minions have unique id
+
+Minion listens Master port and waits for events.
+
+## 3.1.4 Secrets aka Pillars
+
+short declaration
+
+## 3.1.5 Top File
+
+Usually infrastructure is made up of groups of machines, and each machine in the group is performing a role similar others. 
+
+File which contains mappings between role and machine is called top file.
+
+## 3.2 States created in ELK-stack project
 
 Our Salt states are on GitHub
 [Salt states](https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv/salt)
 
-We just describe them briefly here because code itself should be self declarative.
+We just describe them in next chapters briefly because code itself should be self declarative.
 
-### Installation on Master server
+### 3.2.1 Installation on Master server
 
-Master server states
+Master server works in our setup as centralized log storage, where logs are stored and analyzed. Logstash, Elasticsearch and Kibana should be installed on master server.
 
-### Installation on Minions
+Installing dependencies
+- Only dependency is with Java 
+- state: java
 
-Minion server states
+Because installation is done apt-get we first created Salt state to configured repository to get ELK-stack installations.
+- state: elk-pkg
 
-# Automatic installation  <a name="installation"></a>
+After creating preliminary states we created states to install ELK-stack
+- States: elastic, logstash, kibana
+
+Nginx is used as proxy to Kibana and it is installed using nginx-state
+- state: nginx
+
+Firewall rules for master server
+- state: firewall
+
+### 3.2.2 Installation on Minions
+
+Minion servers will harvest and send logs to centralized log repository. To do that FileBeat is needed. We have also small test Web program which is using database. We use it to create logs in minions. 
+
+Test program is coded with PHP, it runs on Apache and uses MariaDB. It also secures that full LAMP stack is working in minions. It is easy to test with it.
+
+Salt state to configure repository to get ELK-stack installations.
+- state: elk-pkg
+
+FileBeat installation
+- state: filebeat
+
+Apache and test Web application installation:
+- state: apache
+
+MariaDB installtion
+- state: mariadb
+
+### 3.2.3 top.sls
+
+Top.sls contains two roles, master and elk. Those are used to control what is installed to master server and what to minions.
+
+# 4. Automatic installation  <a name="installation"></a>
 
 ELK-stack can be installed using automation. We created scripts to install Salt master and minion for those servers where needed. After Salt installation states can be applied to minions with Salt commands.
 
@@ -106,9 +157,9 @@ Master server should be only one server, but minion can be installed on many dif
 
 Master should be installed first and minions after that. Master server IP-address is needed during installation.
 
-## Automatic installation scripts usage
+## 4.1 Automatic installation scripts
 
-### Install Salt Master
+### 4.1.1 Install Salt Master
 
 During installation scripts asks input form user. Kibana user password should be given during installation.
 
@@ -118,9 +169,9 @@ chmod g+x master.sh
 sudo ./master.sh
 ```
 
-### Install Salt Minion
+### 4.1.2 Install Salt Minion
 
-During installation scripts asks input form user. Master IP-addres and name of minion should be given.
+During installation scripts asks input form user. Master IP-address and minion ID should be given.
 
 ```
 wget https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/srv/minion.sh
@@ -128,7 +179,7 @@ chmod g+x minion.sh
 sudo ./minion.sh
 ```
 
-### Accept Minion keys
+### 4.1.3 Accept/validate Minion keys
 
 Accept minion keys at Master.
 
@@ -136,9 +187,9 @@ Accept minion keys at Master.
 sudo salt-key -A
 ```
 
-### Run Salt states to minions
+### 4.1.4 Run Salt states to minions
 
-Salt minion is also installed to Master server. It will install Logstash, Elasticsearch and Kibana to master server.
+Salt minion is also installed to Master server so master is also a minion to itself. State will install Logstash, Elasticsearch and Kibana to master server.
 
 ```
 sudo salt '*' state.highstate
@@ -147,6 +198,14 @@ sudo salt '*' state.highstate
 Command runs all minions to desired state.
 
 ## Log analytics with Kibana  <a name="analytics"></a>
-## Testisovellus  <a name="Testisovellus"></a>
+
+## Testapplican to create logs  <a name="Testisovellus"></a>
+
 ## Conclusions  <a name="conclusions"></a>
+
+# Sources
+
+Sebenik, Craig & Hatch, Thomas 2015. Salt Essentials: Getting started with automation at scale. O.Reilly media.
+
+The Top File. https://docs.saltstack.com/en/latest/ref/states/top.html
 
