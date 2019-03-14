@@ -28,14 +28,17 @@ Our baseline for this project is centralized management system in company's loca
 
 To help testing we also made a test program to create content to log files. In project we desided to collect all Apache logs and system logs for Kibana log analysis. 
 
+Platform we user, versions?
+
+How we did testing and where?
+
 ## ELK-Stack <a name="elk-stack"></a>
 
 Manuaaliset asennukset tänne.
-<details>
-    
-<summary>Architecture <a name="architecture"></a></summary>
 
-</details>
+### Architecture <a name="architecture"></a></summary>
+
+[ELK architecture](https://camo.githubusercontent.com/df64e1bea0df4f70efb5ae6385d77a7fb08c6630/68747470733a2f2f6173736574732e6469676974616c6f6365616e2e636f6d2f61727469636c65732f656c6b2f656c6b2d696e6672617374727563747572652e706e67)
 
 <details>
     
@@ -73,9 +76,7 @@ In our project we used Salt to automatically install ELK-stack on wanted machine
 
 ## 3.1.1 Architecture <a name="architecture2"></a>
 
-Salt design is basic master/client model. 
-
-Salt runs as deamons or background processes on servers.
+Salt design is basic master/client model. Salt runs as deamons or background processes on servers. Master and minion are communication with ZeroMQ databus, where master publish commands and minions check if there are events for them to fullfill. Master check whether all required minions have done required actions. Minions also send data back to master using another port. (source )
 
 ![Salt acrhitecture](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/salt_architecture.png)
 
@@ -83,21 +84,15 @@ Picture: Salt architecture (source )
 
 ## 3.1.2 Master
 
-short declaration
-
-Master provides a port to minions where minions can bind and watch for commands.
+Master provides a port to minions where minions can bind and watch for commands. Master server is most valuable server in network, because it has access to all minions ie. it can command all minions. 
 
 ## 3.1.3 Minion
 
-short declaration
-
-All minions have unique id
-
-Minion listens Master port and waits for events.
+All minions have unique id called minin ID. They also have to konow master IP address.  Minion listens Master port and waits for events. Minions can also send data back to master. Minions can be behind firewalls or NAT networks. 
 
 ## 3.1.4 Secrets aka Pillars
 
-short declaration
+Pillars allow confidential, targeted data to be securely send to spesific minion. (source )
 
 ## 3.1.5 Top File
 
@@ -105,14 +100,16 @@ Usually infrastructure is made up of groups of machines, and each machine in the
 
 File which contains mappings between role and machine is called top file.
 
-Minion which ID or other feature, like grains, is matching top file configuration will apply state(s) that are defined in top file.
+Minion which ID or other feature, like grains, is matching top file configuration will apply state(s) that are defined in top file. (source )
 
 ## 3.2 States created in ELK-stack project
 
 Our Salt states are on GitHub
 [Salt states](https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv/salt)
 
-We just describe them in next chapters briefly because code itself should be self declarative.
+We followed Pkg-file-service pattern in our Salt states, each state will install package, configure it and run it as service. Service means that Salt is following changes in configurations, and it does restart to service if configuration has changed. (Karvinen )
+
+We will explain states in next chapters briefly because code itself should be self declarative. 
 
 ### 3.2.1 Installation on Master server
 
@@ -164,9 +161,10 @@ Pillars are stored to /srv/pillar directory
 - server.sls
 - filebeat.sls
 
-## 3.3 Bookstore test application to create logs  <a name="Testisovellus"></a>
+## 3.3 Bookstore test application <a name="Testisovellus"></a>
 
-Test application is simple PHP program which uses MariaDB database.
+Test application is simple PHP program which uses MariaDB database. Source code is at 
+[bookstore](https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv/salt/apache/php)
 
 Users can read, update, delete and insert new books to database.
 
@@ -229,5 +227,9 @@ Command runs all minions to desired state.
 
 Sebenik, Craig & Hatch, Thomas 2015. Salt Essentials: Getting started with automation at scale. O.Reilly media.
 
+Pillar Walkthrough. https://docs.saltstack.com/en/latest/topics/tutorials/pillar.html
+
 The Top File. https://docs.saltstack.com/en/latest/ref/states/top.html
+
+Karvinen, Tero 2018. Pkg-File-Service – Control Daemons with Salt – Change SSH Server Port. http://terokarvinen.com/2018/pkg-file-service-control-daemons-with-salt-change-ssh-server-port
 
