@@ -38,7 +38,7 @@ Manuaaliset asennukset tänne.
 
 ### Architecture <a name="architecture"></a></summary>
 
-[ELK architecture](https://camo.githubusercontent.com/df64e1bea0df4f70efb5ae6385d77a7fb08c6630/68747470733a2f2f6173736574732e6469676974616c6f6365616e2e636f6d2f61727469636c65732f656c6b2f656c6b2d696e6672617374727563747572652e706e67)
+![ELK architecture](https://assets.digitalocean.com/articles/elk/elk-infrastructure.png)
 
 <details>
     
