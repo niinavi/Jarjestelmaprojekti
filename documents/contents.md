@@ -245,6 +245,33 @@ Command runs all minions to desired state.
 
 ## Log analytics with Kibana  <a name="analytics"></a>
 
+Types of logs
+- system logs
+- Apache logs
+
+### Kibana UI
+
+URL
+
+Picture
+
+### User interaction
+
+User interaction flow
+
+![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/user_interaction.png)
+
+### Index pattern
+
+### Discover
+
+Elasticserach DSL / query
+
+### Visualize
+
+
+### Dashboard
+
 
 ## Conclusions  <a name="conclusions"></a>
 
