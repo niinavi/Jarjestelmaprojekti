@@ -71,7 +71,7 @@ Manuaaliset asennukset tänne.
 
 # 3. Salt States <a name="salt-states"></a>
 
-## 3.1 What is Salt a name="what-is"></a>
+## 3.1 What is Salt <a name="what-is"></a>
 
 Salt is a remote execution framework and configuration management system. Salt is build to solve problem, how to manage multiple servers whether it is 2 or 10 000 machines. Salt design is basic master - client architecture. One server is master and minions can be many. Master server controls minions. (Sebenik & Hatch 2015, 107.)
 
