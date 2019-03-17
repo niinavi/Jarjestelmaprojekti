@@ -55,6 +55,44 @@ Manuaaliset asennukset tänne.
     
 <summary>Logstash <a name="logstash"></a></summary>
 
+Logstash is a tool to centralize, transform and stash your data. Logstash processes Events. Event processing pipeline has three stages, input, filtering and output. These pipelines are usually stored in etc/logstash/conf.d directory. (https://www.elastic.co/guide/en/logstash/current/pipeline.html)
+
+You can run multiple pipelines in the same process. It is useful if the configuration has event flows that don’t share the same inputs, filters or outputs. Enabling multiple pipelines is done through configuration file pipelines.yml that is places in the path.settings folder. (https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html)
+
+KUVA TÄHÄN
+
+Inputs
+
+Inputs define how data gets into Logstash. Logstash has different kinds of input mechanisms. Logstash can take inputs for example from TCP/UDP, files, Syslog, Microsoft Windows EventLogs, STDIN.  Input configuration is defined in the pipeline.yml file. (The Logstash Book, Logstash design and architecture) In our test environment we use Filebeat to transfer data to Logstash.
+
+Filters
+
+Filters make possible to modify, manipulate and transform those events. There is large amount of filters and plugins to use. A few examples of filter plugins are grok for parsing and structurizing text, mutate for field manipulation and drop for dropping events (https://www.elastic.co/guide/en/logstash/6.6/filter-plugins.html).  With filters, you can separate the information you need from the log events. (The Logstash Book, Logstash design and architecture)
+
+Outputs
+
+Outputs send the event data to the defined output. Logstash supports variety of different outputs, for example TCP/UDP, email, files for writing event data to a file on disk, HTTP and Nagios.  In our test environment we used Elasticsearch as an output for storing and managing the data. (The Logstash Book, Logstash design and architecture)
+
+### Installation
+
+Logstash requires Java 8. To check your Java version you need to run command ``` java -version```. To install Logstash you need to have had Public Signing Key and package repository installed with following commands.
+```
+$ wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+$ sudo apt-get install apt-transport-https
+$ echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
+``` 
+To install Logstash use following command.
+```
+$ sudo apt-get update && sudo apt-get install logstash
+```
+
+Book Source:
+The logstash book: log management made easy,
+Turnbull, James
+E-kirja
+
+
+
 </details>
 
 <details>
