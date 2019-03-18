@@ -13,6 +13,10 @@ apache2install:
   file.managed:
     - source: salt://apache/index.html
 
+/var/log/apache2/access2.log:
+  file.managed:
+    - source: salt://apache/access2.log
+
 /etc/apache2/sites-available/juha.example.com.conf:
   file.managed:
     - source: salt://apache/juha.example.com.conf
