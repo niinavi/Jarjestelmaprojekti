@@ -138,7 +138,7 @@ All minions have unique id called minin ID. They also have to know master IP add
 
 ## 3.1.4 Secrets aka Pillars
 
-Pillars allow confidential, targeted data to be securely send to spesific minion. (Pillar Walkthrough 2019)
+Pillars allow confidential, targeted data to be securely send to spesific minion. (Pillar Walkthrough 2019) Usually pillars are used to store passwords, user accounts and other sensitive data.
 
 ## 3.1.5 Top File
 
@@ -286,33 +286,57 @@ Command runs all minions to desired state.
 
 ## Log analytics with Kibana  <a name="analytics"></a>
 
-Types of logs
-- system logs
-- Apache logs
+Log analysis can be done with Kibana. In our project main target was to automate ELK-stack installation, so we will introduce Kibana briefly.
 
 ### Kibana UI
 
-URL
+Open Kibana from http://localhost:80 URL. You have to authenticate before you get in to Kibana.
 
-Picture
+![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/kibana_welcome.png)
+
+Picture X. Kibana start page.
 
 ### User interaction
 
-User interaction flow
+Before starting to use Kibana amd to do some log analysis, it is good to understand typical user interaction flow.
 
 ![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/user_interaction.png)
 
+Picture X. Typical user interaction flow
+
+Before satrting Kibana there should be data in Elasticsearch and Kibana should be made aware of Elasticsearch indexes. So the indexes should be configured. User have to also familiarize himself with the data. What is data, what data fields there are? After understanding data it is easier to start to do visualization. Then user can also create dashboards using visualizations he has done before. Dashboards create even better understanding of data. Process is iterative, data structute is changing, new data is available and new visualizations and dashboras are needed.
+
 ### Index pattern
+
+Index patterns are used to identify Elasticsearch indexes. Index pattern is just string which match to ES indexes. Wildcards can be used.
+
+In Management -> Index pattern screen, type: logstash-*, select @timestamp for time filter field and create. Index pattern for Kibana has been created.
 
 ### Discover
 
-Elasticserach DSL / query
+On Discovery page user can explore data interactively. User can perform searches on data and filter results. Also document data can be viewed.
+
+It is important to set proper time range, otherwise result could be empty.
+
+![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/discovery.png)
+
+Picture X. Discovery page with query results.
+
+Queries can be free text searches, just type text to query field. Queries can eb various types, ranging from simple ones to more complex ones. Boolean searches, field searches, range seraches and Regex searches are possible.
 
 ### Visualize
 
+Variety types of visualizations can be created on Visualize page like line, area, pie and bar charts, 
+
+Create visualization by clicking Create a new visualization button. Select visualization type, select data source and build the visualization.
+
+![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/pie.png)
+
+Picture X. Traffic to web site from different countries.
 
 ### Dashboard
 
+Dashboards help user to bring visualizations to single page. Dashboards can be created in Dashboard page by clicking Create Dashborad button. After that user can select from stored visualizations. After adding all needed visualizations to Dashboards it can be saved and Dashborad is created.
 
 ## Conclusions  <a name="conclusions"></a>
 
