@@ -94,7 +94,7 @@ E-kirja
 
 
 
-### FileBeat <a name="filebeat"></a>
+## FileBeat <a name="filebeat"></a>
 
 Filebeat is lightweight shipper for logs. The Filebeat client is resource-friendly tool that collects logs from files on the server and forwards these logs to your Logstash instance for processing. (https://www.elastic.co/guide/en/logstash/current/advanced-pipeline.html)
 
@@ -140,6 +140,7 @@ output.logstash:
 Start the filebeat with following command.
 
     sudo filebeat -e -c filebeat.yml -d "publish"
+```
 
 # 3. Salt States <a name="salt-states"></a>
 
