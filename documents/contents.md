@@ -104,7 +104,7 @@ Filebeat can be installed with apt-get when Elastic repository is added.
 
     sudo apt-get update && apt-get install filebeat
 
-### Configuration for logs
+### Configuration to collect logs
 
 Filebeat configuration file is filebeat.yml 
 
@@ -139,6 +139,7 @@ output.logstash:
 
 Start the filebeat with following command.
 
+```
     sudo filebeat -e -c filebeat.yml -d "publish"
 ```
 
