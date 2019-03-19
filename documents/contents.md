@@ -136,6 +136,7 @@ Uncomment these lines in filebeat.yml
 ```
 output.logstash:
   hosts: ["localhost:5044"]
+```
 
 Start the filebeat with following command.
 
