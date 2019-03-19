@@ -45,15 +45,9 @@ Manuaaliset asennukset tänne.
 
 ![ELK architecture](https://assets.digitalocean.com/articles/elk/elk-infrastructure.png)
 
-<details>
-    
-<summary>Elasticsearch <a name="elasticsearch"></a></summary>
+### Elasticsearch <a name="elasticsearch"></a>
 
-</details>
-
-<details>
-    
-<summary>Logstash <a name="logstash"></a></summary>
+### Logstash <a name="logstash"></a>
 
 Logstash is a tool to centralize, transform and stash your data. Logstash processes Events. Event processing pipeline has three stages, input, filtering and output. These pipelines are usually stored in etc/logstash/conf.d directory. (https://www.elastic.co/guide/en/logstash/current/pipeline.html)
 
@@ -95,20 +89,57 @@ Turnbull, James
 E-kirja
 
 
+### Kibana <a name="kibana"></a>
 
-</details>
 
-<details>
-    
-<summary>Kibana <a name="kibana"></a></summary>
 
-</details>
 
-<details>
-    
-<summary>FileBeat <a name="filebeat"></a></summary>
+### FileBeat <a name="filebeat"></a>
 
-</details>
+Filebeat is lightweight shipper for logs. The Filebeat client is resource-friendly tool that collects logs from files on the server and forwards these logs to your Logstash instance for processing. (https://www.elastic.co/guide/en/logstash/current/advanced-pipeline.html)
+
+### Installation
+
+Filebeat can be installed with apt-get when Elastic repository is added.
+
+    sudo apt-get update && apt-get install filebeat
+
+### Configuration for logs
+
+Filebeat configuration file is filebeat.yml 
+
+    /etc/filebeat/filebeat.yml
+
+We configured Filebeat to forward Apache2 logs to logstash.
+
+Following lines in configuration file filebeat.yml configures Filebeat to collect Apache2 access.log from the path /var/log/apache2/access.log.
+
+```
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/apache2/logs/access.log 
+```
+
+Comment out these lines from filebeat.yml, we want output to Logstash, not elasticsearch
+
+```
+output.elasticsearch:
+   hosts: ["localhost:9200"]
+```
+
+### Configure FileBeat to use Logstatsh
+
+Uncomment these lines in filebeat.yml
+
+```
+output.logstash:
+  hosts: ["localhost:5044"]
+
+Start the filebeat with following command.
+
+    sudo filebeat -e -c filebeat.yml -d "publish"
 
 # 3. Salt States <a name="salt-states"></a>
 
@@ -182,7 +213,7 @@ Minion servers will harvest and send logs to centralized log repository. We use 
 
 Small test Web program which is using database is also installed to minions to test LAMP stack. Test program is coded with PHP, it runs on Apache and uses MariaDB. Apache state also implements Apche virtual host name for testing purposes. 
 
-Configure repository to get ELK-stack packages.
+Add Elastic repository.
 - state: elk-pkg
 
 FileBeat installation
@@ -286,7 +317,7 @@ Command runs all minions to desired state.
 
 ## Log analytics with Kibana  <a name="analytics"></a>
 
-Log analysis can be done with Kibana. In our project main target was to automate ELK-stack installation, so we will introduce Kibana briefly.
+Log analysis can be done with Kibana. In our project main target was to automate ELK-stack installation, so we will introduce Kibana only briefly.
 
 ### Kibana UI
 
@@ -298,13 +329,13 @@ Picture X. Kibana start page.
 
 ### User interaction
 
-Before starting to use Kibana amd to do some log analysis, it is good to understand typical user interaction flow.
+Before starting to do some log analysis, it is good to understand typical user interaction flow in Kibana.
 
 ![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/user_interaction.png)
 
-Picture X. Typical user interaction flow
+Picture X. Typical user interaction flow (Shukla & Kumar 2017. Chapter Kibana UI).
 
-Before satrting Kibana there should be data in Elasticsearch and Kibana should be made aware of Elasticsearch indexes. So the indexes should be configured. User have to also familiarize himself with the data. What is data, what data fields there are? After understanding data it is easier to start to do visualization. Then user can also create dashboards using visualizations he has done before. Dashboards create even better understanding of data. Process is iterative, data structute is changing, new data is available and new visualizations and dashboras are needed.
+When starting to use Kibana there should be data in Elasticsearch and Kibana should be made aware of Elasticsearch indexes. So the indexes should be configured. User have to also familiarize himself with the data. What is data, what data fields there are? After understanding data it is easier to start to do visualization. Then user can also create dashboards using visualizations he has done before. Dashboards create even better understanding of data. Process is iterative, data structute is changing, new data is available and new visualizations and dashboras are needed.
 
 ### Index pattern
 
@@ -322,13 +353,27 @@ It is important to set proper time range, otherwise result could be empty.
 
 Picture X. Discovery page with query results.
 
-Queries can be free text searches, just type text to query field. Queries can eb various types, ranging from simple ones to more complex ones. Boolean searches, field searches, range seraches and Regex searches are possible.
+Queries can be free text searches, just type text to query data. Queries can be various types, ranging from simple ones to more complex ones. Boolean searches, field searches, range seraches and Regex searches are possible.
 
 ### Visualize
 
-Variety types of visualizations can be created on Visualize page like line, area, pie and bar charts, 
+Variety forms of visualizations can be created on Visualize page like line, area, pie and bar charts. 
 
-Create visualization by clicking Create a new visualization button. Select visualization type, select data source and build the visualization.
+All visualization in Kibana is based on aggregation queries in Elasticserach. Aggregration provides multi-dimensional grouping of results. Aggregations are the key to understand how visualizations are done in Kibana. (Lähde )
+
+This is not a deep dive to Kibana and aggregations, we just present simple way to start create visualizations.
+
+#### Metrics
+
+Most basic metric is count, it returns count of documents. Other ones are average, min, max and median, few to mention. It is easiest to start from count like how many visits (count) there are on our web page. (Lähde )
+
+#### Buckets
+
+Bucket means grouping of documents by common criteria. For example we can group visits to web site by origin countries. There are many types of buckets, simpliest is maybe terms. Terms works by grouping documents based on each unique term in the field. (Lähde )
+
+#### Create visualization
+
+Before startting to create visualization select time range. Create visualization by clicking Create a new visualization button. Select visualization type, select data source and build the visualization.
 
 ![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/pie.png)
 
@@ -342,11 +387,15 @@ Dashboards help user to bring visualizations to single page. Dashboards can be c
 
 # Sources
 
+Karvinen, Tero 2018. Pkg-File-Service – Control Daemons with Salt – Change SSH Server Port. http://terokarvinen.com/2018/pkg-file-service-control-daemons-with-salt-change-ssh-server-port
+
 Sebenik, Craig & Hatch, Thomas 2015. Salt Essentials: Getting started with automation at scale. O.Reilly media.
 
 SatlStack. Pillar Walkthrough. 2019. https://docs.saltstack.com/en/latest/topics/tutorials/pillar.html
 
 SaltStack. The Top File. 2019. https://docs.saltstack.com/en/latest/ref/states/top.html
 
-Karvinen, Tero 2018. Pkg-File-Service – Control Daemons with Salt – Change SSH Server Port. http://terokarvinen.com/2018/pkg-file-service-control-daemons-with-salt-change-ssh-server-port
+Shukla, Pranav & Kumar, Sharath 2017. Learning Elastic Stack 6.0. Packt. ebook.
+
+
 
