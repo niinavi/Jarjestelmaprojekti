@@ -25,9 +25,10 @@ Our team is interested in centralized log management and we think it is signific
 
 In this project we will use the collection of open source tools, Elasticsearch, Logstash and Kibana (ELK Stack). Elasticsearch is the search engine and stores the data, Logstash processes the data and sends the data to Elasticseach and Kibana is a tool for visualization. We will use FileBeat to transfer the data to Logstash.
 
-Our baseline for this project is centralized management system in company's local area network. Wwe used Salt stack to automate installation of centralized log repository and minion installations. lasticsearch, Logstash and Kibana (ELK Stack) were installed on master server and FileBeat to minions to harvest logs.
+Our baseline for this project is centralized management system in company's local area network. Wwe used SaltStack to automate installation of centralized log repository and minion installations. Elasticsearch, Logstash and Kibana (ELK Stack) were installed on master server and FileBeat to minions to harvest logs. We collected mainly Apache logs in our project.
 
-To help testing we also made a test program to create content to log files. In project we desided to collect all Apache logs and system logs for Kibana log analysis. 
+We used Xubuntu 18.04 operating system on bootable live USB stick. We tested the environment using USB sticks in school’s laboratory classroom. We used minion and master on separate machines. We created automated scripts and salt states to make the installation automatic and easier to repeat. The scripts, salt states and pillars are stored here: https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv   
+
 
 Platform we used, versions?
 
@@ -43,9 +44,33 @@ Manuaaliset asennukset tänne.
 
 ### Architecture <a name="architecture"></a></summary>
 
+Filebeat transfers the log data to Logstash that parses the data and sends it to Elasticsearch for storing and searching. Kibana is a dashboard for the user to examine the data and create visualizations. Nginx is used for accessing Kibana dashboard through proxy. 
+
+In our project the architecture consisted of Filebeat, Logstash, Elasticsearch, Kibana and Nginx. We collected data from Apache logs on Minion and transferred them into Logstash on our Master. We also collected System logs but decided to focus on Apache logs when we explored Kibana dashboard. Apache and Filebeat are installed on our minion and on our master, Logstash, Elasticsearch and Kibana working together with Nginx. 
+
 ![ELK architecture](https://assets.digitalocean.com/articles/elk/elk-infrastructure.png)
 
 ### Elasticsearch <a name="elasticsearch"></a>
+
+kesken
+
+### Configuration
+
+Elasticserach uses JSON format for expressing data structures because it is easy for applications to parse and generate. The configuration files uses YAML (YAML Ain’t Markup Language).  Elasticsearch listens http port 9200 by default. (Elasticsearch in Action, Chapter 1. Introducing Elasticsearch)
+
+### Installation
+
+For installation we need public GPG key and package repository with following commands.
+```
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+
+echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
+
+```
+The installation happens with command:
+```
+sudo apt install elasticsearch
+```
 
 ### Logstash <a name="logstash"></a>
 
