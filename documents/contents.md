@@ -52,7 +52,9 @@ In our project the architecture consisted of Filebeat, Logstash, Elasticsearch, 
 
 ### Elasticsearch <a name="elasticsearch"></a>
 
-kesken
+Elasticsearch is a search engine and for data storing. You don’t use it on its own because you need something to feed the data into and interface for users to search data.)Elasticsearch indexes your data which helps you to make faster searches. For this purpose Elasticsearch uses a library called Lucene. (Chapter 1, Introducing Elasticsearch)
+
+??
 
 ### Configuration
 
