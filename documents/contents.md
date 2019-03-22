@@ -38,11 +38,11 @@ Where is version control?
 
 
 
-## ELK-Stack <a name="elk-stack"></a>
+# ELK-Stack <a name="elk-stack"></a>
 
 Manuaaliset asennukset tänne.
 
-### Architecture <a name="architecture"></a></summary>
+## Architecture <a name="architecture"></a></summary>
 
 Filebeat transfers the log data to Logstash that parses the data and sends it to Elasticsearch for storing and searching. Kibana is a dashboard for the user to examine the data and create visualizations. Nginx is used for accessing Kibana dashboard through proxy. 
 
@@ -50,7 +50,7 @@ In our project the architecture consisted of Filebeat, Logstash, Elasticsearch, 
 
 ![ELK architecture](https://assets.digitalocean.com/articles/elk/elk-infrastructure.png)
 
-### Elasticsearch <a name="elasticsearch"></a>
+## Elasticsearch <a name="elasticsearch"></a>
 
 Elasticsearch is a search engine and for data storing. You don’t use it on its own because you need something to feed the data into and interface for users to search data.)Elasticsearch indexes your data which helps you to make faster searches. For this purpose Elasticsearch uses a library called Lucene. (Chapter 1, Introducing Elasticsearch)
 
@@ -74,7 +74,7 @@ The installation happens with command:
 sudo apt install elasticsearch
 ```
 
-### Logstash <a name="logstash"></a>
+## Logstash <a name="logstash"></a>
 
 Logstash is a tool to centralize, transform and stash your data. Logstash processes Events. Event processing pipeline has three stages, input, filtering and output. These pipelines are usually stored in etc/logstash/conf.d directory. (https://www.elastic.co/guide/en/logstash/current/pipeline.html)
 
@@ -116,9 +116,59 @@ Turnbull, James
 E-kirja
 
 
-### Kibana <a name="kibana"></a>
+## Kibana <a name="kibana"></a>
+
+Kibana is developed by Elastic and is part of the ELK Stack package. Kibana is a platform for visualization and it is meant to work with Elasticsearch.. To have a better understanding of Kibana you need to understand Elasticsearch since it is built upon it. (Kibana Essentials, Chapter 1. An Introduction to Kibana)
+
+Visualization is done through Visualize Page where you can create, modify and view visualizations. Basic use of aggregations used in Elasticsearch is the core of Kibana functionality.  Aggregations means the collections of data which are stored in buckets. Buckets store documents and they group the documents. (Chapter 3. Exploring the Visualize Page)
 
 
+### Configuration
+
+Kibana configuration is made in YAML configuration file that is located in /etc/kibana directory. In our project we added only one line in Kibana configuration file that was “server.host: “localhost””. However we needed Nginx installed because we access to Kibana platform via web browser. We used Kibana through Nginx proxy and created Nginx user and password for the user.  Kibana listens port 5601 by default. 
+
+### Installation
+
+For the installation you need also the package repository installed like with previous installations with other components.  You can install and start Kibana with following commands.
+
+```
+sudo apt install kibana
+sudo systemctl start kibana
+```
+We need to add user and password for Kibana to Nginx password file.
+
+We added following line to Kibana configuration file to add server host to be a localhost.
+```
+server.host: ”localhost”
+```
+In Nginx sites-available folder we need configuration file for Kibana and Proxy. The file will look like following. We specify that the port Nginx listens is 80 and the access will be restricted and the htpaswd.kibana file will contain the correct credentials for authentication. 
+```
+server {
+    listen 80;
+
+    #server_name localhost;
+
+    auth_basic "Restricted Access";
+    auth_basic_user_file /etc/nginx/htpasswd.kibana;
+
+    location / {
+        proxy_pass http://localhost:5601;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+We need to create a symlink to Nginx sites-enabled directory and remove the default symbolic link in there.
+```
+sudo ln -s /etc/nginx/sites-available/kibanaconf /etc/nginx/sites-enabled/kibanaconf
+
+sudo rm /etc/nginx/sites-enabled/default
+
+sudo systemctl restart kibana
+```
 
 
 ## FileBeat <a name="filebeat"></a>
