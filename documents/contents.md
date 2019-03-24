@@ -465,6 +465,15 @@ Dashboards help user to bring visualizations to single page. Dashboards can be c
 
 ## Conclusions  <a name="conclusions"></a>
 
+We successfully installed the test environment and collected and analyzed data with ELK-Stack.  We have only scratched the surface of centralized logging management and there’s plenty of things to learn with each components. We learnt the basics of ELK-Stack system, the installation and the basic use of them. 
+
+Did we learn something else? 
+
+We could developed our project further creating a publicly visible website and collect data from it. Then we could get a lot of on time data for example, ip location etc. We could create multiple pipelines and learn how they work and use and familiarize ourselves with different filter plugins.
+
+What we think about ELK? 
+
+
 # Sources
 
 Karvinen, Tero 2018. Pkg-File-Service – Control Daemons with Salt – Change SSH Server Port. http://terokarvinen.com/2018/pkg-file-service-control-daemons-with-salt-change-ssh-server-port
