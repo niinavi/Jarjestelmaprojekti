@@ -178,10 +178,10 @@ sudo rm /etc/nginx/sites-enabled/default
 sudo systemctl restart kibana
 ```
 
+<a name="filebeat"></a>
+## FileBeat 
 
-## FileBeat <a name="filebeat"></a>
-
-Filebeat is lightweight shipper for logs. The Filebeat client is resource-friendly tool that collects logs from files on the server and forwards these logs to your Logstash instance for processing. (https://www.elastic.co/guide/en/logstash/current/advanced-pipeline.html)
+Filebeat is lightweight shipper for logs. The Filebeat client is resource-friendly tool that collects logs from files on the server and forwards these logs to your Logstash instance for processing. We have followed instructions on https://www.elastic.co/guide/en/logstash/current/advanced-pipeline.html site.
 
 ### Installation
 
@@ -229,9 +229,12 @@ Start the filebeat with following command.
     sudo filebeat -e -c filebeat.yml -d "publish"
 ```
 
-# 3. Salt States <a name="salt-states"></a>
+<a name="salt-states"></a>
+# 3. Salt States 
 
-## 3.1 What is Salt <a name="what-is"></a>
+<a name="what-is"></a>
+
+## 3.1 What is Salt 
 
 Salt is a remote execution framework and configuration management system. Salt is build to solve problem, how to manage multiple servers whether it is 2 or 10 000 machines. Salt design is basic master - client architecture. One server is master and minions can be many. Master server controls minions. (Sebenik & Hatch 2015, 107.)
 
@@ -239,7 +242,9 @@ Default configuration uses standard data format, yaml. Salt states are only text
 
 In our project we used Salt to automatically install ELK-stack on wanted machines.
 
-## 3.1.1 Architecture <a name="architecture2"></a>
+<a name="architecture2"></a>
+
+## 3.1.1 Architecture 
 
 Salt design is basic master/client model. Salt runs as deamons or background processes on servers. Master and minion are communicating with ZeroMQ databus, where master publish commands and minions check if there are events for them to fullfill. Master check whether all required minions have done required actions. Minions also send data back to master using another port. (Sebenik & Hatch 2015, 157-179.)
 
