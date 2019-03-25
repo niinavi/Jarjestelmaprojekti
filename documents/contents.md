@@ -16,7 +16,8 @@
 5. [Log analytics with Kibana](#analytics)
 6. [Conclusions](#conclusions)
 
-## Introduction  <a name="introduction"></a>
+<a name="introduction"></a>
+## Introduction
 
 The topic of this project is to create a small architecture for centralized logging. Our aim is to familiarize our team with the tools, collect log data and analyze it. The project is part of our studies in ICT-infrastructure project course.
 
