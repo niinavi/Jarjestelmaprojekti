@@ -244,7 +244,7 @@ In our project we used Salt to automatically install ELK-stack on wanted machine
 
 <a name="architecture2"></a>
 
-## 3.1.1 Architecture 
+## 3.1 Architecture 
 
 Salt design is basic master/client model. Salt runs as deamons or background processes on servers. Master and minion are communicating with ZeroMQ databus, where master publish commands and minions check if there are events for them to fullfill. Master check whether all required minions have done required actions. Minions also send data back to master using another port. (Sebenik & Hatch 2015, 157-179.)
 
@@ -252,19 +252,11 @@ Salt design is basic master/client model. Salt runs as deamons or background pro
 
 Picture: Salt architecture (Sebenik & Hatch 2015, 130). 
 
-## 3.1.2 Master
-
 Master provides a port to minions where minions can bind and watch for commands. Master server is most valuable server in network, because it can control all minions (Sebenik & Hatch 2015).
-
-## 3.1.3 Minion
 
 All minions have unique id called minin ID. They also have to know master IP address.  Minion listens Master port and waits for events. Minions can also send data back to master. (Sebenik & Hatch 2015.) Minions can be behind firewalls or NAT networks. (Karvinen xxx).
 
-## 3.1.4 Secrets aka Pillars
-
 Pillars allow confidential, targeted data to be securely send to spesific minion. (Pillar Walkthrough 2019) Usually pillars are used to store passwords, user accounts and other sensitive data.
-
-## 3.1.5 Top File
 
 Usually infrastructure is made up of groups of machines, and each machine in the group is performing a role similar to others (The Top File 2019).
 
