@@ -9,10 +9,10 @@
     5. [FileBeat](#filebeat)
 3. [Salt States](#salt-states)
     1. [What is Salt](#what-is) 
-    1. [Architecture](#architecture2)
-    2. [Master](#master)
-    3. [Minion](#minion)
-4. [Installation](#installation)
+    2. [Architecture](#architecture2)
+    3. [States craeted in ELK-stack project](#states)
+    4. [Test application](#testisovellus)
+4. [Installation](#automation)
 5. [Log analytics with Kibana](#analytics)
 6. [Conclusions](#conclusions)
 
@@ -343,9 +343,9 @@ Pillars are stored to /srv/pillar directory
 - server.sls
 - filebeat.sls
 
-<a name="Testisovellus"></a>
+<a name="testisovellus"></a>
 
-## 3.3 Bookstore test application 
+## 3.3 Test application 
 
 Test application is simple PHP program which uses MariaDB database. Source code is at 
 [](https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv/salt/apache/php)
