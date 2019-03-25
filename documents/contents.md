@@ -264,6 +264,8 @@ File which contains mappings between role and machine is called top file (The To
 
 Minion which ID or other feature, like grains, is matching top file configuration will apply state(s) that are defined in top file (The Top File 2019).
 
+<a name="states"></a>
+
 ## 3.2 States created in ELK-stack project
 
 Our Salt states are on GitHub
@@ -317,7 +319,7 @@ Top.sls contains two roles, master and elk. Those are used to control what is in
 top.sls:
 ```
 base:
-  'elk':
+  'minion':
     - elk-pkg
     - apache
     - mariadb
@@ -341,7 +343,9 @@ Pillars are stored to /srv/pillar directory
 - server.sls
 - filebeat.sls
 
-## 3.3 Bookstore test application <a name="Testisovellus"></a>
+<a name="Testisovellus"></a>
+
+## 3.3 Bookstore test application 
 
 Test application is simple PHP program which uses MariaDB database. Source code is at 
 [](https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv/salt/apache/php)
@@ -350,7 +354,10 @@ Users can read, update, delete and insert new books to database.
 
 URL on minions: localhost:80/php or juha.example.com/php
 
-# 4. Automatic installation  <a name="installation"></a>
+
+<a name="automation"></a>
+
+# 4. Automatic installation  
 
 ELK-stack can be installed using automation. We created scripts to install Salt master and minion for those servers where needed. After Salt installation states can be applied to minions with Salt.
 
@@ -400,7 +407,9 @@ sudo salt '*' state.highstate
 
 Command runs all minions to desired state.
 
-## Log analytics with Kibana  <a name="analytics"></a>
+<a name="analytics"></a>
+
+## Log analytics with Kibana  
 
 Log analysis can be done with Kibana. In our project main target was to automate ELK-stack installation, so we will introduce Kibana only briefly.
 
