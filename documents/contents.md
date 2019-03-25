@@ -117,8 +117,8 @@ To install Logstash use following command.
 $ sudo apt-get update && sudo apt-get install logstash
 ```
 
-
-## Kibana <a name="kibana"></a>
+<a name="kibana"></a>
+## Kibana 
 
 Kibana is developed by Elastic and is part of the ELK Stack package. Kibana is a platform for visualization and it is meant to work with Elasticsearch.. To have a better understanding of Kibana you need to understand Elasticsearch since it is built upon it. (Kibana Essentials, Chapter 1. An Introduction to Kibana)
 
