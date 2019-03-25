@@ -131,6 +131,8 @@ Kibana configuration is made in YAML configuration file that is located in /etc/
 
 ### Installation
 
+Followed instructions [here](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-18-04).
+
 For the installation you need also the package repository installed like with previous installations with other components.  You can install and start Kibana with following commands.
 
 ```
@@ -138,6 +140,10 @@ sudo apt install kibana
 sudo systemctl start kibana
 ```
 We need to add user and password for Kibana to Nginx password file.
+
+```
+echo "kibanaadmin:`openssl passwd -apr1 mypassword`" | sudo tee -a /etc/nginx/htpasswd.kibana
+```
 
 We added following line to Kibana configuration file to add server host to be a localhost.
 ```
