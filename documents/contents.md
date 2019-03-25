@@ -80,7 +80,7 @@ Logstash is a tool to centralize, transform and stash your data. Logstash proces
 
 You can run multiple pipelines in the same process. It is useful if the configuration has event flows that don’t share the same inputs, filters or outputs. Enabling multiple pipelines is done through configuration file pipelines.yml that is places in the path.settings folder. (https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html)
 
-KUVA TÄHÄN
+![Logstash pipeline](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/logstash_pic.JPG)
 
 Inputs
 
