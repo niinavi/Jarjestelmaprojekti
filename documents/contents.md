@@ -30,8 +30,8 @@ Our baseline for this project is centralized management system in company's loca
 We used Xubuntu 18.04 operating system on bootable live USB stick. We tested the environment using USB sticks in school’s laboratory classroom. We used minion and master on separate machines. We created automated scripts and salt states to make the installation automatic and easier to repeat. The scripts, salt states and pillars are stored here: https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv   
 
 
-
-# ELK-Stack <a name="elk-stack"></a>
+<a name="elk-stack"></a>
+# ELK-Stack 
 
 We installed ELK-Stack using following components and versions.
 
