@@ -102,7 +102,7 @@ Outputs send the event data to the defined output. Logstash supports variety of 
 
 ### Configuration
 
-Logstash configuration uses YAML. In our project we didn't make changes to the YAML file.  We created a pipeline and the pipeline configuration you can see [here] (https://github.com/niinavi/Jarjestelmaprojekti/blob/master/srv/salt/logstash/systems.conf).
+Logstash configuration uses YAML. In our project we didn't make changes to the YAML file.  We created a pipeline and the pipeline configuration you can see [here](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/srv/salt/logstash/systems.conf).
 
 ### Installation
 
