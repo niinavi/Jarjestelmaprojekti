@@ -27,21 +27,23 @@ In this project we will use the collection of open source tools, Elasticsearch, 
 
 Our baseline for this project is centralized management system in company's local area network. Wwe used SaltStack to automate installation of centralized log repository and minion installations. Elasticsearch, Logstash and Kibana (ELK Stack) were installed on master server and FileBeat to minions to harvest logs. We collected mainly Apache logs in our project.
 
-We used Xubuntu 18.04 operating system on bootable live USB stick. We tested the environment using USB sticks in school’s laboratory classroom. We used minion and master on separate machines. We created automated scripts and salt states to make the installation automatic and easier to repeat. The scripts, salt states and pillars are stored here: https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv   
+We used Ubuntu 18.04 LTS operating system on bootable live USB stick. We tested the environment using USB sticks in school’s laboratory classroom. We used minion and master on separate machines. We created automated scripts and salt states to make the installation automatic and easier to repeat. The scripts, salt states and pillars are stored here: https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv   
 
 
 <a name="elk-stack"></a>
 # ELK-Stack 
 
-We installed ELK-Stack using following components and versions.
+We installed ELK-Stack using following components and versions. We use ufw firewall which is default in Ubuntu.
 
-Elasticsearch: version: '6.6.0'  
-Logstash: version: '1:6.6.0-1'  
-Kibana: version: '6.6.0'  
+Ubuntu 18.04.1 LTS
+Elasticsearch: version '6.6.0'  
+Logstash: version '1:6.6.0-1'  
+Kibana: version '6.6.0'  
 SaltStack: 2017.7.4 (Nitrogen)  
 Nginx: 1.14.0  
 Java: openjdk version 1.8.0_191  
 
+ <a name="architecture"></a></summary>
 ## Architecture <a name="architecture"></a></summary>
 
 Filebeat transfers the log data to Logstash that parses the data and sends it to Elasticsearch for storing and searching. Kibana is a dashboard for the user to examine the data and create visualizations. Nginx is used for accessing Kibana dashboard through proxy. 
