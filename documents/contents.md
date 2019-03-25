@@ -117,11 +117,6 @@ To install Logstash use following command.
 $ sudo apt-get update && sudo apt-get install logstash
 ```
 
-Book Source:
-The logstash book: log management made easy,
-Turnbull, James
-E-kirja
-
 
 ## Kibana <a name="kibana"></a>
 
@@ -492,6 +487,8 @@ SatlStack. Pillar Walkthrough. 2019. https://docs.saltstack.com/en/latest/topics
 SaltStack. The Top File. 2019. https://docs.saltstack.com/en/latest/ref/states/top.html
 
 Shukla, Pranav & Kumar, Sharath 2017. Learning Elastic Stack 6.0. Packt. ebook.
+
+The logstash book: log management made easy, Turnbull, James. ebook.
 
 
 
