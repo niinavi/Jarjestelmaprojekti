@@ -1,7 +1,6 @@
 # Table of Contents
 
 1. [Introduction](#introduction)
-    1. [Purpose](#purpose)
 2. [ELK-Stack](#elk-stack)
     1. [Architecture](#architecture)
     2. [Elasticsearch](#elasticsearch)
