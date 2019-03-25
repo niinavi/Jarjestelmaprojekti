@@ -52,13 +52,15 @@ In our project the architecture consisted of Filebeat, Logstash, Elasticsearch, 
 
 ![ELK architecture](https://assets.digitalocean.com/articles/elk/elk-infrastructure.png)
 
-## Elasticsearch <a name="elasticsearch"></a>
+<a name="elasticsearch"></a>
+## Elasticsearch 
 
-Elasticsearch is a search engine and for data storing. You don’t use it on its own because you need something to feed the data into and interface for users to search data.)Elasticsearch indexes your data which helps you to make faster searches. For this purpose Elasticsearch uses a library called Lucene. (Chapter 1, Introducing Elasticsearch)
+Elasticsearch is a search engine and for data storing. You don’t use it on its own because you need something to feed the data into and interface for users to search data. Elasticsearch indexes your data which helps you to make faster searches. For this purpose Elasticsearch uses a library called Lucene. (Chapter 1, Introducing Elasticsearch)
 
 "Finally, Elasticsearch is, as the name suggests, elastic. It’s clustered by default—you call it a cluster even if you run it on a single server—and you can always add more servers to increase capacity or fault tolerance. Similarly, you can easily remove servers from the cluster to reduce costs if you have lower load. " (Chapter 1, Introducing Elasticsearch)
 
-More about clusters ? No need?
+Kuva shardista, nodesta ja klusterpilvestä ?
+Maininta, että on olemassa querying lanugagesta.
 
 ### Configuration
 
@@ -77,8 +79,8 @@ The installation happens with command:
 ```
 sudo apt install elasticsearch
 ```
-
-## Logstash <a name="logstash"></a>
+<a name="logstash"></a>
+## Logstash
 
 Logstash is a tool to centralize, transform and stash your data. Logstash processes Events. Event processing pipeline has three stages, input, filtering and output. These pipelines are usually stored in etc/logstash/conf.d directory. (https://www.elastic.co/guide/en/logstash/current/pipeline.html)
 
@@ -99,7 +101,8 @@ Outputs
 Outputs send the event data to the defined output. Logstash supports variety of different outputs, for example TCP/UDP, email, files for writing event data to a file on disk, HTTP and Nagios.  In our test environment we used Elasticsearch as an output for storing and managing the data. (The Logstash Book, Logstash design and architecture)
 
 ### Configuration
-link
+
+Logstash configuration uses YAML. In our project we didn't make changes to the YAML file.  We created a pipeline and the pipeline configuration you can see [here] (https://github.com/niinavi/Jarjestelmaprojekti/blob/master/srv/salt/logstash/systems.conf).
 
 ### Installation
 
