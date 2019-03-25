@@ -54,7 +54,9 @@ In our project the architecture consisted of Filebeat, Logstash, Elasticsearch, 
 
 Elasticsearch is a search engine and for data storing. You don’t use it on its own because you need something to feed the data into and interface for users to search data.)Elasticsearch indexes your data which helps you to make faster searches. For this purpose Elasticsearch uses a library called Lucene. (Chapter 1, Introducing Elasticsearch)
 
-??
+"Finally, Elasticsearch is, as the name suggests, elastic. It’s clustered by default—you call it a cluster even if you run it on a single server—and you can always add more servers to increase capacity or fault tolerance. Similarly, you can easily remove servers from the cluster to reduce costs if you have lower load. " (Chapter 1, Introducing Elasticsearch)
+
+More about clusters ? No need?
 
 ### Configuration
 
