@@ -1,3 +1,26 @@
+# Log analysis -project
+
+***ICT Infrastructure project, Spring 2019*** 
+***Haaga-Helia University of Applied Science***
+
+**Team Members**  
+[Juha Immonen](https://github.com/immonju1)   
+[Niina Villman](https://github.com/niinavi)
+
+**Project supervisor**  
+Petri Hirvonen
+
+
+
+
+
+
+
+
+
+
+
+
 # Table of Contents
 
 1. [Introduction](#introduction)
