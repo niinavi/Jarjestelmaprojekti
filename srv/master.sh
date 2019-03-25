@@ -8,7 +8,7 @@
 setxkbmap fi
 echo "Updating packages and install salt and git..."
 apt-get update -qq >> /dev/null
-apt-get install git apache2-utils salt-master salt-minion -y -qq >> /dev/null
+apt-get install git apache2-utils salt-master salt-minion firefox -y -qq >> /dev/null
 
 # Create directories
 if [ ! -d "/srv/" ]; then
