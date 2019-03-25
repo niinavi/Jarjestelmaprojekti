@@ -35,12 +35,12 @@ We used Xubuntu 18.04 operating system on bootable live USB stick. We tested the
 
 We installed ELK-Stack using following components and versions.
 
-Elasticsearch: version: '6.6.0'
-Logstash: version: '1:6.6.0-1'
-Kibana: version: '6.6.0'
-SaltStack: 2017.7.4 (Nitrogen)
-Nginx: 1.14.0
-Java: openjdk version 1.8.0_191
+Elasticsearch: version: '6.6.0'  
+Logstash: version: '1:6.6.0-1'  
+Kibana: version: '6.6.0'  
+SaltStack: 2017.7.4 (Nitrogen)  
+Nginx: 1.14.0  
+Java: openjdk version 1.8.0_191  
 
 ## Architecture <a name="architecture"></a></summary>
 
