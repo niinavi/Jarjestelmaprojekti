@@ -12,8 +12,8 @@
     2. [Architecture](#architecture2)
     3. [States craeted in ELK-stack project](#states)
     4. [Test application](#testisovellus)
-4. [Installation](#automation)
-5. [Log analytics with Kibana](#analytics)
+4. [Installation scripts](#automation)
+5. [Kibana User Interface](#analytics)
 6. [Conclusions](#conclusions)
 
 <a name="introduction"></a>
@@ -354,10 +354,9 @@ Users can read, update, delete and insert new books to database.
 
 URL on minions: localhost:80/php or juha.example.com/php
 
-
 <a name="automation"></a>
 
-# 4. Automatic installation  
+# 4. Installation scripts  
 
 ELK-stack can be installed using automation. We created scripts to install Salt master and minion for those servers where needed. After Salt installation states can be applied to minions with Salt.
 
@@ -409,13 +408,13 @@ Command runs all minions to desired state.
 
 <a name="analytics"></a>
 
-## Log analytics with Kibana  
+## Kibana User Interface  
 
 Log analysis can be done with Kibana. In our project main target was to automate ELK-stack installation, so we will introduce Kibana only briefly.
 
-### Kibana UI
+### Kibana login
 
-Open Kibana from http://localhost:80 URL. You have to authenticate before you get in to Kibana.
+Open Kibana from http://localhost:80 URL. You have to authenticate before you get in to Kibana becose we are using nginx as an autentication proxy.
 
 ![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/kibana_welcome.png)
 
@@ -477,7 +476,9 @@ Picture X. Traffic to web site from different countries.
 
 Dashboards help user to bring visualizations to single page. Dashboards can be created in Dashboard page by clicking Create Dashborad button. After that user can select from stored visualizations. After adding all needed visualizations to Dashboards it can be saved and Dashborad is created.
 
-## Conclusions  <a name="conclusions"></a>
+<a name="conclusions"></a><a name="conclusions"></a>
+
+## Conclusions  
 
 We successfully installed the test environment and collected and analyzed data with ELK-Stack.  We have only scratched the surface of centralized logging management and there’s plenty of things to learn with each components. We learnt the basics of ELK-Stack system, the installation and the basic use of them. 
 
