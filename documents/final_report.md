@@ -78,16 +78,16 @@ In our project the architecture consisted of Filebeat, Logstash, Elasticsearch, 
 <a name="elasticsearch"></a>
 ## Elasticsearch 
 
-Elasticsearch is a search engine and for data storing. You don’t use it on its own because you need something to feed the data into and interface for users to search data. Elasticsearch indexes your data which helps you to make faster searches. For this purpose Elasticsearch uses a library called Lucene. (Chapter 1, Introducing Elasticsearch)
+Elasticsearch is a search engine and for data storing. You don’t use it on its own because you need something to feed the data into and interface for users to search data. Elasticsearch indexes your data which helps you to make faster searches. For this purpose Elasticsearch uses a library called Lucene. (Gheorghe, Hinman, Russo, Chapter 1)
 
-"Finally, Elasticsearch is, as the name suggests, elastic. It’s clustered by default—you call it a cluster even if you run it on a single server—and you can always add more servers to increase capacity or fault tolerance. Similarly, you can easily remove servers from the cluster to reduce costs if you have lower load. " (Chapter 1, Introducing Elasticsearch)
+"Finally, Elasticsearch is, as the name suggests, elastic. It’s clustered by default—you call it a cluster even if you run it on a single server—and you can always add more servers to increase capacity or fault tolerance. Similarly, you can easily remove servers from the cluster to reduce costs if you have lower load. " (Gheorghe, Hinman, Russo, Chapter 1)
 
 Kuva shardista, nodesta ja klusterpilvestä ?
 Maininta, että on olemassa querying lanugagesta.
 
 ### Configuration
 
-Elasticserach uses JSON format for expressing data structures because it is easy for applications to parse and generate. The configuration files uses YAML (YAML Ain’t Markup Language).  Elasticsearch listens http port 9200 by default. (Elasticsearch in Action, Chapter 1. Introducing Elasticsearch)
+Elasticserach uses JSON format for expressing data structures because it is easy for applications to parse and generate. The configuration files uses YAML (YAML Ain’t Markup Language).  Elasticsearch listens http port 9200 by default. (Gheorghe, Hinman, Russo, Chapter 1)
 
 ### Installation
 
@@ -113,15 +113,15 @@ You can run multiple pipelines in the same process. It is useful if the configur
 
 Inputs
 
-Inputs define how data gets into Logstash. Logstash has different kinds of input mechanisms. Logstash can take inputs for example from TCP/UDP, files, Syslog, Microsoft Windows EventLogs, STDIN.  Input configuration is defined in the pipeline.yml file. (The Logstash Book, Logstash design and architecture) In our test environment we use Filebeat to transfer data to Logstash.
+Inputs define how data gets into Logstash. Logstash has different kinds of input mechanisms. Logstash can take inputs for example from TCP/UDP, files, Syslog, Microsoft Windows EventLogs, STDIN.  Input configuration is defined in the pipeline.yml file. In our test environment we use Filebeat to transfer data to Logstash. (Turnbull, chapter "Introduction or Why Should I Bother?")
 
 Filters
 
-Filters make possible to modify, manipulate and transform those events. There is large amount of filters and plugins to use. A few examples of filter plugins are grok for parsing and structurizing text, mutate for field manipulation and drop for dropping events (https://www.elastic.co/guide/en/logstash/6.6/filter-plugins.html).  With filters, you can separate the information you need from the log events. (The Logstash Book, Logstash design and architecture)
+Filters make possible to modify, manipulate and transform those events. There is large amount of filters and plugins to use. A few examples of filter plugins are grok for parsing and structurizing text, mutate for field manipulation and drop for dropping events (https://www.elastic.co/guide/en/logstash/6.6/filter-plugins.html).  With filters, you can separate the information you need from the log events. (Turnbull, chapter "Introduction or Why Should I Bother?")
 
 Outputs
 
-Outputs send the event data to the defined output. Logstash supports variety of different outputs, for example TCP/UDP, email, files for writing event data to a file on disk, HTTP and Nagios.  In our test environment we used Elasticsearch as an output for storing and managing the data. (The Logstash Book, Logstash design and architecture)
+Outputs send the event data to the defined output. Logstash supports variety of different outputs, for example TCP/UDP, email, files for writing event data to a file on disk, HTTP and Nagios.  In our test environment we used Elasticsearch as an output for storing and managing the data. (Turnbull, chapter "Introduction or Why Should I Bother?")
 
 ### Configuration
 
@@ -143,9 +143,9 @@ $ sudo apt-get update && sudo apt-get install logstash
 <a name="kibana"></a>
 ## Kibana 
 
-Kibana is developed by Elastic and is part of the ELK Stack package. Kibana is a platform for visualization and it is meant to work with Elasticsearch.. To have a better understanding of Kibana you need to understand Elasticsearch since it is built upon it. (Kibana Essentials, Chapter 1. An Introduction to Kibana)
+Kibana is developed by Elastic and is part of the ELK Stack package. Kibana is a platform for visualization and it is meant to work with Elasticsearch.. To have a better understanding of Kibana you need to understand Elasticsearch since it is built upon it. (Gupta, Chapter 1.)
 
-Visualization is done through Visualize Page where you can create, modify and view visualizations. Basic use of aggregations used in Elasticsearch is the core of Kibana functionality.  Aggregations means the collections of data which are stored in buckets. Buckets store documents and they group the documents. (Chapter 3. Exploring the Visualize Page)
+Visualization is done through Visualize Page where you can create, modify and view visualizations. Basic use of aggregations used in Elasticsearch is the core of Kibana functionality.  Aggregations means the collections of data which are stored in buckets. Buckets store documents and they group the documents. (Gupta, Chapter 3.)
 
 
 ### Configuration
@@ -525,6 +525,13 @@ SaltStack. The Top File. 2019. https://docs.saltstack.com/en/latest/ref/states/t
 Shukla, Pranav & Kumar, Sharath 2017. Learning Elastic Stack 6.0. Packt. ebook.
 
 The logstash book: log management made easy, Turnbull, James. ebook.
+
+Gheorghe, Radu, Hinman, Matthew Lee & Russo, Roy (2016). Elasticsearch in action. Manning Publications Co. eBook.
+
+Turnbull, James (2015).The logstash book: log management made easy.  James Turnbull & Turnbull Press. eBook.
+
+Gupta, Yuvraj (2015). Kibana Essentials. Packt Publishing. eBook.
+
 
 
 
