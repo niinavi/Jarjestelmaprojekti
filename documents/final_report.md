@@ -504,13 +504,10 @@ Dashboards help user to bring visualizations to single page. Dashboards can be c
 
 ## Conclusions  
 
-We successfully installed the test environment and collected and analyzed data with ELK-Stack.  We have only scratched the surface of centralized logging management and there’s plenty of things to learn with each components. We learnt the basics of ELK-Stack system, the installation and the basic use of them. 
+We successfully installed the test environment and collected and analyzed data with ELK-Stack. We have only scratched the surface of centralized logging management and there’s plenty of things to learn with each components. We learnt the basics of ELK-Stack components, the installation, configuration and usage. We learnt to use SaltStack and shell scripting and Git version controlling with the project.
 
-Did we learn something else? 
+We could develop our project further creating a publicly visible website and collect data from it. Then we could get a lot of on time data for example, ip location etc. We could create multiple pipelines and learn how they work and use and familiarize ourselves with different filter plugins. We can continue to learn how ELK-Stack can benefit companies and understand the possible challenges.
 
-We could developed our project further creating a publicly visible website and collect data from it. Then we could get a lot of on time data for example, ip location etc. We could create multiple pipelines and learn how they work and use and familiarize ourselves with different filter plugins.
-
-What we think about ELK? 
 
 
 # Sources
