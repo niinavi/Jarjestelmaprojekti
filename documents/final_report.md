@@ -105,11 +105,12 @@ sudo apt install elasticsearch
 <a name="logstash"></a>
 ## Logstash
 
-Logstash is a tool to centralize, transform and stash your data. Logstash processes Events. Event processing pipeline has three stages, input, filtering and output. These pipelines are usually stored in etc/logstash/conf.d directory. (https://www.elastic.co/guide/en/logstash/current/pipeline.html)
+Logstash is a tool to centralize, transform and stash your data. Logstash processes Events. Event processing pipeline has three stages, input, filtering and output. These pipelines are usually stored in etc/logstash/conf.d directory. (Elasticsearch B.V. 2019)
 
-You can run multiple pipelines in the same process. It is useful if the configuration has event flows that don’t share the same inputs, filters or outputs. Enabling multiple pipelines is done through configuration file pipelines.yml that is places in the path.settings folder. (https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html)
+You can run multiple pipelines in the same process. It is useful if the configuration has event flows that don’t share the same inputs, filters or outputs. Enabling multiple pipelines is done through configuration file pipelines.yml that is places in the path.settings folder. (Elasticsearch B.V. 2019)
 
 ![Logstash pipeline](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/logstash_pic.JPG)
+Elasticsearch B.V. 2019. Stashig your first event.
 
 Inputs
 
@@ -531,6 +532,13 @@ Gheorghe, Radu, Hinman, Matthew Lee & Russo, Roy (2016). Elasticsearch in action
 Turnbull, James (2015).The logstash book: log management made easy.  James Turnbull & Turnbull Press. eBook.
 
 Gupta, Yuvraj (2015). Kibana Essentials. Packt Publishing. eBook.
+
+Elasticsearch B.V. 2019. How Logstash Works. Available: https://www.elastic.co/guide/en/logstash/current/pipeline.html. 31.3.2019.
+
+Elasticsearch B.V. 2019. Multiple pipelines. Available: https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html. 31.3.2019.
+
+Elasticsearch B.V. 2019. Stashing your first event. Available: https://www.elastic.co/guide/en/logstash/current/first-event.html. 31.3.2019.
+ 
 
 
 
