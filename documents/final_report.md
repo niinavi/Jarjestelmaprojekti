@@ -73,7 +73,8 @@ Filebeat transfers the log data to Logstash that parses the data and sends it to
 
 In our project the architecture consisted of Filebeat, Logstash, Elasticsearch, Kibana and Nginx. We collected data from Apache logs on Minion and transferred them into Logstash on our Master. We also collected System logs but decided to focus on Apache logs when we explored Kibana dashboard. Apache and Filebeat are installed on our minion and on our master, Logstash, Elasticsearch and Kibana working together with Nginx. 
 
-![ELK architecture](https://assets.digitalocean.com/articles/elk/elk-infrastructure.png)
+![ELK architecture](https://assets.digitalocean.com/articles/elk/elk-infrastructure.png) 
+Picture 1. ELK-architecture. Picture adapted from DigitalOcean.
 
 <a name="elasticsearch"></a>
 ## Elasticsearch 
@@ -530,13 +531,13 @@ Turnbull, James (2015).The logstash book: log management made easy.  James Turnb
 
 Gupta, Yuvraj (2015). Kibana Essentials. Packt Publishing. eBook.
 
-Elasticsearch B.V. 2019. How Logstash Works. Available: https://www.elastic.co/guide/en/logstash/current/pipeline.html. 31.3.2019.
+Elasticsearch B.V. 2019. How Logstash Works. URL: https://www.elastic.co/guide/en/logstash/current/pipeline.html. 31.3.2019.
 
-Elasticsearch B.V. 2019. Multiple pipelines. Available: https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html. 31.3.2019.
+Elasticsearch B.V. 2019. Multiple pipelines. URL: https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html. Accessed: 31 March 2019.
 
-Elasticsearch B.V. 2019. Stashing your first event. Available: https://www.elastic.co/guide/en/logstash/current/first-event.html. 31.3.2019.
+Elasticsearch B.V. 2019. Stashing your first event. URL: https://www.elastic.co/guide/en/logstash/current/first-event.html. Accessed: 31 March 2019.
  
-
+DigitalOcean Inc 2019. How To Install Elasticsearch, Logstash, and Kibana (ELK Stack) on Ubuntu 14.04. URL: https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04 Accessed: 1 April 2019.
 
 
 
