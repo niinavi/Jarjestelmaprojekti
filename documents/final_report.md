@@ -111,7 +111,7 @@ Logstash is a tool to centralize, transform and stash your data. Logstash proces
 You can run multiple pipelines in the same process. It is useful if the configuration has event flows that don’t share the same inputs, filters or outputs. Enabling multiple pipelines is done through configuration file pipelines.yml that is places in the path.settings folder. (Elasticsearch B.V. 2019b)
 
 ![Logstash pipeline](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/logstash_pic.JPG)
-Picture 2. Logstash pipeline. (Picture adapted from Elasticsearch B.V. 2019a).
+Picture 2. Logstash pipeline. (Picture adapted from Elasticsearch B.V. 2019c).
 
 Inputs
 
@@ -511,31 +511,37 @@ We could develop our project further creating a publicly visible website and col
 
 # Sources
 
-Karvinen, Tero 2018. Pkg-File-Service – Control Daemons with Salt – Change SSH Server Port. URL: http://terokarvinen.com/2018/pkg-file-service-control-daemons-with-salt-change-ssh-server-port. Accessed: 1 April 2019.
+DigitalOcean Inc 2019a. How To Install Elasticsearch, Logstash, and Kibana (ELK Stack) on Ubuntu 14.04. URL: https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04 Accessed: 1 April 2019.
 
-Sebenik, Craig & Hatch, Thomas 2015. Salt Essentials: Getting started with automation at scale. O.Reilly media.
-
-SatlStack. Pillar Walkthrough. 2019. https://docs.saltstack.com/en/latest/topics/tutorials/pillar.html
-
-SaltStack. The Top File. 2019. https://docs.saltstack.com/en/latest/ref/states/top.html
-
-Shukla, Pranav & Kumar, Sharath 2017. Learning Elastic Stack 6.0. Packt. ebook.
-
-The logstash book: log management made easy, Turnbull, James. ebook.
-
-Gheorghe, Radu, Hinman, Matthew Lee & Russo, Roy (2016). Elasticsearch in action. Manning Publications Co. eBook.
-
-Turnbull, James (2015).The logstash book: log management made easy.  James Turnbull & Turnbull Press. eBook.
-
-Gupta, Yuvraj (2015). Kibana Essentials. Packt Publishing. eBook.
+DigitalOcean Inc 2019b. How To Install Elasticsearch, Logstash, and Kibana (Elastic Stack) on Ubuntu 18.04 URL:https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-18-04 Accessed: 1 April 2019.
 
 Elasticsearch B.V. 2019a. How Logstash Works. URL: https://www.elastic.co/guide/en/logstash/current/pipeline.html. Accessed: 31 March 2019.
 
 Elasticsearch B.V. 2019b. Multiple pipelines. URL: https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html. Accessed: 31 March 2019.
 
 Elasticsearch B.V. 2019c. Stashing your first event. URL: https://www.elastic.co/guide/en/logstash/current/first-event.html. Accessed: 31 March 2019.
- 
-DigitalOcean Inc 2019a. How To Install Elasticsearch, Logstash, and Kibana (ELK Stack) on Ubuntu 14.04. URL: https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04 Accessed: 1 April 2019.
 
-DigitalOcean Inc 2019b. How To Install Elasticsearch, Logstash, and Kibana (Elastic Stack) on Ubuntu 18.04 URL:https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-18-04 Accessed: 1 April 2019.
+Gheorghe, Radu, Hinman, Matthew Lee & Russo, Roy 2016. Elasticsearch in action. Manning Publications Co. eBook.
+
+Gupta, Yuvraj 2015. Kibana Essentials. Packt Publishing. eBook.
+
+Karvinen, Tero 2018. Pkg-File-Service – Control Daemons with Salt – Change SSH Server Port. URL: http://terokarvinen.com/2018/pkg-file-service-control-daemons-with-salt-change-ssh-server-port. Accessed: 1 April 2019.
+
+SatlStack. Pillar Walkthrough. 2019. https://docs.saltstack.com/en/latest/topics/tutorials/pillar.html
+
+SaltStack. The Top File. 2019. https://docs.saltstack.com/en/latest/ref/states/top.html
+
+Sebenik, Craig & Hatch, Thomas 2015. Salt Essentials: Getting started with automation at scale. O.Reilly media. eBook.
+
+Shukla, Pranav & Kumar, Sharath 2017. Learning Elastic Stack 6.0. Packt. ebook.
+
+The logstash book: log management made easy, Turnbull, James. ebook.
+
+Turnbull, James (2015).The logstash book: log management made easy.  James Turnbull & Turnbull Press. eBook.
+
+
+
+
+ 
+
 
