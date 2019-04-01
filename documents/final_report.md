@@ -74,25 +74,23 @@ Filebeat transfers the log data to Logstash that parses the data and sends it to
 In our project the architecture consisted of Filebeat, Logstash, Elasticsearch, Kibana and Nginx. We collected data from Apache logs on Minion and transferred them into Logstash on our Master. We also collected System logs but decided to focus on Apache logs when we explored Kibana dashboard. Apache and Filebeat are installed on our minion and on our master, Logstash, Elasticsearch and Kibana working together with Nginx. 
 
 ![ELK architecture](https://assets.digitalocean.com/articles/elk/elk-infrastructure.png) 
-Picture 1. ELK-architecture. Picture adapted from DigitalOcean.
+Picture 1. ELK-architecture (Picture adapted from DigitalOcean Inc 2019a).
 
 <a name="elasticsearch"></a>
 ## Elasticsearch 
 
-Elasticsearch is a search engine and for data storing. You don’t use it on its own because you need something to feed the data into and interface for users to search data. Elasticsearch indexes your data which helps you to make faster searches. For this purpose Elasticsearch uses a library called Lucene. (Gheorghe, Hinman, Russo, Chapter 1)
+Elasticsearch is a search engine and for data storing. You don’t use it on its own because you need something to feed the data into and interface for users to search data. Elasticsearch indexes your data which helps you to make faster searches. For this purpose Elasticsearch uses a library called Lucene. (Gheorghe, Hinman & Russo, 2016, Chapter 1.)
 
-"Finally, Elasticsearch is, as the name suggests, elastic. It’s clustered by default—you call it a cluster even if you run it on a single server—and you can always add more servers to increase capacity or fault tolerance. Similarly, you can easily remove servers from the cluster to reduce costs if you have lower load. " (Gheorghe, Hinman, Russo, Chapter 1)
+"Finally, Elasticsearch is, as the name suggests, elastic. It’s clustered by default—you call it a cluster even if you run it on a single server—and you can always add more servers to increase capacity or fault tolerance. Similarly, you can easily remove servers from the cluster to reduce costs if you have lower load. " (Gheorghe ym. 2016, Chapter 1.)
 
-Kuva shardista, nodesta ja klusterpilvestä ?
-Maininta, että on olemassa querying lanugagesta.
 
 ### Configuration
 
-Elasticserach uses JSON format for expressing data structures because it is easy for applications to parse and generate. The configuration files uses YAML (YAML Ain’t Markup Language).  Elasticsearch listens http port 9200 by default. (Gheorghe, Hinman, Russo, Chapter 1)
+Elasticserach uses JSON format for expressing data structures because it is easy for applications to parse and generate. The configuration files uses YAML (YAML Ain’t Markup Language).  Elasticsearch listens http port 9200 by default. (Gheorghe ym. 2016, Chapter 1.)
 
 ### Installation
 
-For installation we need public GPG key and package repository with following commands.
+For installation we need public GPG key and package repository with following commands. (DigitalOcean Inc 2019b.)
 ```
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 
@@ -103,27 +101,29 @@ The installation happens with command:
 ```
 sudo apt install elasticsearch
 ```
+
+
 <a name="logstash"></a>
 ## Logstash
 
-Logstash is a tool to centralize, transform and stash your data. Logstash processes Events. Event processing pipeline has three stages, input, filtering and output. These pipelines are usually stored in etc/logstash/conf.d directory. (Elasticsearch B.V. 2019)
+Logstash is a tool to centralize, transform and stash your data. Logstash processes Events. Event processing pipeline has three stages, input, filtering and output. These pipelines are usually stored in etc/logstash/conf.d directory. (Elasticsearch B.V. 2019a)
 
-You can run multiple pipelines in the same process. It is useful if the configuration has event flows that don’t share the same inputs, filters or outputs. Enabling multiple pipelines is done through configuration file pipelines.yml that is places in the path.settings folder. (Elasticsearch B.V. 2019)
+You can run multiple pipelines in the same process. It is useful if the configuration has event flows that don’t share the same inputs, filters or outputs. Enabling multiple pipelines is done through configuration file pipelines.yml that is places in the path.settings folder. (Elasticsearch B.V. 2019b)
 
 ![Logstash pipeline](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/logstash_pic.JPG)
-Elasticsearch B.V. 2019. Stashig your first event.
+Picture 2. Logstash pipeline. (Picture adapted from Elasticsearch B.V. 2019a).
 
 Inputs
 
-Inputs define how data gets into Logstash. Logstash has different kinds of input mechanisms. Logstash can take inputs for example from TCP/UDP, files, Syslog, Microsoft Windows EventLogs, STDIN.  Input configuration is defined in the pipeline.yml file. In our test environment we use Filebeat to transfer data to Logstash. (Turnbull, chapter "Introduction or Why Should I Bother?")
+Inputs define how data gets into Logstash. Logstash has different kinds of input mechanisms. Logstash can take inputs for example from TCP/UDP, files, Syslog, Microsoft Windows EventLogs, STDIN.  Input configuration is defined in the pipeline.yml file. In our test environment we use Filebeat to transfer data to Logstash. (Turnbull 2015, chapter "Introduction or Why Should I Bother?".)
 
 Filters
 
-Filters make possible to modify, manipulate and transform those events. There is large amount of filters and plugins to use. A few examples of filter plugins are grok for parsing and structurizing text, mutate for field manipulation and drop for dropping events (https://www.elastic.co/guide/en/logstash/6.6/filter-plugins.html).  With filters, you can separate the information you need from the log events. (Turnbull, chapter "Introduction or Why Should I Bother?")
+Filters make possible to modify, manipulate and transform those events. There is large amount of filters and plugins to use. A few examples of filter plugins are grok for parsing and structurizing text, mutate for field manipulation and drop for dropping events (https://www.elastic.co/guide/en/logstash/6.6/filter-plugins.html).  With filters, you can separate the information you need from the log events. (Turnbull 2015, chapter "Introduction or Why Should I Bother?".)
 
 Outputs
 
-Outputs send the event data to the defined output. Logstash supports variety of different outputs, for example TCP/UDP, email, files for writing event data to a file on disk, HTTP and Nagios.  In our test environment we used Elasticsearch as an output for storing and managing the data. (Turnbull, chapter "Introduction or Why Should I Bother?")
+Outputs send the event data to the defined output. Logstash supports variety of different outputs, for example TCP/UDP, email, files for writing event data to a file on disk, HTTP and Nagios.  In our test environment we used Elasticsearch as an output for storing and managing the data. (Turnbull 2015, chapter "Introduction or Why Should I Bother?".)
 
 ### Configuration
 
@@ -131,7 +131,7 @@ Logstash configuration uses YAML. In our project we didn't make changes to the Y
 
 ### Installation
 
-Logstash requires Java 8. To check your Java version you need to run command ``` java -version```. To install Logstash you need to have had Public Signing Key and package repository installed with following commands.
+Logstash requires Java 8. To check your Java version you need to run command ``` java -version```. To install Logstash you need to have had Public Signing Key and package repository installed with following commands. (DigitalOcean Inc 2019b.)
 ```
 $ wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 $ sudo apt-get install apt-transport-https
@@ -145,9 +145,9 @@ $ sudo apt-get update && sudo apt-get install logstash
 <a name="kibana"></a>
 ## Kibana 
 
-Kibana is developed by Elastic and is part of the ELK Stack package. Kibana is a platform for visualization and it is meant to work with Elasticsearch.. To have a better understanding of Kibana you need to understand Elasticsearch since it is built upon it. (Gupta, Chapter 1.)
+Kibana is developed by Elastic and is part of the ELK Stack package. Kibana is a platform for visualization and it is meant to work with Elasticsearch.. To have a better understanding of Kibana you need to understand Elasticsearch since it is built upon it. (Gupta 2015, Chapter 1.)
 
-Visualization is done through Visualize Page where you can create, modify and view visualizations. Basic use of aggregations used in Elasticsearch is the core of Kibana functionality.  Aggregations means the collections of data which are stored in buckets. Buckets store documents and they group the documents. (Gupta, Chapter 3.)
+Visualization is done through Visualize Page where you can create, modify and view visualizations. Basic use of aggregations used in Elasticsearch is the core of Kibana functionality.  Aggregations means the collections of data which are stored in buckets. Buckets store documents and they group the documents. (Gupta 2015, Chapter 3.)
 
 
 ### Configuration
@@ -156,9 +156,7 @@ Kibana configuration is made in YAML configuration file that is located in /etc/
 
 ### Installation
 
-Followed instructions [here](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-18-04).
-
-For the installation you need also the package repository installed like with previous installations with other components.  You can install and start Kibana with following commands.
+Followed instructions on DigitalOcean. For the installation you need also the package repository installed like with previous installations with other components.  You can install and start Kibana with following commands.(DigitalOcean Inc 2019b.)
 
 ```
 sudo apt install kibana
@@ -206,7 +204,7 @@ sudo systemctl restart kibana
 <a name="filebeat"></a>
 ## FileBeat 
 
-Filebeat is lightweight shipper for logs. The Filebeat client is resource-friendly tool that collects logs from files on the server and forwards these logs to your Logstash instance for processing. We have followed instructions on https://www.elastic.co/guide/en/logstash/current/advanced-pipeline.html site.
+Filebeat is lightweight shipper for logs. The Filebeat client is resource-friendly tool that collects logs from files on the server and forwards these logs to your Logstash instance for processing. For the installation we have followed instructions on DigitalOcean. (DigitalOcean Inc 2019b.)
 
 ### Installation
 
@@ -261,9 +259,9 @@ Start the filebeat with following command.
 
 ## 3.1 What is Salt 
 
-Salt is a remote execution framework and configuration management system. Salt is build to solve problem, how to manage multiple servers whether it is 2 or 10 000 machines. Salt design is basic master - client architecture. One server is master and minions can be many. Master server controls minions. (Sebenik & Hatch 2015, 107.)
+Salt is a remote execution framework and configuration management system. Salt is build to solve problem, how to manage multiple servers whether it is 2 or 10 000 machines. Salt design is basic master - client architecture. One server is master and minions can be many. Master server controls minions. (Sebenik & Hatch 2015, Chapter 1.)
 
-Default configuration uses standard data format, yaml. Salt states are only text written in yaml format. That gives a great benefit, states can be versioned. It is also declarative model, states are not list of imperatice commands. Salt keeps minions in desired state after original installation. Desired states are at Salt state files. (Sebenik & Hatch 2015, 130.)
+Default configuration uses standard data format, yaml. Salt states are only text written in yaml format. That gives a great benefit, states can be versioned. It is also declarative model, states are not list of imperatice commands. Salt keeps minions in desired state after original installation. Desired states are at Salt state files. (Sebenik & Hatch 2015, Chapter 1.)
 
 In our project we used Salt to automatically install ELK-stack on wanted machines.
 
@@ -271,15 +269,15 @@ In our project we used Salt to automatically install ELK-stack on wanted machine
 
 ## 3.1 Architecture 
 
-Salt design is basic master/client model. Salt runs as deamons or background processes on servers. Master and minion are communicating with ZeroMQ databus, where master publish commands and minions check if there are events for them to fullfill. Master check whether all required minions have done required actions. Minions also send data back to master using another port. (Sebenik & Hatch 2015, 157-179.)
+Salt design is basic master/client model. Salt runs as deamons or background processes on servers. Master and minion are communicating with ZeroMQ databus, where master publish commands and minions check if there are events for them to fullfill. Master check whether all required minions have done required actions. Minions also send data back to master using another port. (Sebenik & Hatch 2015, Chapter 1.)
 
 ![Salt acrhitecture](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/salt_architecture.png)
 
-Picture: Salt architecture (Sebenik & Hatch 2015, 130). 
+Picture 3. Salt architecture (Sebenik & Hatch 2015, Chapter 1). 
 
-Master provides a port to minions where minions can bind and watch for commands. Master server is most valuable server in network, because it can control all minions (Sebenik & Hatch 2015).
+Master provides a port to minions where minions can bind and watch for commands. Master server is most valuable server in network, because it can control all minions (Sebenik & Hatch 2015, Chapter 1).
 
-All minions have unique id called minin ID. They also have to know master IP address.  Minion listens Master port and waits for events. Minions can also send data back to master. (Sebenik & Hatch 2015.) Minions can be behind firewalls or NAT networks. (Karvinen xxx).
+All minions have unique id called minin ID. They also have to know master IP address.  Minion listens Master port and waits for events. Minions can also send data back to master. (Sebenik & Hatch 2015, Chapter 1.) Minions can be behind firewalls or NAT networks. (Karvinen 2018).
 
 Pillars allow confidential, targeted data to be securely send to spesific minion. (Pillar Walkthrough 2019) Usually pillars are used to store passwords, user accounts and other sensitive data.
 
@@ -391,7 +389,7 @@ Master should be installed first and minions after that. Master server IP-addres
 
 ## 4.1 Automatic installation scripts
 
-Installation has been test in Ubuntu 18.04 LTS. 
+Installation has been tested in Ubuntu 18.04.1 LTS. 
 
 ### 4.1.1 Install Salt Master
 
@@ -443,7 +441,7 @@ Open Kibana from http://localhost:80 URL. You have to authenticate before you ge
 
 ![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/kibana_welcome.png)
 
-Picture X. Kibana start page.
+Picture 4. Kibana start page.
 
 ### User interaction
 
@@ -451,9 +449,9 @@ Before starting to do some log analysis, it is good to understand typical user i
 
 ![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/user_interaction.png)
 
-Picture X. Typical user interaction flow (Shukla & Kumar 2017. Chapter Kibana UI).
+Picture 5. Typical user interaction flow (Shukla & Kumar 2017. Chapter Kibana UI).
 
-When starting to use Kibana there should be data in Elasticsearch and Kibana should be made aware of Elasticsearch indexes. So the indexes should be configured. User have to also familiarize himself with the data. What is data, what data fields there are? After understanding data it is easier to start to do visualization. Then user can also create dashboards using visualizations he has done before. Dashboards create even better understanding of data. Process is iterative, data structute is changing, new data is available and new visualizations and dashboras are needed.
+When starting to use Kibana there should be data in Elasticsearch and Kibana should be made aware of Elasticsearch indexes. So the indexes should be configured. User have to also familiarize himself with the data. What is data, what data fields there are? After understanding data it is easier to start to do visualization. Then user can also create dashboards using visualizations he has done before. Dashboards create even better understanding of data. Process is iterative, data structute is changing, new data is available and new visualizations and dashboras are needed. (Shukla & Kumar 2017. Chapter Kibana UI.)
 
 ### Index pattern
 
@@ -469,7 +467,7 @@ It is important to set proper time range, otherwise result could be empty.
 
 ![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/discovery.png)
 
-Picture X. Discovery page with query results.
+Picture 6. Discovery page with query results.
 
 Queries can be free text searches, just type text to query data. Queries can be various types, ranging from simple ones to more complex ones. Boolean searches, field searches, range seraches and Regex searches are possible.
 
@@ -477,17 +475,17 @@ Queries can be free text searches, just type text to query data. Queries can be 
 
 Variety forms of visualizations can be created on Visualize page like line, area, pie and bar charts. 
 
-All visualization in Kibana is based on aggregation queries in Elasticserach. Aggregration provides multi-dimensional grouping of results. Aggregations are the key to understand how visualizations are done in Kibana. (Lähde )
+All visualization in Kibana is based on aggregation queries in Elasticserach. Aggregration provides multi-dimensional grouping of results. Aggregations are the key to understand how visualizations are done in Kibana. (Shukla & Kumar 2017. Chapter Kibana UI.)
 
 This is not a deep dive to Kibana and aggregations, we just present simple way to start create visualizations.
 
 #### Metrics
 
-Most basic metric is count, it returns count of documents. Other ones are average, min, max and median, few to mention. It is easiest to start from count like how many visits (count) there are on our web page. (Lähde )
+Most basic metric is count, it returns count of documents. Other ones are average, min, max and median, few to mention. It is easiest to start from count like how many visits (count) there are on our web page. (Shukla & Kumar 2017. Chapter Kibana UI.)
 
 #### Buckets
 
-Bucket means grouping of documents by common criteria. For example we can group visits to web site by origin countries. There are many types of buckets, simpliest is maybe terms. Terms works by grouping documents based on each unique term in the field. (Lähde )
+Bucket means grouping of documents by common criteria. For example we can group visits to web site by origin countries. There are many types of buckets, simpliest is maybe terms. Terms works by grouping documents based on each unique term in the field. (Shukla & Kumar 2017. Chapter Kibana UI.)
 
 #### Create visualization
 
@@ -495,7 +493,7 @@ Before startting to create visualization select time range. Create visualization
 
 ![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/pie.png)
 
-Picture X. Traffic to web site from different countries.
+Picture 7. Traffic to web site from different countries.
 
 ### Dashboard
 
@@ -513,7 +511,7 @@ We could develop our project further creating a publicly visible website and col
 
 # Sources
 
-Karvinen, Tero 2018. Pkg-File-Service – Control Daemons with Salt – Change SSH Server Port. http://terokarvinen.com/2018/pkg-file-service-control-daemons-with-salt-change-ssh-server-port
+Karvinen, Tero 2018. Pkg-File-Service – Control Daemons with Salt – Change SSH Server Port. URL: http://terokarvinen.com/2018/pkg-file-service-control-daemons-with-salt-change-ssh-server-port. Accessed: 1 April 2019.
 
 Sebenik, Craig & Hatch, Thomas 2015. Salt Essentials: Getting started with automation at scale. O.Reilly media.
 
@@ -531,13 +529,13 @@ Turnbull, James (2015).The logstash book: log management made easy.  James Turnb
 
 Gupta, Yuvraj (2015). Kibana Essentials. Packt Publishing. eBook.
 
-Elasticsearch B.V. 2019. How Logstash Works. URL: https://www.elastic.co/guide/en/logstash/current/pipeline.html. 31.3.2019.
+Elasticsearch B.V. 2019a. How Logstash Works. URL: https://www.elastic.co/guide/en/logstash/current/pipeline.html. Accessed: 31 March 2019.
 
-Elasticsearch B.V. 2019. Multiple pipelines. URL: https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html. Accessed: 31 March 2019.
+Elasticsearch B.V. 2019b. Multiple pipelines. URL: https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html. Accessed: 31 March 2019.
 
-Elasticsearch B.V. 2019. Stashing your first event. URL: https://www.elastic.co/guide/en/logstash/current/first-event.html. Accessed: 31 March 2019.
+Elasticsearch B.V. 2019c. Stashing your first event. URL: https://www.elastic.co/guide/en/logstash/current/first-event.html. Accessed: 31 March 2019.
  
-DigitalOcean Inc 2019. How To Install Elasticsearch, Logstash, and Kibana (ELK Stack) on Ubuntu 14.04. URL: https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04 Accessed: 1 April 2019.
+DigitalOcean Inc 2019a. How To Install Elasticsearch, Logstash, and Kibana (ELK Stack) on Ubuntu 14.04. URL: https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04 Accessed: 1 April 2019.
 
-
+DigitalOcean Inc 2019b. How To Install Elasticsearch, Logstash, and Kibana (Elastic Stack) on Ubuntu 18.04 URL:https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-18-04 Accessed: 1 April 2019.
 
