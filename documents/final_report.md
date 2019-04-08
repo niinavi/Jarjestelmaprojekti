@@ -447,7 +447,7 @@ Picture 4. Kibana start page.
 
 Before starting to do some log analysis, it is good to understand typical user interaction flow in Kibana.
 
-![](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/interactionflow.png)
+![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/interactionflow2.png)
 
 Picture 5. Typical user interaction flow (Shukla & Kumar 2017. Chapter Kibana UI).
 
