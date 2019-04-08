@@ -73,7 +73,7 @@ Filebeat transfers the log data to Logstash that parses the data and sends it to
 
 In our project the architecture consisted of Filebeat, Logstash, Elasticsearch, Kibana and Nginx. We collected data from Apache logs on Minion and transferred them into Logstash on our Master. We also collected System logs but decided to focus on Apache logs when we explored Kibana dashboard. Apache and Filebeat are installed on our minion and on our master, Logstash, Elasticsearch and Kibana working together with Nginx. 
 
-![ELK architecture](https://assets.digitalocean.com/articles/elk/elk-infrastructure.png) 
+![ELK architecture](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/elk-stack-server.png) 
 Picture 1. ELK-architecture (Picture adapted from DigitalOcean Inc 2019a).
 
 <a name="elasticsearch"></a>
@@ -110,7 +110,7 @@ Logstash is a tool to centralize, transform and stash your data. Logstash proces
 
 You can run multiple pipelines in the same process. It is useful if the configuration has event flows that don’t share the same inputs, filters or outputs. Enabling multiple pipelines is done through configuration file pipelines.yml that is places in the path.settings folder. (Elasticsearch B.V. 2019b)
 
-![Logstash pipeline](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/logstash_pic.JPG)
+![Logstash pipeline](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/logstash-pipeline.png)
 Picture 2. Logstash pipeline. (Picture adapted from Elasticsearch B.V. 2019c).
 
 Inputs
@@ -271,7 +271,7 @@ In our project we used Salt to automatically install ELK-stack on wanted machine
 
 Salt design is basic master/client model. Salt runs as deamons or background processes on servers. Master and minion are communicating with ZeroMQ databus, where master publish commands and minions check if there are events for them to fullfill. Master check whether all required minions have done required actions. Minions also send data back to master using another port. (Sebenik & Hatch 2015, Chapter 1.)
 
-![Salt acrhitecture](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/salt_architecture.png)
+![Salt acrhitecture](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/salt-architecture.png)
 
 Picture 3. Salt architecture (Sebenik & Hatch 2015, Chapter 1). 
 
@@ -439,7 +439,7 @@ Log analysis can be done with Kibana. In our project main target was to automate
 
 Open Kibana from http://localhost:80 URL. You have to authenticate before you get in to Kibana becose we are using nginx as an autentication proxy.
 
-![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/kibana_welcome.png)
+![](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/interactionflow.png)
 
 Picture 4. Kibana start page.
 
