@@ -439,7 +439,7 @@ Log analysis can be done with Kibana. In our project main target was to automate
 
 Open Kibana from http://localhost:80 URL. You have to authenticate before you get in to Kibana becose we are using nginx as an autentication proxy.
 
-![](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/interactionflow.png)
+![](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/kibana_welcome.png)
 
 Picture 4. Kibana start page.
 
@@ -447,7 +447,7 @@ Picture 4. Kibana start page.
 
 Before starting to do some log analysis, it is good to understand typical user interaction flow in Kibana.
 
-![](https://raw.githubusercontent.com/niinavi/Jarjestelmaprojekti/master/documents/pics/user_interaction.png)
+![](https://github.com/niinavi/Jarjestelmaprojekti/blob/master/documents/pics/interactionflow.png)
 
 Picture 5. Typical user interaction flow (Shukla & Kumar 2017. Chapter Kibana UI).
 
