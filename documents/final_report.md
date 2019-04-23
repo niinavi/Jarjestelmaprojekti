@@ -356,7 +356,7 @@ base:
 
 ### 3.2.4 Pillars
 
-Pillar are used to store secrets. Installation script master.sh writes Kibana user password and Master IP to secrets.
+Pillars are used to store secrets. Installation script master.sh writes Kibana user password and Master IP to secrets.
 
 Pillars are stored to /srv/pillar directory
 - server.sls
@@ -366,12 +366,9 @@ Pillars are stored to /srv/pillar directory
 
 ## 3.3 Test application 
 
-Test application is simple PHP program which uses MariaDB database. Source code is at 
-[](https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv/salt/apache/php)
+Test application is simple PHP program which uses MariaDB database. Source code is found [here](https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv/salt/apache/php). Users can read, update, delete and insert new books to database.
 
-Users can read, update, delete and insert new books to database.
-
-URL on minions: localhost:80/php or juha.example.com/php
+After installation, the test program can be found on minions via URL: http://localhost:80/php or http://juha.example.com/php
 
 <a name="automation"></a>
 
