@@ -48,7 +48,7 @@ Our team is interested in centralized log management and we think it is signific
 
 In this project we will use the collection of open source tools, Elasticsearch, Logstash and Kibana (ELK Stack). Elasticsearch is the search engine and stores the data, Logstash processes the data and sends the data to Elasticseach and Kibana is a tool for visualization. We will use FileBeat to transfer the data to Logstash.
 
-Our baseline for this project is centralized management system in company's local area network. Wwe used SaltStack to automate installation of centralized log repository and minion installations. Elasticsearch, Logstash and Kibana (ELK Stack) were installed on master server and FileBeat to minions to harvest logs. We collected mainly Apache logs in our project.
+Our baseline for this project is centralized management system in company's local area network. We used SaltStack to automate installation of centralized log repository and minion installations. Elasticsearch, Logstash and Kibana (ELK Stack) were installed on master server and FileBeat to minions to harvest logs. We collected mainly Apache logs in our project.
 
 We used Ubuntu 18.04 LTS operating system on bootable live USB stick. We tested the environment using USB sticks in school’s laboratory classroom. We used minion and master on separate machines. We created automated scripts and salt states to make the installation automatic and easier to repeat. The scripts, salt states and pillars are stored here: https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv   
 
