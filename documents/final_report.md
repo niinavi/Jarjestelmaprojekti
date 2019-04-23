@@ -56,7 +56,7 @@ We used Ubuntu 18.04 LTS operating system on bootable live USB stick. We tested 
 <a name="elk-stack"></a>
 # ELK-Stack 
 
-We installed ELK-Stack using following components and versions. We use ufw firewall which is default in Ubuntu.
+We installed ELK-Stack using following components and versions. We used ufw firewall which is default in Ubuntu.
 
 Ubuntu 18.04.1 LTS
 Elasticsearch: version '6.6.0'  
