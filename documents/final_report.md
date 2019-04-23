@@ -40,7 +40,7 @@ Petri Hirvonen
 6. [Conclusions](#conclusions)
 
 <a name="introduction"></a>
-## Introduction
+## 1. Introduction
 
 The topic of this project is to create a small architecture for centralized logging. Our aim is to familiarize our team with the tools, collect log data and analyze it. The project is part of our studies in ICT-infrastructure project course.
 
@@ -54,7 +54,7 @@ We used Ubuntu 18.04 LTS operating system on bootable live USB stick. We tested 
 
 
 <a name="elk-stack"></a>
-# ELK-Stack 
+# 2. ELK-Stack 
 
 We installed ELK-Stack using following components and versions. We used ufw firewall which is default in Ubuntu.
 
@@ -67,7 +67,7 @@ Nginx: 1.14.0
 Java: openjdk version 1.8.0_191  
 
  <a name="architecture"></a></summary>
-## Architecture <a name="architecture"></a></summary>
+## 2.1 Architecture <a name="architecture"></a></summary>
 
 Filebeat transfers the log data to Logstash that parses the data and sends it to Elasticsearch for storing and searching. Kibana is a dashboard for the user to examine the data and create visualizations. Nginx is used for accessing Kibana dashboard through proxy. 
 
@@ -77,7 +77,7 @@ In our project the architecture consisted of Filebeat, Logstash, Elasticsearch, 
 Picture 1. ELK-architecture (Picture adapted from DigitalOcean Inc 2019a).
 
 <a name="elasticsearch"></a>
-## Elasticsearch 
+## 2.2 Elasticsearch 
 
 Elasticsearch is a search engine and for data storing. You don’t use it on its own because you need something to feed the data into and interface for users to search data. Elasticsearch indexes your data which helps you to make faster searches. For this purpose Elasticsearch uses a library called Lucene. (Gheorghe, Hinman & Russo, 2016, Chapter 1.)
 
@@ -104,7 +104,7 @@ sudo apt install elasticsearch
 
 
 <a name="logstash"></a>
-## Logstash
+## 2.3 Logstash
 
 Logstash is a tool to centralize, transform and stash your data. Logstash processes Events. Event processing pipeline has three stages, input, filtering and output. These pipelines are usually stored in etc/logstash/conf.d directory. (Elasticsearch B.V. 2019a)
 
@@ -143,7 +143,7 @@ $ sudo apt-get update && sudo apt-get install logstash
 ```
 
 <a name="kibana"></a>
-## Kibana 
+## 2.4 Kibana 
 
 Kibana is developed by Elastic and is part of the ELK Stack package. Kibana is a platform for visualization and it is meant to work with Elasticsearch. To have a better understanding of Kibana you need to understand Elasticsearch since it is built upon it. (Gupta 2015, Chapter 1.)
 
@@ -202,7 +202,7 @@ sudo systemctl restart kibana
 ```
 
 <a name="filebeat"></a>
-## FileBeat 
+## 2.5 FileBeat 
 
 Filebeat is lightweight shipper for logs. The Filebeat client is resource-friendly tool that collects logs from files on the server and forwards these logs to your Logstash instance for processing. For the installation we have followed instructions on DigitalOcean. (DigitalOcean Inc 2019b.)
 
@@ -294,7 +294,7 @@ We followed Pkg-file-service pattern in our Salt states, each state will install
 
 We will explain states in next chapters briefly because code itself should be self declarative. 
 
-### 3.2.1 Master server states
+### Master server states
 
 Master server works in our setup as centralized log storage, where logs are stored and analyzed. Logstash, Elasticsearch and Kibana should be installed on master server.
 
@@ -313,7 +313,7 @@ Nginx is used as proxy to Kibana and it is installed using nginx-state
 Firewall rules for master server
 - state: firewall
 
-### 3.2.2 Minions states
+### Minions states
 
 Minion servers will harvest and send logs to centralized log repository. We use FileBeat for log harvesting. 
 
@@ -331,7 +331,7 @@ Apache and test Web application installation:
 MariaDB installtion
 - state: mariadb
 
-### 3.2.3 top.sls
+### top.sls
 
 Top.sls contains two roles, master and elk. Those are used to control what is installed to master server and what to minions.
 
@@ -354,7 +354,7 @@ base:
     - logstash
 ```
 
-### 3.2.4 Pillars
+### Pillars
 
 Pillars are used to store secrets. Installation script master.sh writes Kibana user password and Master IP to secrets.
 
@@ -384,7 +384,7 @@ Master should be installed first and minions after that. Master server IP-addres
 
 Installation has been tested in Ubuntu 18.04.1 LTS. 
 
-### 4.1.1 Install Salt Master
+###  Install Salt Master
 
 During installation scripts asks input form user. Kibana user password should be given during installation.
 
@@ -394,7 +394,7 @@ chmod g+x master.sh
 sudo ./master.sh
 ```
 
-### 4.1.2 Install Salt Minion
+### Install Salt Minion
 
 During installation scripts asks input form user. Master IP-address and minion ID should be given.
 
@@ -404,7 +404,7 @@ chmod g+x minion.sh
 sudo ./minion.sh
 ```
 
-### 4.1.3 Accept/validate Minion keys
+### Accept/validate Minion keys
 
 Accept minion keys at Master.
 
@@ -412,7 +412,7 @@ Accept minion keys at Master.
 sudo salt-key -A
 ```
 
-### 4.1.4 Run Salt states to minions
+### Run Salt states to minions
 
 Salt minion is also installed to Master server so master is also a minion to itself. State will install Logstash, Elasticsearch and Kibana to master server.
 
@@ -424,11 +424,11 @@ Command runs all minions to desired state.
 
 <a name="analytics"></a>
 
-## Kibana User Interface  
+# 5. Kibana User Interface  
 
 Log analysis can be done with Kibana. In our project main target was to automate ELK-stack installation, so we will introduce Kibana only briefly.
 
-### Kibana login
+## 5.1 Kibana login
 
 Open Kibana from http://localhost:80 URL. You have to authenticate before you get in to Kibana becose we are using nginx as an autentication proxy.
 
@@ -436,7 +436,7 @@ Open Kibana from http://localhost:80 URL. You have to authenticate before you ge
 
 Picture 4. Kibana start page.
 
-### User interaction
+## 5.2 User interaction
 
 Before starting to do some log analysis, it is good to understand typical user interaction flow in Kibana.
 
@@ -446,13 +446,13 @@ Picture 5. Typical user interaction flow (Shukla & Kumar 2017. Chapter Kibana UI
 
 When starting to use Kibana there should be data in Elasticsearch and Kibana should be made aware of Elasticsearch indexes. So the indexes should be configured. User have to also familiarize himself with the data. What is data, what data fields there are? After understanding data it is easier to start to do visualization. Then user can also create dashboards using visualizations he has done before. Dashboards create even better understanding of data. Process is iterative, data structute is changing, new data is available and new visualizations and dashboras are needed. (Shukla & Kumar 2017. Chapter Kibana UI.)
 
-### Index pattern
+## 5.3 Index pattern
 
 Index patterns are used to identify Elasticsearch indexes. Index pattern is just string which match to ES indexes. Wildcards can be used.
 
 In Management -> Index pattern screen, type: logstash-*, select @timestamp for time filter field and create. Index pattern for Kibana has been created.
 
-### Discover
+## 5.4 Discover
 
 On Discovery page user can explore data interactively. User can perform searches on data and filter results. Also document data can be viewed.
 
@@ -464,7 +464,7 @@ Picture 6. Discovery page with query results.
 
 Queries can be free text searches, just type text to query data. Queries can be various types, ranging from simple ones to more complex ones. Boolean searches, field searches, range seraches and Regex searches are possible.
 
-### Visualize
+## 5.5 Visualize
 
 Variety forms of visualizations can be created on Visualize page like line, area, pie and bar charts. 
 
@@ -472,15 +472,15 @@ All visualization in Kibana is based on aggregation queries in Elasticserach. Ag
 
 This is not a deep dive to Kibana and aggregations, we just present simple way to start create visualizations.
 
-#### Metrics
+### Metrics
 
 Most basic metric is count, it returns count of documents. Other ones are average, min, max and median, few to mention. It is easiest to start from count like how many visits (count) there are on our web page. (Shukla & Kumar 2017. Chapter Kibana UI.)
 
-#### Buckets
+### Buckets
 
 Bucket means grouping of documents by common criteria. For example we can group visits to web site by origin countries. There are many types of buckets, simpliest is maybe terms. Terms works by grouping documents based on each unique term in the field. (Shukla & Kumar 2017. Chapter Kibana UI.)
 
-#### Create visualization
+### Create visualization
 
 Before startting to create visualization select time range. Create visualization by clicking Create a new visualization button. Select visualization type, select data source and build the visualization.
 
@@ -488,13 +488,13 @@ Before startting to create visualization select time range. Create visualization
 
 Picture 7. Traffic to web site from different countries.
 
-### Dashboard
+## 5.6 Dashboard
 
 Dashboards help user to bring visualizations to single page. Dashboards can be created in Dashboard page by clicking Create Dashborad button. After that user can select from stored visualizations. After adding all needed visualizations to Dashboards it can be saved and Dashborad is created.
 
 <a name="conclusions"></a><a name="conclusions"></a>
 
-## Conclusions  
+# 6. Conclusions  
 
 We successfully installed the test environment and collected and analyzed data with ELK-Stack. We have only scratched the surface of centralized logging management and there’s plenty of things to learn with each components. We learnt the basics of ELK-Stack components, the installation, configuration and usage. We learnt to use SaltStack and shell scripting and Git version controlling with the project.
 
