@@ -281,11 +281,7 @@ All minions have unique id called minin ID. They also have to know master IP add
 
 Pillars allow confidential, targeted data to be securely send to spesific minion. (Pillar Walkthrough 2019) Usually pillars are used to store passwords, user accounts and other sensitive data.
 
-Usually infrastructure is made up of groups of machines, and each machine in the group is performing a role similar to others (The Top File 2019).
-
-File which contains mappings between role and machine is called top file (The Top File 2019).
-
-Minion which ID or other feature, like grains, is matching top file configuration will apply state(s) that are defined in top file (The Top File 2019).
+Usually infrastructure is made up of groups of servers, and each server in the group is performing a role similar to others (The Top File 2019). File which contains mappings between role and server is called top file (The Top File 2019). Minion which ID or other feature, like grains, is matching top file configuration will apply state(s) that are defined in top file (The Top File 2019).
 
 <a name="states"></a>
 
