@@ -366,7 +366,7 @@ Pillars are stored to /srv/pillar directory
 
 ## 3.3 Test application 
 
-Test application is simple PHP program which uses MariaDB database. Source code is found [here](https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv/salt/apache/php). Users can read, update, delete and insert new books to database.
+Test application is simple PHP program which uses MariaDB database. Source code can be found [here](https://github.com/niinavi/Jarjestelmaprojekti/tree/master/srv/salt/apache/php). Users can read, update, delete and insert new books to database.
 
 After installation, the test program can be found on minions via URL: http://localhost:80/php or http://juha.example.com/php
 
