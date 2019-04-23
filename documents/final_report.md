@@ -119,7 +119,7 @@ Inputs define how data gets into Logstash. Logstash has different kinds of input
 
 Filters
 
-Filters make possible to modify, manipulate and transform those events. There is large amount of filters and plugins to use. A few examples of filter plugins are grok for parsing and structurizing text, mutate for field manipulation and drop for dropping events (https://www.elastic.co/guide/en/logstash/6.6/filter-plugins.html).  With filters, you can separate the information you need from the log events. (Turnbull 2015, chapter "Introduction or Why Should I Bother?".)
+Filters make possible to modify, manipulate and transform those events. There is large amount of filters and plugins to use. A few examples of filter plugins are grok for parsing and structurizing text, mutate for field manipulation and drop for dropping events (Elasticsearch B.V. 2019d).  With filters, you can separate the information you need from the log events. (Turnbull 2015, chapter "Introduction or Why Should I Bother?".)
 
 Outputs
 
@@ -520,6 +520,8 @@ Elasticsearch B.V. 2019a. How Logstash Works. URL: https://www.elastic.co/guide/
 Elasticsearch B.V. 2019b. Multiple pipelines. URL: https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html. Accessed: 31 March 2019.
 
 Elasticsearch B.V. 2019c. Stashing your first event. URL: https://www.elastic.co/guide/en/logstash/current/first-event.html. Accessed: 31 March 2019.
+
+Elasticsearch B.V. 2019d. Stashing your first event. URL: https://www.elastic.co/guide/en/logstash/6.6/filter-plugins.html. Accessed: 31 March 2019.
 
 Gheorghe, Radu, Hinman, Matthew Lee & Russo, Roy 2016. Elasticsearch in action. Manning Publications Co. eBook.
 
