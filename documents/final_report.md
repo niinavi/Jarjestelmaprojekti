@@ -145,7 +145,7 @@ $ sudo apt-get update && sudo apt-get install logstash
 <a name="kibana"></a>
 ## Kibana 
 
-Kibana is developed by Elastic and is part of the ELK Stack package. Kibana is a platform for visualization and it is meant to work with Elasticsearch.. To have a better understanding of Kibana you need to understand Elasticsearch since it is built upon it. (Gupta 2015, Chapter 1.)
+Kibana is developed by Elastic and is part of the ELK Stack package. Kibana is a platform for visualization and it is meant to work with Elasticsearch. To have a better understanding of Kibana you need to understand Elasticsearch since it is built upon it. (Gupta 2015, Chapter 1.)
 
 Visualization is done through Visualize Page where you can create, modify and view visualizations. Basic use of aggregations used in Elasticsearch is the core of Kibana functionality.  Aggregations means the collections of data which are stored in buckets. Buckets store documents and they group the documents. (Gupta 2015, Chapter 3.)
 
